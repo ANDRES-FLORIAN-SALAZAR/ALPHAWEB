@@ -1,0 +1,107 @@
+¡Claro! Vamos a modificar tu formulario HTML para que funcione con un backend en Python usando Flask. Aquí tienes los pasos necesarios:
+
+Instalar Flask:
+Asegúrate de tener Python instalado.
+Crea un entorno virtual y activa:
+python -m venv venv
+source venv/bin/activate  # En Windows usa `venv\Scripts\activate`
+
+Instala Flask:
+pip install Flask
+
+Crear la estructura del proyecto:
+Crea los siguientes archivos y carpetas:
+/mi_proyecto
+├── app.py
+├── templates
+│   └── registro.html
+└── static
+    └── Main3.css
+
+Configurar el servidor Flask:
+En app.py, configura tu servidor Flask:
+Python
+
+from flask import Flask, render_template, request, redirect, url_for
+from pymongo import MongoClient
+
+app = Flask(__name__)
+
+# Conexión a MongoDB
+client = MongoClient('mongodb://localhost:27017/')
+db = client['registroDB']
+registros = db['registros']
+
+@app.route('/')
+def index():
+    return render_template('registro.html')
+
+@app.route('/registro', methods=['POST'])
+def registro():
+    nombre = request.form.get('nombre')
+    apellido = request.form.get('apellido')
+    edad = request.form.get('edad')
+    genero = request.form.get('genero')
+    email = request.form.get('email')
+    telefono = request.form.get('telefono')
+
+    nuevo_registro = {
+        'nombre': nombre,
+        'apellido': apellido,
+        'edad': edad,
+        'genero': genero,
+        'email': email,
+        'telefono': telefono
+    }
+
+    registros.insert_one(nuevo_registro)
+    return redirect(url_for('index'))
+
+if __name__ == '__main__':
+    app.run(debug=True)
+Código generado por IA. Revisar y usar cuidadosamente. Más información sobre preguntas frecuentes.
+Modificar el formulario HTML:
+En templates/registro.html, ajusta tu formulario para que envíe los datos al servidor Flask:
+HTML
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title> Registro </title>
+    <link href="{{ url_for('static', filename='Main3.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <center>
+        <form action="/registro" method="post">
+            <fieldset>
+                <legend> INFORMACIÓN BÁSICA </legend>
+                <input type="text" name="nombre" placeholder="Nombre" required>
+                <input type="text" name="apellido" placeholder="Apellido" required>
+                <input type="number" name="edad" placeholder="Edad" required>
+                <label for="genero">Género</label>
+                <select id="genero" name="genero" required>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino">Femenino</option>
+                </select>
+            </fieldset>
+
+            <fieldset>
+                <legend>INFORMACIÓN DE CONTACTO </legend>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="text" name="telefono" placeholder="Teléfono" required>
+            </fieldset>
+            
+            <br><input type="submit" value="Enviar Ahora">
+        </form>
+        
+        <br><br><br><br><br><br><br>
+        <div class="Final">© Copyright - ALPHAWEB <a target="_blank" rel="noopener"></a></div>
+    </center>
+</body>
+
+</html>
+Código generado por IA. Revisar y usar cuidadosamente. Más información sobre preguntas frecuentes.

@@ -1,0 +1,130 @@
+{% extends "base.html"%}
+{% load static %}
+
+{% block content%}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>home</title>
+    <link href="Main.css" rel="stylesheet">
+
+<style>
+        body {
+            background-image: url('{% static 'img/Fondo.jpg' %}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+</style>
+</head>
+<body>
+    
+    <div class="navbar">
+        <a href="Planes">Nuestros Planes</a>
+        <a href="Registro">Registrate</a>
+        <a href="Inicio_Sesión">Iniciar Sesión</a>
+        <a href="Contraseñas">Contraseñas</a>
+        
+        <div class="search-container">
+            <form action="/search" method="get">
+                <input type="text" placeholder="Buscar..." name="search">
+                <button type="submit">Buscar</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="content">
+        <center>
+            <img id="ALPHAWEB" src="../Imagenes/Logo.jpg" alt="Logo" height="800" width="800">
+            <hr>
+        </center>
+        
+        <center>
+            <p>MISIÓN</p>
+            <p><h4>Nuestra misión es brindar soluciones tecnológicas innovadoras y accesibles que mejoren la calidad de vida de las personas.<br> 
+            Nos esforzamos por ofrecer productos y servicios de alta calidad que permitan a nuestros usuarios alcanzar sus objetivos de manera eficiente y efectiva.</h4></p>
+
+            <p>VISIÓN</p>
+            <p><h4>Nuestra visión es ser líderes en el mercado de tecnología, reconocidos por nuestra dedicación a la innovación y la excelencia.<br>
+            Aspiramos a crear un futuro donde la tecnología esté al alcance de todos y sea una herramienta esencial para el progreso y el bienestar global.</h4></p>
+
+            <p>¿QUIÉNES SOMOS?</p>
+            <p><h4>Somos ALPHA WEB, una empresa apasionada por la tecnología y su impacto positivo en el mundo.<br>
+            Nuestro equipo está formado por profesionales comprometidos con la excelencia y la innovación.<br>
+            Desde nuestra fundación, nos hemos dedicado a desarrollar soluciones tecnológicas que faciliten la vida de nuestros usuarios y contribuyan al desarrollo de una sociedad más conectada y eficiente.</h4></p><hr>
+            <br><br><br>
+        </center>
+
+        <center>
+            <video controls autoplay muted>
+            <source src="{% static 'Videos/ALPHA_WEB.mp4' %}" type="video/mp4">
+            </center>
+        <br><br><br><br>
+    </div>
+
+    <footer class="footer">
+        <hr><div class="footer-container">
+            <div class="footer-column">
+                <h2>Sobre Nosotros</h2>
+                <div class="text">ALPHA WEB es una empresa dedicada a brindar soluciones tecnológicas innovadoras para mejorar la calidad de vida.</div>
+            </div>
+            
+            <div class="footer-column">
+                <div class="cont"><h2>Enlaces Rápidos</h2></div>
+                <ul class="inf">
+                    <li><a href="home.html">home</a></li>
+                    <li><a href="Planes.html">Nuestros Planes</a></li>
+                    <li><a href="Registro.html">Registro</a></li>
+                    <li><a href="Inicio_Sesión.html">Iniciar Sesión</a></li>
+                    <li><a href="Contraseñas.html">Contraseñas</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-column">
+                <div class="ext"><h2>Contacto</h2></div>
+                <div class="text">Email: info@alphaweb.com</div>
+                <div class="text">Teléfono: +57 3143757171</div>
+            </div>
+    
+            <div class="footer-column">
+                <div class="prext"><h2>Redes Sociales</h2></div>
+                <div class="footer-social">
+                    <a href="https://www.facebook.com/tu_perfil" class="social-button">
+                        <img src="../Iconos/facebook.jpg" alt="Facebook" />
+                    </a>
+                    <a href="https://www.twitter.com/tu_perfil" class="social-button">
+                        <img src="../Iconos/X.jpg" alt="Twitter" />
+                    </a>
+                    <a href="https://www.instagram.com/tu_perfil" class="social-button">
+                        <img src="../Iconos/instagram.jpg" alt="Instagram" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    
+        <hr><div class="final">
+            <br><p>&copy; 2024 ALPHA WEB. Todos los derechos reservados.</p>
+        </div>
+    
+        <div class="footer-links">
+            <a href="#popup1">Política de privacidad</a> | 
+            <a href="#popup2">Términos de servicio</a> | 
+            <a href="#popup3">Aviso legal</a> | 
+            <a href="#popup4">Preferencias de cookies</a> | 
+            <a href="#popup5">Sus opciones de privacidad</a>
+        </div>
+        </footer>
+        
+        <a href="https://api.whatsapp.com/send?phone=573143757171" class="whatsapp-button">
+            <img src="{% static 'Iconos/whatsapp.jpg' %}" alt="" />
+        </a>
+        {% endblock %}
+</body>
+</html>

@@ -1,0 +1,2477 @@
+ <!DOCTYPE html>
+    <html class="no-js" lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="cleartype" content="on">
+        
+
+<script>
+  (function(h,o,u,n,d) {
+    h=h[d]=h[d]||{q:[],onReady:function(c){h.q.push(c)}}
+    d=o.createElement(u);d.async=1;d.src=n
+    n=o.getElementsByTagName(u)[0];n.parentNode.insertBefore(d,n)
+  })(window,document,'script','https://www.datadoghq-browser-agent.com/us1/v5/datadog-rum.js','DD_RUM')
+  window.DD_RUM.onReady(function() {
+    window.DD_RUM.init({
+      clientToken: 'pubb3fd2b6112b42ffa9d095053424dcf65',
+      applicationId: '4ae507f9-af2b-400c-82f8-ed4c45b91fca',
+      site: 'datadoghq.com',
+      service: 'lastpass.com-landing',
+      env: 'review',
+      version: '1.0.0',
+      sessionSampleRate: 5,
+      sessionReplaySampleRate: 0,
+      trackUserInteractions: true,
+      trackResources: true,
+      trackLongTasks: true,
+      defaultPrivacyLevel: 'mask-user-input',
+    });
+  })
+</script><link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet"/>
+
+        
+
+
+
+<script>
+    var akcc = 'CO';
+    var akreg = '';
+</script>
+
+
+        <script>
+            window.gtagTransportUrl = 'https://web-analytics.lastpass.com'
+        </script>
+<script type="text/javascript">
+    window.useAleroApiJSON=true
+</script>
+
+
+    <script type="text/javascript">
+        window.chatbot = {
+            isChatActivated: true,
+            cdnPath: '/lpassets/drift/index.html'
+        };
+    </script>
+
+
+
+        
+        <meta name="msvalidate.01" content="2B12B4CCABC21F8773D59D5009484A0F" />
+<meta name="google-site-verification" content="hnGiyD0GpGsbuacteumOZziYuk7kXVnrFjjZ9q3_5mQ" />
+<script>window.resourceBaseUrl = '/dist/';</script>
+<link rel="preload" as="style" href="/assets/styles/styles.css?t=03102024182144">
+<link rel="stylesheet" type="text/css" href="/assets/styles/styles.css?t=03102024182144">
+<script defer src="/assets/js/main.js?t=03102024182144"></script>
+<script defer src="https://cdn.lputil.com/lpassets/ab-test/utility.js?t=03102024182144"></script>
+
+<script type="application/ld+json">
+{
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "LastPass",
+	  "LegalName": "LastPass US LP",
+      "url": "https://www.lastpass.com/",
+	  "sameAs": [
+	    "https://en.wikipedia.org/wiki/LastPass",
+        "https://www.facebook.com/LastPass",
+		"https://www.youtube.com/c/LastPass",
+        "https://www.linkedin.com/company/lastpass",
+		"https://www.instagram.com/lastpassofficial/",
+        "https://twitter.com/lastpass",
+        "https://chrome.google.com/webstore/detail/lastpass-free-password-ma/hdokiejnpimakedhajhdlcegeplioahd/",
+		"https://apps.apple.com/app/id324613447",
+		"https://play.google.com/store/apps/details?id=com.lastpass.lpandroid&hl=en&pli=1",
+		"https://community.spiceworks.com/pages/lastpass"
+        ],
+	"description": "Go beyond saving passwords with the best password manager! Generate strong passwords and store them in a secure vault. Now with single-sign on (SSO) and adaptive MFA solutions that integrate with over 1,200 apps.",
+	"disambiguatingDescription": "#1 Password Manager & Vault App with Single-Sign On & MFA Solutions",
+	"numberOfEmployees" : "550+",
+    "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+1-833-854-6520",
+        "contactType": "sales"
+		},
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "333 Summer St",
+        "addressLocality": "Boston",
+        "addressRegion": "MA",
+        "postalCode": "02210"
+    },		
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.lastpass.com//-/media/a253e35ba7ca46ceb74144dc18b11879.png",
+        "contentUrl": "https://www.lastpass.com//-/media/a253e35ba7ca46ceb74144dc18b11879.png",
+        "caption": "LastPass"
+      },
+	  "awards": [
+		  "Best Software Awards for Best Security Product - G2",
+		  "Best Password Management/IAM - ChannelPro Readers’ Choice",
+		  "Best for Ease of Use Password Manager - Money.com",
+		  "Most Innovative in Multi-Factor Authentication - Cyber Defense Magazine",
+		  "Password Management Solution of the Year - CyberSecurity Breakthrough",
+		  "Best-Of Business Password Management - Expert Insights"
+	  ],
+	  "parentOrganization": {
+		   "@type": "Organization",
+		   "name" : "Francisco Partners",
+		   "url": "https://www.franciscopartners.com/"
+	  }
+}
+</script>
+<style>
+.top-banner {
+          z-index: 101;
+}
+@media (max-width: 961px) {
+    .lp-row__double-postcard--buttons .lp-button--tertiary-white {
+        color: #3b70d4;
+    }
+    .lp-row__double-postcard--buttons .lp-button--tertiary-white:after {
+        content: '';
+        width: 17px;
+        height: 20px;
+        display: inline-block;
+        background-size: 100%;
+        background: url(/assets/images/cdn/functional-arrow-blue.svg);
+    }
+    .lp-row__double-postcard--buttons .lp-button--tertiary-white svg {
+        display: none;
+    }
+}
+</style>
+
+<title>App l&#237;der en b&#243;veda y gesti&#243;n de contrase&#241;as con inicio de sesi&#243;n &#250;nico y soluciones MFA - LastPass</title>
+<meta name="description" content="Con el mejor gestor de contrase&#241;as podr&#225; hacer algo m&#225;s que solo guardarlas. Genere contrase&#241;as seguras y gu&#225;rdelas en una b&#243;veda segura. Ahora, con inicio de sesi&#243;n &#250;nico (SSO) y soluciones de MFA adaptativa que se integran con m&#225;s de 1200 apps." />
+<meta property="og:locale" content="es-ES" />
+<meta property="og:url" content="https://www.lastpass.com/es" />
+<meta property="og:title" content="App l&#237;der en b&#243;veda y gesti&#243;n de contrase&#241;as con inicio de sesi&#243;n &#250;nico y soluciones MFA - LastPass" />
+<meta property="og:description" content="Con el mejor gestor de contrase&#241;as podr&#225; hacer algo m&#225;s que solo guardarlas. Genere contrase&#241;as seguras y gu&#225;rdelas en una b&#243;veda segura. Ahora, con inicio de sesi&#243;n &#250;nico (SSO) y soluciones de MFA adaptativa que se integran con m&#225;s de 1200 apps." />
+<meta property="og:image" content="https://www.lastpass.com/-/media/28cbf631b1954ed081a8979e2c46b6e4.png" />
+
+<link rel="canonical" href="https://www.lastpass.com/es" />
+
+    <link rel="shortcut icon" href="/-/media/43c6c6862a08410a8ef34ab46a3a750b.ico" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+<script type="text/javascript">var appInsights = window.appInsights || function (config) {function i(config) { t[config] = function () { var i = arguments; t.queue.push(function () { t[config].apply(t, i) }) } }var t = { config: config }, u = document, e = window, o = "script", s = "AuthenticatedUserContext",h = "start", c = "stop", l = "Track", a = l + "Event", v = l + "Page", y = u.createElement(o), r, f; y.src = config.url|| "https://az416426.vo.msecnd.net/scripts/a/ai.0.js"; u.getElementsByTagName(o)[0].parentNode.appendChild(y); try { t.cookie = u.cookie } catch (p) { }for (t.queue = [], t.version = "1.0", r = ["Event", "Exception", "Metric", "PageView", "Trace", "Dependency"]; r.length;)i("track" + r.pop()); return i("set" + s), i("clear" + s), i(h + a), i(c + a), i(h + v), i(c + v), i("flush"), config.disableExceptionTracking|| (r = "onerror", i("_" + r), f = e[r], e[r] = function (config, i, u, e, o) { var s = f && f(config, i, u, e, o);return s !== !0 && t["_" + r](config, i, u, e, o), s }), t}({instrumentationKey: "8c5cffc0-105f-470f-a9ac-c2e37ed8742e"});window.appInsights = appInsights;appInsights.trackPageView();</script>
+
+
+    <script type="text/javascript">
+        window.appInsights.queue.push(function () {
+            appInsights.context.addTelemetryInitializer(function (envelope) {
+
+                var telemetryItem = envelope.data.baseData;
+
+                if (telemetryItem.url && telemetryItem.url.includes("?email")) {
+                    telemetryItem.url = maskEmailAddress(telemetryItem.url);
+                }
+            });
+        });
+        function maskEmailAddress(emailAddress) {
+            function mask(str) {
+                var strLen = str.length;
+                if (strLen > 4) {
+                    return str.substr(0, 1) + str.substr(1, strLen - 1).replace(/\w/g, '*') + str.substr(-1, 1);
+                }
+                return str.replace(/\w/g, '*');
+            }
+            return emailAddress.replace(/([\w.]+)@([\w.]+)(\.[\w.]+)/g, function (m, p1, p2, p3) {
+                return mask(p1) + '@' + mask(p2) + p3;
+            });
+
+            return emailAddress;
+        }
+    </script>
+        
+    </head>
+    <body>
+        <script>function init() { const lazyImageArray = Array.prototype.slice.call(document.querySelectorAll('img[data-src]')); lazyImageArray.map(function(lazyImage) { let lazyImageSrc = lazyImage.dataset.src; lazyImage.src = lazyImageSrc; }); } window.onload = init;</script>
+        
+        
+        
+<header class="lp-header">
+	
+
+
+<nav class="nav" data-module="nav-client-side">
+    <a href="#MAINCONTENT"
+       class="lp-button lp-button--red skip-to-content-button">
+        
+    </a>
+
+    <div class="nav-logo-wrap">
+
+<a href="/es" class="lastpass-logo" data-gaeventcategory="navigation" aria-label="Go to the LastPass.com home page" data-gaeventaction="header_logo" >            <img src="/-/media/1f23da193f0447af82a4e0179342eed4.svg" aria-hidden="true" alt="" />
+</a>    </div>
+    <div class="nav-mobile-top-nav-wrap">
+
+        
+        <button class="mobile-menu-toggle" aria-label="Navigation menu">
+
+                <img src="/static/media/mobile-menu-toggle-open.ff9dce33.svg" aria-label="Navigation menu" aria-pressed="true" />
+                <img src="/static/media/mobile-menu-toggle-closed.9e8bf5da.svg" aria-label="Navigation menu" aria-pressed="false" />
+        </button>
+
+    </div>
+    <div data-component-name="Header" class="nav-main-items-wrap">
+        <ul class="nav-col nav-left">
+                        <li class="nav-item-wrap">
+                    <button class="nav-item" aria-controls=ProductosDropdown aria-expanded="false">
+                        <span class="nav-item-copy">Productos</span>
+                        <span class="nav-item-chevrons">
+                            <div class="nav-item-chevrons__pseudo-element"></div>
+                        </span>
+                    </button>
+                    <div class="nav-submenu-2-col nav-submenu" id=ProductosDropdown>        <div class="nav-submenu-column nav-submenu-column-type-default">
+                <div class="nav-submenu-column-title">Por plan</div>
+
+                    <div class="nav-submenu-heading-link-wrapper">
+<a href="/es/products/business" class="nav-heading-link nav-heading-link--has-description" >                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Business</span>
+                                        </div>
+                                            <p class="nav-heading-link-description">Diseñado para empresas de cualquier tamaño, desde pequeñas startups hasta grandes corporaciones.</p>
+                                    </div>
+</a><a href="/es/products/team-password-manager" class="nav-heading-link nav-heading-link--has-description" >                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Teams</span>
+                                        </div>
+                                            <p class="nav-heading-link-description">Para equipos que acaban de empezar a gestionar sus contraseñas.</p>
+                                    </div>
+</a><a href="/es/products/family-password-manager" class="nav-heading-link nav-heading-link--has-description" >                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Families</span>
+                                        </div>
+                                            <p class="nav-heading-link-description">Gestión avanzada de contraseñas para familias o grupos de 6 personas.</p>
+                                    </div>
+</a><a href="/es/products/premium-password-manager" class="nav-heading-link nav-heading-link--has-description" >                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Personal</span>
+                                        </div>
+                                            <p class="nav-heading-link-description">Contraseñas gestionadas y compartidas en varios dispositivos para 1 persona.</p>
+                                    </div>
+</a>                    </div>
+
+                            <div class="nav-end-link-wrapper">
+<a href="/es/pricing" class="nav-end-link" title="Comparar planes" >Comparar planes<img class="nav-end-link-chevron" src="/static/media/icon_functional_arrow-chevron-right-black.0f4c73ba.svg" alt="link chevron" />
+</a>                            </div>
+
+
+
+
+        </div>
+        <div class="nav-submenu-column nav-submenu-column-type-highlight">
+
+                    <div class="nav-submenu-heading-link-wrapper">
+                    </div>
+
+
+<a href="/es/why-lastpass" class="nav-highlight-link nav-highlight-link--featured" >                            <div class="nav-highlight-link-inner-wrap">
+                                <div class="nav-highlight-link-col"><img src='/static/media/lazy.png' data-src="/-/media/69abc50f0b1a41a88f2c98cb80955faa.png?h=120&amp;w=120&amp;la=es&amp;hash=9CDE250D379B9368A165B9EBDAC6D8BC" class="nav-highlight-link-image nav-highlight-link-image--featured" alt="" /></div>
+
+                                <div class="nav-highlight-link-col">
+                                            <span class="nav-highlight-link-subheading">Por qu&#233; LastPass</span>
+                                            <div class="nav-highlight-link-heading nav-highlight-link-heading--black">&#191;Ve por qu&#233; necesita un gestor de contrase&#241;as</div>
+
+                                </div>
+                            </div>
+</a><a href="https://lastpass.com/enterprise_trial.php?createacct=1" class="nav-highlight-link nav-highlight-link--icon" >                            <div class="nav-highlight-link-inner-wrap">
+                                <div class="nav-highlight-link-col"><img src='/static/media/lazy.png' data-src="/-/media/cd544eef7ab649589bb42639e3302d68.svg?la=es&amp;hash=66403CFF923DE3219881865B912A61B4" class="nav-highlight-link-image nav-highlight-link-image--icon" alt="" /></div>
+
+                                <div class="nav-highlight-link-col">
+                                            <div class="nav-highlight-link-heading nav-highlight-link-heading--red">Probar Business gratis</div>
+                                            <p class="nav-highlight-link-description">Prueba gratuita de LastPass Business. Sin tarjeta de cr&#233;dito.</p>
+
+                                </div>
+                            </div>
+</a><a href="https://lastpass.com/create-account.php?premium=1" class="nav-highlight-link nav-highlight-link--icon" >                            <div class="nav-highlight-link-inner-wrap">
+                                <div class="nav-highlight-link-col"><img src='/static/media/lazy.png' data-src="/-/media/cd544eef7ab649589bb42639e3302d68.svg?la=es&amp;hash=66403CFF923DE3219881865B912A61B4" class="nav-highlight-link-image nav-highlight-link-image--icon" alt="" /></div>
+
+                                <div class="nav-highlight-link-col">
+                                            <div class="nav-highlight-link-heading nav-highlight-link-heading--red">Probar Personal gratis</div>
+                                            <p class="nav-highlight-link-description">Prueba gratuita de LastPass Premium. Sin tarjeta de cr&#233;dito.</p>
+
+                                </div>
+                            </div>
+</a>
+
+
+        </div>
+</div>
+
+            </li>
+            <li class="nav-item-wrap">
+                    <button class="nav-item" aria-controls=FuncionesDropdown aria-expanded="false">
+                        <span class="nav-item-copy">Funciones</span>
+                        <span class="nav-item-chevrons">
+                            <div class="nav-item-chevrons__pseudo-element"></div>
+                        </span>
+                    </button>
+                    <div class="nav-submenu-3-col nav-submenu nav-submenu-center-align" id=FuncionesDropdown>        <div class="nav-submenu-column nav-submenu-column-type-default">
+                <div class="nav-submenu-column-title">Gestión de contraseñas</div>
+
+                    <div class="nav-submenu-heading-link-wrapper">
+<a href="/es/password-manager" class="nav-heading-link nav-heading-link" >                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Gestión de contraseñas</span>
+                                        </div>
+                                    </div>
+</a><a href="/es/features/autofill" class="nav-heading-link nav-heading-link" >                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Guardar y autocompletar</span>
+                                        </div>
+                                    </div>
+</a><a href="/es/features/password-generator" class="nav-heading-link nav-heading-link" >                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Generador de contraseñas</span>
+                                        </div>
+                                    </div>
+</a><a href="/es/features/password-sharing" class="nav-heading-link nav-heading-link" >                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Uso compartido de contraseñas</span>
+                                        </div>
+                                    </div>
+</a><a href="/es/features/dark-web-monitoring" class="nav-heading-link nav-heading-link" >                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Control de la Dark Web</span>
+                                        </div>
+                                    </div>
+</a><a href="/es/features/passwordless-authentication" class="nav-heading-link nav-heading-link" >                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Inicio de sesión sin contraseña en la bóveda</span>
+                                        </div>
+                                    </div>
+</a>                    </div>
+
+                            <div class="nav-end-link-wrapper">
+<a href="/es/features" class="nav-end-link" title="Todas las funciones para particulares" >Todas las funciones para particulares<img class="nav-end-link-chevron" src="/static/media/icon_functional_arrow-chevron-right-black.0f4c73ba.svg" alt="link chevron" />
+</a>                            </div>
+
+
+
+
+        </div>
+        <div class="nav-submenu-column nav-submenu-column-type-default">
+                <div class="nav-submenu-column-title">Administración</div>
+
+                    <div class="nav-submenu-heading-link-wrapper">
+<a href="/es/features/user-management" class="nav-heading-link nav-heading-link" data-gaeventcategory="navigation" data-gaeventaction="header-business_sso" >                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Gestión de usuarios</span>
+                                        </div>
+                                    </div>
+</a><a href="/es/products/multifactor-authentication" class="nav-heading-link nav-heading-link" data-gaeventcategory="navigation" data-gaeventaction="header-business_mfa" >                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Autenticación multifactor</span>
+                                        </div>
+                                    </div>
+</a><a href="/es/features/password-sharing/business-password-sharing" class="nav-heading-link nav-heading-link" >                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Uso compartido en Business</span>
+                                        </div>
+                                    </div>
+</a><a href="/es/solutions/integrations" class="nav-heading-link nav-heading-link" >                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Integraciones</span>
+                                        </div>
+                                    </div>
+</a><a href="/es/products/sso" class="nav-heading-link nav-heading-link" >                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Inicio de sesión único</span>
+                                        </div>
+                                    </div>
+</a><a href="/es/solutions/identity" class="nav-heading-link nav-heading-link" >                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Gestión de la identidad</span>
+                                        </div>
+                                    </div>
+</a>                    </div>
+
+                            <div class="nav-end-link-wrapper">
+<a href="/es/features" class="nav-end-link" title="Todas las funciones para empresas" >Todas las funciones para empresas<img class="nav-end-link-chevron" src="/static/media/icon_functional_arrow-chevron-right-black.0f4c73ba.svg" alt="link chevron" />
+</a>                            </div>
+
+
+
+
+        </div>
+        <div class="nav-submenu-column nav-submenu-column-type-highlight">
+
+                    <div class="nav-submenu-heading-link-wrapper">
+                    </div>
+
+
+<a href="https://blog.lastpass.com/posts/2024/05/lastpass-is-encrypting-urls-heres-whats-happening" class="nav-highlight-link nav-highlight-link--featured" >                            <div class="nav-highlight-link-inner-wrap">
+                                <div class="nav-highlight-link-col"><img src='/static/media/lazy.png' data-src="/-/media/edb4f3c9dc7541a8bc0b982e36bfe4dc.png?h=120&amp;w=120&amp;la=es&amp;hash=C1784F62DB1C37D03365B40B10196E57" class="nav-highlight-link-image nav-highlight-link-image--featured" alt="" /></div>
+
+                                <div class="nav-highlight-link-col">
+                                            <span class="nav-highlight-link-subheading">Novedades sobre productos</span>
+                                            <div class="nav-highlight-link-heading nav-highlight-link-heading--black">LastPass introduce el cifrado de URL</div>
+
+                                </div>
+                            </div>
+</a><a href="https://www.lastpass.com/company/newsroom/d493d1d3-d24a-4371-8b53-b5ba01d95c09" class="nav-highlight-link nav-highlight-link--featured" >                            <div class="nav-highlight-link-inner-wrap">
+                                <div class="nav-highlight-link-col"><img src='/static/media/lazy.png' data-src="/-/media/47d7bde824324c7ca3dd6cb54b981910.png?h=120&amp;w=120&amp;la=es&amp;hash=84480CD957C50C7D4DCCA99FEF1C30E3" class="nav-highlight-link-image nav-highlight-link-image--featured" alt="" /></div>
+
+                                <div class="nav-highlight-link-col">
+                                            <span class="nav-highlight-link-subheading">Novedades sobre productos</span>
+                                            <div class="nav-highlight-link-heading nav-highlight-link-heading--black">Nueva experiencia con la b&#243;veda en dispositivos m&#243;viles</div>
+
+                                </div>
+                            </div>
+</a><a href="https://www.lastpass.com/company/newsroom/ba8eed57-2263-4946-96af-cb1cb560b55a" class="nav-highlight-link nav-highlight-link--featured" >                            <div class="nav-highlight-link-inner-wrap">
+                                <div class="nav-highlight-link-col"><img src='/static/media/lazy.png' data-src="/-/media/f31d3a14d0a9471f8ee6ad210cc56d97.png?h=120&amp;w=120&amp;la=es&amp;hash=10B77501AF39C462690EECFFE9CF4C6B" class="nav-highlight-link-image nav-highlight-link-image--featured" alt="" /></div>
+
+                                <div class="nav-highlight-link-col">
+                                            <span class="nav-highlight-link-subheading">Novedades sobre productos</span>
+                                            <div class="nav-highlight-link-heading nav-highlight-link-heading--black">LastPass, primera empresa en obtener la certificaci&#243;n de servidor FIDO2</div>
+
+                                </div>
+                            </div>
+</a>
+
+
+        </div>
+</div>
+
+            </li>
+            <li class="nav-item-wrap">
+<a href="/es/pricing" class="nav-item" >                    <span class="nav-item-copy">Precios</span>
+</a>            </li>
+            <li class="nav-item-wrap">
+                    <button class="nav-item" aria-controls=RecursosDropdown aria-expanded="false">
+                        <span class="nav-item-copy">Recursos</span>
+                        <span class="nav-item-chevrons">
+                            <div class="nav-item-chevrons__pseudo-element"></div>
+                        </span>
+                    </button>
+                    <div class="nav-submenu-3-col nav-submenu nav-submenu-left-align" id=RecursosDropdown>        <div class="nav-submenu-column nav-submenu-column-type-default">
+
+                    <div class="nav-submenu-heading-link-wrapper">
+<a href="/es/resources/case-studies" class="nav-heading-link nav-heading-link" >                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Casos de éxito</span>
+                                        </div>
+                                    </div>
+</a><a href="/es/resources/webinars" class="nav-heading-link nav-heading-link" >                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Seminarios web</span>
+                                        </div>
+                                    </div>
+</a><a href="/es/resources/business-demos/registration" class="nav-heading-link nav-heading-link" >                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Demostraciones de productos</span>
+                                                    <span class="nav-heading-link-tag">Nuevo</span>
+                                        </div>
+                                    </div>
+</a><a href="/es/resources/events" class="nav-heading-link nav-heading-link" >                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Eventos</span>
+                                        </div>
+                                    </div>
+</a>                    </div>
+
+                            <div class="nav-end-link-wrapper">
+<a href="/es/resources" class="nav-end-link" >All resources<img class="nav-end-link-chevron" src="/static/media/icon_functional_arrow-chevron-right-black.0f4c73ba.svg" alt="link chevron" />
+</a>                            </div>
+
+
+
+
+        </div>
+        <div class="nav-submenu-column nav-submenu-column-type-default">
+
+                    <div class="nav-submenu-heading-link-wrapper">
+<a href="/es/security" class="nav-heading-link nav-heading-link" >                                        <div class="nav-heading-link-col"><img src='/static/media/lazy.png' data-src="/-/media/4720d7adc6294ec0bad4417328ad10c8.svg?la=es&amp;hash=8E836A2DDCCC794078360F2153355243" alt="" /></div>
+                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Arquitectura de seguridad</span>
+                                        </div>
+                                    </div>
+</a><a href="/es/trust-center" class="nav-heading-link nav-heading-link" >                                        <div class="nav-heading-link-col"><img src='/static/media/lazy.png' data-src="/-/media/7afd343f0230450f97897f44723ff515.svg?la=es&amp;hash=42B5BE4D4DA78BDA894D7D3DE1C54AED" alt="" /></div>
+                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Trust Center</span>
+                                        </div>
+                                    </div>
+</a><a href="https://compliance.lastpass.com/" class="nav-heading-link nav-heading-link" >                                        <div class="nav-heading-link-col"><img src='/static/media/lazy.png' data-src="/-/media/7a226bee88ba433288a210d2efc7c0bc.svg?la=es&amp;hash=7C14A294C4F440358DC1C1B925498B1C" alt="" /></div>
+                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Centro de conformidad</span>
+                                        </div>
+                                    </div>
+</a><a href="https://blog.lastpass.com/" class="nav-heading-link nav-heading-link" >                                        <div class="nav-heading-link-col"><img src='/static/media/lazy.png' data-src="/-/media/71f72db7f7b24082b00bc5190b71f0dd.svg?la=es&amp;hash=A992FF2957CE4882F8D21B4B5EBD41FA" alt="" /></div>
+                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Blog</span>
+                                        </div>
+                                    </div>
+</a><a href="/es/university" class="nav-heading-link nav-heading-link" >                                        <div class="nav-heading-link-col"><img src='/static/media/lazy.png' data-src="/-/media/07bb195cb30d463db05550dda2f65a7e.svg?la=es&amp;hash=CC97620C06A0B84ACDE018F3CB2F3FA6" alt="" /></div>
+                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">LastPass University</span>
+                                        </div>
+                                    </div>
+</a>                    </div>
+
+
+
+
+
+        </div>
+        <div class="nav-submenu-column nav-submenu-column-type-highlight">
+
+                    <div class="nav-submenu-heading-link-wrapper">
+                    </div>
+
+
+<a href="/es/resources/business-demos/registration" class="nav-highlight-link nav-highlight-link--featured" >                            <div class="nav-highlight-link-inner-wrap">
+                                <div class="nav-highlight-link-col"><img src='/static/media/lazy.png' data-src="/-/media/afdb972bf4404ab28258a27bacad17e1.png?h=120&amp;w=120&amp;la=es&amp;hash=23AB62CC9BAE0AC4DA24F9B8F0D151B9" class="nav-highlight-link-image nav-highlight-link-image--featured" alt="" /></div>
+
+                                <div class="nav-highlight-link-col">
+                                            <span class="nav-highlight-link-subheading">Demostraciones de productos</span>
+                                            <div class="nav-highlight-link-heading nav-highlight-link-heading--black">Demos de LastPass Business a la carta</div>
+
+                                </div>
+                            </div>
+</a><a href="/es/resources/reports/smb-commercial-cybersecurity-report" class="nav-highlight-link nav-highlight-link--featured" >                            <div class="nav-highlight-link-inner-wrap">
+                                <div class="nav-highlight-link-col"><img src='/static/media/lazy.png' data-src="/-/media/ff2c99f9818748e9bc1916c15a8b650e.png?h=120&amp;w=120&amp;la=es&amp;hash=A57FD5A669744F50EB17F2433B638323" class="nav-highlight-link-image nav-highlight-link-image--featured" alt="" /></div>
+
+                                <div class="nav-highlight-link-col">
+                                            <span class="nav-highlight-link-subheading">Informe</span>
+                                            <div class="nav-highlight-link-heading nav-highlight-link-heading--black">SMB Cybersecurity Disconnect Report</div>
+
+                                </div>
+                            </div>
+</a>
+
+
+        </div>
+</div>
+
+            </li>
+            <li class="nav-item-wrap">
+                    <button class="nav-item" aria-controls=AsociadosDropdown aria-expanded="false">
+                        <span class="nav-item-copy">Asociados</span>
+                        <span class="nav-item-chevrons">
+                            <div class="nav-item-chevrons__pseudo-element"></div>
+                        </span>
+                    </button>
+                    <div class="nav-submenu-2-col nav-submenu" id=AsociadosDropdown>        <div class="nav-submenu-column nav-submenu-column-type-default">
+                <div class="nav-submenu-column-title">LastPass Partner Program</div>
+
+                    <div class="nav-submenu-heading-link-wrapper">
+<a href="/es/partner" class="nav-heading-link nav-heading-link--has-description" >                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Qué es el programa para asociados</span>
+                                        </div>
+                                            <p class="nav-heading-link-description">Únase al LastPass Partner Allegiance Program y ofrezca aún más valor a sus clientes.</p>
+                                    </div>
+</a><a href="/es/partner/managed-service-provider" class="nav-heading-link nav-heading-link" >                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Proveedores de servicios gestionados</span>
+                                        </div>
+                                    </div>
+</a><a href="/es/partner/solution-providers" class="nav-heading-link nav-heading-link" >                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Proveedores de soluciones</span>
+                                        </div>
+                                    </div>
+</a><a href="/es/partner/technology-partners" class="nav-heading-link nav-heading-link" >                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Asociados de tecnología</span>
+                                        </div>
+                                    </div>
+</a>                    </div>
+
+
+
+
+
+        </div>
+        <div class="nav-submenu-column nav-submenu-column-type-highlight">
+
+                    <div class="nav-submenu-heading-link-wrapper">
+                    </div>
+
+
+<a href="https://lastpass.com/enterprise_trial.php?createacct=1&amp;msp=1" class="nav-highlight-link nav-highlight-link--icon" >                            <div class="nav-highlight-link-inner-wrap">
+                                <div class="nav-highlight-link-col"><img src='/static/media/lazy.png' data-src="/-/media/cd544eef7ab649589bb42639e3302d68.svg?la=es&amp;hash=66403CFF923DE3219881865B912A61B4" class="nav-highlight-link-image nav-highlight-link-image--icon" alt="" /></div>
+
+                                <div class="nav-highlight-link-col">
+                                            <div class="nav-highlight-link-heading nav-highlight-link-heading--red">Iniciar prueba gratuita de MSP</div>
+                                            <p class="nav-highlight-link-description">Consiga nuevas fuentes de ingresos reforzando la seguridad de sus clientes.</p>
+
+                                </div>
+                            </div>
+</a><a href="https://partners.lastpass.com/s/login/SelfRegister" class="nav-highlight-link nav-highlight-link--icon" >                            <div class="nav-highlight-link-inner-wrap">
+                                <div class="nav-highlight-link-col"><img src='/static/media/lazy.png' data-src="/-/media/7c37df98820d473586934c6f74f52188.svg?la=es&amp;hash=C3D31182D29AD3477AA0CC39CEC61C98" class="nav-highlight-link-image nav-highlight-link-image--icon" alt="" /></div>
+
+                                <div class="nav-highlight-link-col">
+                                            <div class="nav-highlight-link-heading nav-highlight-link-heading--red">Convi&#233;rtase en asociado</div>
+                                            <p class="nav-highlight-link-description">&#218;nase al LastPass Partner Program.</p>
+
+                                </div>
+                            </div>
+</a><a href="https://partners.lastpass.com/s/login" class="nav-highlight-link nav-highlight-link--icon" >                            <div class="nav-highlight-link-inner-wrap">
+                                <div class="nav-highlight-link-col"><img src='/static/media/lazy.png' data-src="/-/media/b64fb2a198174a4eb01d85b8989e3029.svg?la=es&amp;hash=D16A2C67A49EE4180D01123A683F11EF" class="nav-highlight-link-image nav-highlight-link-image--icon" alt="" /></div>
+
+                                <div class="nav-highlight-link-col">
+                                            <div class="nav-highlight-link-heading nav-highlight-link-heading--black">Acceso para asociados</div>
+
+                                </div>
+                            </div>
+</a>
+
+
+        </div>
+</div>
+
+            </li>
+            <li class="nav-item-wrap">
+                    <button class="nav-item" aria-controls=AsistenciaDropdown aria-expanded="false">
+                        <span class="nav-item-copy">Asistencia</span>
+                        <span class="nav-item-chevrons">
+                            <div class="nav-item-chevrons__pseudo-element"></div>
+                        </span>
+                    </button>
+                    <div class="nav-submenu-2-col nav-submenu" id=AsistenciaDropdown>        <div class="nav-submenu-column nav-submenu-column-type-default">
+                <div class="nav-submenu-column-title">Ayuda</div>
+
+                    <div class="nav-submenu-heading-link-wrapper">
+<a href="https://support.lastpass.com/s/" class="nav-heading-link nav-heading-link--has-description" >                                        <div class="nav-heading-link-col"><img src='/static/media/lazy.png' data-src="/-/media/366c223f99c14d02ac715269c5c16a8d.svg?la=es&amp;hash=76EE812DCB03FFCBE19C2B9FF04353A6" alt="" /></div>
+                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Centro de asistencia</span>
+                                        </div>
+                                            <p class="nav-heading-link-description">Biblioteca de recursos de autoservicio y guías de todos los productos de LastPass.</p>
+                                    </div>
+</a><a href="https://support.lastpass.com/s/community" class="nav-heading-link nav-heading-link" >                                        <div class="nav-heading-link-col"><img src='/static/media/lazy.png' data-src="/-/media/56a9151207424fb5be34189f8dde8853.svg?la=es&amp;hash=B08B6A54A48916615BF36879C5E571B5" alt="" /></div>
+                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Foro de la comunidad</span>
+                                        </div>
+                                    </div>
+</a><a href="https://status.lastpass.com/" class="nav-heading-link nav-heading-link" >                                        <div class="nav-heading-link-col"><img src='/static/media/lazy.png' data-src="/-/media/f60adad1329c48de898249fa7a6c2383.svg?la=es&amp;hash=879B0BA9631F3285CDE8D91433CCC712" alt="" /></div>
+                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Estado de los productos</span>
+                                        </div>
+                                    </div>
+</a>                    </div>
+
+
+
+
+
+        </div>
+        <div class="nav-submenu-column nav-submenu-column-type-highlight">
+
+                    <div class="nav-submenu-heading-link-wrapper">
+                    </div>
+
+
+<a href="https://support.lastpass.com/s/contact-us" class="nav-highlight-link nav-highlight-link--icon" >                            <div class="nav-highlight-link-inner-wrap">
+                                <div class="nav-highlight-link-col"><img src='/static/media/lazy.png' data-src="/-/media/6d8a85cdc02d4b12bf0e545b7b5331ad.svg?la=es&amp;hash=3DB7F5DDBD2C5B3F16449DEFC1E7CD1D" class="nav-highlight-link-image nav-highlight-link-image--icon" alt="" /></div>
+
+                                <div class="nav-highlight-link-col">
+                                            <div class="nav-highlight-link-heading nav-highlight-link-heading--red">Hablar con el servicio de asistencia</div>
+                                            <p class="nav-highlight-link-description">Asistencia personal para todos los clientes con una suscripci&#243;n a LastPass.</p>
+
+                                </div>
+                            </div>
+</a><a href="https://lastpass.com/misc_download2.php" class="nav-highlight-link nav-highlight-link--illustrated" >                            <div class="nav-highlight-link-inner-wrap">
+                                <div class="nav-highlight-link-col"><img src='/static/media/lazy.png' data-src="/-/media/61bc0755bfb74ba98d7ab29055111fe2.png?h=40&amp;w=432&amp;la=es&amp;hash=FB1CD86AF5B046E69E0CBF3F32E39DE3" class="nav-highlight-link-image nav-highlight-link-image--illustrated" alt="" /></div>
+
+                                <div class="nav-highlight-link-col">
+                                            <div class="nav-highlight-link-heading nav-highlight-link-heading--black">Descargar aplicaciones de LastPass</div>
+                                            <p class="nav-highlight-link-description">LastPass es compatible con todos sus dispositivos.</p>
+
+                                </div>
+                            </div>
+</a>
+
+
+        </div>
+</div>
+
+            </li>
+
+        </ul>
+
+        <ul class="nav-col nav-right">
+                        <li class="nav-item-wrap nav-item-wrap--has-cta">
+<a href="https://lastpass.com/enterprise_trial.php?createacct=1" class="lp-button lp-button--red" >                    <span class="nav-item-copy">Conseguir LastPass gratis</span>
+</a>
+            </li>
+                <li class="nav-item-wrap">
+                    <button class="nav-item nav-item--icon" aria-label="Contactar con un comercial" aria-controls=ContactarconuncomercialDropdown aria-expanded="false">
+                        <span class="nav-item-icons">
+                            <img src='/static/media/lazy.png' data-src="/-/media/b511ffa58fe14333868f2bbb7b758d18.svg?la=es&amp;hash=E247CFA0B67503E49CB2684260AAD9EE" alt="" />
+                            <img src='/static/media/lazy.png' data-src="/-/media/6d8a85cdc02d4b12bf0e545b7b5331ad.svg?la=es&amp;hash=3DB7F5DDBD2C5B3F16449DEFC1E7CD1D" alt="" />
+                        </span>
+                        <span class="nav-item-copy">Contactar con un comercial</span>
+                        <span class="nav-item-chevrons"><div class="nav-item-chevrons__pseudo-element"></div></span>
+                    </button>
+
+                    <div class="nav-submenu-1-col nav-submenu" id=ContactarconuncomercialDropdown>
+                                <div class="nav-submenu-column nav-submenu-column-type-default">
+
+                    <div class="nav-submenu-heading-link-wrapper">
+<a href="https://www.lastpass.com/contact-lp-sales#sales-chat" class="nav-heading-link nav-heading-link" >                                        <div class="nav-heading-link-col"><img src='/static/media/lazy.png' data-src="/-/media/b511ffa58fe14333868f2bbb7b758d18.svg?la=es&amp;hash=E247CFA0B67503E49CB2684260AAD9EE" alt="" /></div>
+                                    <div class="nav-heading-link-col">
+                                        <div class=drift-modal-open-button>
+                                            <span class="drift-modal-open-button">Chatear con ventas</span>
+                                        </div>
+                                    </div>
+</a>                                            <a href="tel:+1-833-854-6520" id="salesPhoneNumber" class="nav-heading-link nav-heading-link" data-gaeventcategory="Event Category " data-gaeventaction="Event Action ">
+                                                    <div class="nav-heading-link-col"><img src='/static/media/lazy.png' data-src="/-/media/80259db0563e4fc9938e993791cedb23.svg?la=es&amp;hash=B5865AA1AED4FDD1D40B33B9683F97D1" alt="" /></div>
+                                                <div class="nav-heading-link-col">
+                                                    <div class="nav-heading-link-heading">
+                                                        Llamar a ventas
+                                                        <span id="salesPhoneNumberToken">+1-833-854-6520</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+<a href="/es/contact-sales" class="nav-heading-link nav-heading-link" >                                        <div class="nav-heading-link-col"><img src='/static/media/lazy.png' data-src="/-/media/355395c30a284becb81878bcee467769.svg?la=es&amp;hash=4316A3A19A4FE199AFB508D387C474AA" alt="" /></div>
+                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Enviar correo a ventas</span>
+                                        </div>
+                                    </div>
+</a><a href="/es/resources/demo/password-and-identity-management" class="nav-heading-link nav-heading-link" >                                        <div class="nav-heading-link-col"><img src='/static/media/lazy.png' data-src="/-/media/3800e389a8fc4106b3ae01eb50f6720f.svg?la=es&amp;hash=5C55E62FC0759CF4E9CBCA78ED948ED9" alt="" /></div>
+                                    <div class="nav-heading-link-col">
+                                        <div class=nav-heading-link-heading>
+                                            <span class="">Solicitar una demo</span>
+                                        </div>
+                                    </div>
+</a>                    </div>
+
+
+
+
+
+        </div>
+
+                    </div>
+                </li>
+                <li class="nav-item-wrap">
+<a href="https://lastpass.com/?ac=1&amp;lpnorefresh=1" class="nav-item nav-item--icon" aria-label="Iniciar sesión" >                        <span class="nav-item-icons">
+                            <img src='/static/media/lazy.png' data-src="/-/media/44e0a57a5d5b4e11bffe4221783458ca.svg?la=es&amp;hash=600702235C48BA9FFC3FA89B9F54E905" alt="" />
+                            <img src='/static/media/lazy.png' data-src="/-/media/af802c3853684a7291e4c2c05da47f13.svg?la=es&amp;hash=669068F39B1A90CBBED8C7CF95DF0984" alt="" />
+                        </span>
+                        <span class="nav-item-copy">Iniciar sesión</span>
+</a>                </li>
+
+        </ul>
+    </div>
+
+</nav>
+
+
+<!--#region RenderNaviLeft  -->
+<!--#endregion -->
+<!--#region RenderNaviRight  -->
+<!--#endregion -->
+<!--#region RenderNaviColum  -->
+<!--#endregion -->
+<!--#region Helper  -->
+<!--#endregion -->
+
+    
+
+</header>
+<div id="MAINCONTENT"></div>
+
+        <main>
+            
+            <script type="application/ld+json">
+{
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "LastPass",
+	  "LegalName": "LastPass US LP",
+      "url": "https://www.lastpass.com/",
+	  "sameAs": [
+	    "https://en.wikipedia.org/wiki/LastPass",
+        "https://www.facebook.com/LastPass",
+		"https://www.youtube.com/c/LastPass",
+        "https://www.linkedin.com/company/lastpass",
+		"https://www.instagram.com/lastpassofficial/",
+        "https://twitter.com/lastpass",
+        "https://chrome.google.com/webstore/detail/lastpass-free-password-ma/hdokiejnpimakedhajhdlcegeplioahd/",
+		"https://apps.apple.com/app/id324613447",
+		"https://play.google.com/store/apps/details?id=com.lastpass.lpandroid&hl=en&pli=1",
+		"https://community.spiceworks.com/pages/lastpass"
+        ],
+	"description": "Go beyond saving passwords with the best password manager! Generate strong passwords and store them in a secure vault. Now with single-sign on (SSO) and adaptive MFA solutions that integrate with over 1,200 apps.",
+	"disambiguatingDescription": "#1 Password Manager & Vault App with Single-Sign On & MFA Solutions",
+	"numberOfEmployees" : "550+",
+    "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+1-833-854-6520",
+        "contactType": "sales"
+		},
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "333 Summer St",
+        "addressLocality": "Boston",
+        "addressRegion": "MA",
+        "postalCode": "02210"
+    },		
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.lastpass.com//-/media/a253e35ba7ca46ceb74144dc18b11879.png",
+        "contentUrl": "https://www.lastpass.com//-/media/a253e35ba7ca46ceb74144dc18b11879.png",
+        "caption": "LastPass"
+      },
+	  "awards": [
+		  "Best Software Awards for Best Security Product - G2",
+		  "Best Password Management/IAM - ChannelPro Readers’ Choice",
+		  "Best for Ease of Use Password Manager - Money.com",
+		  "Most Innovative in Multi-Factor Authentication - Cyber Defense Magazine",
+		  "Password Management Solution of the Year - CyberSecurity Breakthrough",
+		  "Best-Of Business Password Management - Expert Insights"
+	  ],
+	  "parentOrganization": {
+		   "@type": "Organization",
+		   "name" : "Francisco Partners",
+		   "url": "https://www.franciscopartners.com/"
+	  }
+}
+</script>
+<style>
+.top-banner {
+          z-index: 101;
+}
+@media (max-width: 961px) {
+    .lp-row__double-postcard--buttons .lp-button--tertiary-white {
+        color: #3b70d4;
+    }
+    .lp-row__double-postcard--buttons .lp-button--tertiary-white:after {
+        content: '';
+        width: 17px;
+        height: 20px;
+        display: inline-block;
+        background-size: 100%;
+        background: url(/assets/images/cdn/functional-arrow-blue.svg);
+    }
+    .lp-row__double-postcard--buttons .lp-button--tertiary-white svg {
+        display: none;
+    }
+}
+</style>
+        <div data-component-name="Boilerplate Heavy Hero" class="lp-hero-heavy--new lp-hero-heavy--padding-2 lp-hero-heavy--left" style="background:#FFFFFF url()top center/cover" data-theme="1">
+            <div class="grid">
+                <div class="grid__col small-screen-size grid__col--6 grid__col--left cta-block--center">
+
+
+
+                    <div data-anim-type=fade-up data-anim-delay=200ms  data-anim-duration=400ms data-anim=animate>
+                        <div class="lp-headline">
+                            <h1> Todos los inicios de sesión están en LastPass</h1>
+                        </div>
+                    </div>
+
+                    <div data-anim-type=fade-up data-anim-delay=400ms  data-anim-duration=400ms data-anim=animate>
+                        <div class="lp-headline lp-headline--secondary">
+                            <p class="x-large">Acceda a su vida digital y profesional desde todos sus dispositivos y garantice su seguridad esté donde esté.</p>
+                        </div>
+                    </div>
+
+                    
+
+
+
+
+
+                        <div class="lp-hero-heavy__box" data-anim-type=fade-up data-anim-delay=600ms  data-anim-duration=400ms data-anim=animate>
+                            <div class="cta-block cta-block--left cta-block--center">
+                                <div class="cta-block__buttons">
+
+                                        <div class="cta-block__item cta-block__item--jumbo">
+<a href="/es/products/business" class="lp-button lp-button__red lp-button__jumbo" data-gaeventcategory="learn-more" data-gaeventaction="hero_business" >Business</a>                                            <p class="small cta-block__info"></p>
+                                        </div>
+                                        <div class="cta-block__item cta-block__item--jumbo">
+<a href="/es/products/personal" class="lp-button lp-button__red-outline lp-button__jumbo" data-gaeventcategory="learn-more" data-gaeventaction="hero_personal" >Personal</a>                                            <p class="small cta-block__info"></p>
+                                        </div>
+                                </div>
+                                    <p class="small cta-block__info">Prueba gratuita para todos los planes disponibles. Sin tarjeta de crédito.</p>
+                            </div>
+                        </div>
+                    
+
+                                    </div>
+                <div class="grid__col grid__col--right grid__col--6">
+                    <img src='/static/media/lazy.png' data-src="/-/media/0f6e15e5a17d4454b5dde68af4a65e1f.svg?la=es&amp;hash=58E99BA015F84D5FC07500C2480D7A4D" data-anim-type="fade-up" src-lazy="/static/media/lazy.png" data-anim-delay="800ms" data-anim-duration="400ms" class="lp-hero-heavy__overflow" alt="" data-anim="animate" />
+                </div>
+            </div>
+        </div>
+<section data-component-name="BoilerplateTrustSection" class="trust-section" style="background-color:#F9F6F3;">
+                <section class="statistic-cards">
+                            <div class="statistic-card statistic-card--textonly">
+                                <h3>Millones</h3>
+                                <p>de clientes protegen sus contraseñas con LastPass</p>
+                            </div>
+                            <div class="statistic-card statistic-card--graphictop">
+                                <img src='/static/media/lazy.png' data-src="/-/media/44800aab52654da28f79ca9ca923d89a.svg?la=es&amp;hash=621E04DF1C13D8760CD259C997EA8F78" alt="" />
+                                <p>Puntuación en Chrome y App Store</p>
+                                    <span>Basada en más de 79 300 reseñas</span>
+
+                            </div>
+                            <div class="statistic-card statistic-card--graphictop">
+                                <img src='/static/media/lazy.png' data-src="/-/media/43c76cb57ae248e3b8f654d7811809a5.png?h=200&amp;w=178&amp;la=es&amp;hash=3604E5393D2DA4A8E689C973045E08BE" alt="" />
+                                <p>Premios al mejor software para el mejor producto de seguridad</p>
+                                    <span>G2</span>
+
+                            </div>
+                            <div class="statistic-card statistic-card--graphictop">
+                                <img src='/static/media/lazy.png' data-src="/-/media/80daf3e0e5ef439e9f5520a7caf6eb14.svg?la=es&amp;hash=2D2C76FF4F3F2C31A6C858018C398C4A" alt="" />
+                                <p>El líder en gestión de contraseñas</p>
+                                    <span>Según 1.599 reseñas</span>
+
+                            </div>
+                            <div class="statistic-card statistic-card--textonly">
+                                <h3>+100 000</h3>
+                                <p>Empresas que eligen LastPass</p>
+                            </div>
+                </section>
+</section><section class="lp-separation-line-background" style="background-color: #F9F6F3;">
+    <div class="lp-separation-line lp-separation-line--full-bleed">
+        <hr style="background-color: #E1DEDB;" />
+    </div>
+</section>    <div data-component-name="Boilerplate Accordion" class="accordion"
+         data-module="accordion"
+         style="background-image: url()">
+        <h2>Conexión sencilla y segura a su vida digital y profesional</h2>
+
+        <div class="accordion-wrapper">
+            <div class="accordion-wrapper-col">
+
+                    <div class="accordion-card accordion-card accordion-card--open" data-accordion="1" tabindex="0">
+                        <h3 role="button"
+                            class="accordion-card-heading"
+                            aria-controls=accordion-content-01
+                            aria-expanded="true">
+                            <span>Guardar y usar contraseñas</span>
+                            <svg
+          class="accordion-arrow"
+          width="14"
+          height="9"
+          viewBox="0 0 14 9"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M7.04085 0.83331C7.38906 0.832905 7.72059 0.973505 7.95071 1.21918L13.3118 6.16088C13.3118 6.16088 13.5996 6.46537 13.6624 6.89489C13.7095 7.21707 13.6003 7.62712 13.3118 7.93542C13.0525 8.21255 12.7318 8.31356 12.4474 8.2971C11.9936 8.27085 11.6173 7.99073 11.6173 7.99073L7.13978 4.04782C7.1148 4.02103 7.07874 3.98865 7.04085 3.98865C7.00295 3.98865 6.96689 4.02103 6.94191 4.04782L2.42731 7.99225C2.42731 7.99225 2.08562 8.2933 1.64493 8.33026C1.34816 8.35516 0.989519 8.22522 0.724218 7.93542C0.446084 7.6316 0.301779 7.21342 0.344496 6.89489C0.403031 6.45841 0.724218 6.16088 0.724218 6.16088L6.1294 1.22116C6.35992 0.974889 6.6919 0.833622 7.04085 0.83331Z"
+            fill="#25282D"
+          ></path>
+        </svg>
+                        </h3>
+                        <div class="accordion-content" id=accordion-content-01>
+                            <p><p>Basta con guardar un nombre de usuario, contraseña, dirección de facturación o tarjeta de crédito una vez, y LastPass rellenará la información de forma automática para que pueda iniciar sesión o hacer compras al instante. </p></p>
+                            <a href="/es/features/autofill" class="lp-button tertiary positive jumbo" >Explorar, guardar y autorrellenar</a>
+
+                            <img src='/static/media/lazy.png' data-src="/-/media/6b5dda3ba89a4bf38b88725f8b048c0b.svg?la=es&amp;hash=8CDC6F706D9668EB24456665A1EF7B56" alt="" />
+                        </div>
+                    </div>
+                    <div class="accordion-card" data-accordion="2" tabindex="0">
+                        <h3 role="button"
+                            class="accordion-card-heading"
+                            aria-controls=accordion-content-11
+                            aria-expanded="true">
+                            <span>Acceder a las contraseñas desde cualquier sitio</span>
+                            <svg
+          class="accordion-arrow"
+          width="14"
+          height="9"
+          viewBox="0 0 14 9"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M7.04085 0.83331C7.38906 0.832905 7.72059 0.973505 7.95071 1.21918L13.3118 6.16088C13.3118 6.16088 13.5996 6.46537 13.6624 6.89489C13.7095 7.21707 13.6003 7.62712 13.3118 7.93542C13.0525 8.21255 12.7318 8.31356 12.4474 8.2971C11.9936 8.27085 11.6173 7.99073 11.6173 7.99073L7.13978 4.04782C7.1148 4.02103 7.07874 3.98865 7.04085 3.98865C7.00295 3.98865 6.96689 4.02103 6.94191 4.04782L2.42731 7.99225C2.42731 7.99225 2.08562 8.2933 1.64493 8.33026C1.34816 8.35516 0.989519 8.22522 0.724218 7.93542C0.446084 7.6316 0.301779 7.21342 0.344496 6.89489C0.403031 6.45841 0.724218 6.16088 0.724218 6.16088L6.1294 1.22116C6.35992 0.974889 6.6919 0.833622 7.04085 0.83331Z"
+            fill="#25282D"
+          ></path>
+        </svg>
+                        </h3>
+                        <div class="accordion-content" id=accordion-content-11>
+                            <p><p>Con LastPass sus contraseñan van siempre con usted. Las tendrá a mano en todos sus dispositivos de confianza: ordenadores, teléfonos móviles, tablets y relojes inteligentes. </p></p>
+                            <a href="/es/features/device-sync" class="lp-button tertiary positive jumbo" >Explorar la sincronizaci&#243;n autom&#225;tica de dispositivos</a>
+
+                            <img src='/static/media/lazy.png' data-src="/-/media/c59659a857114bfa9d20c352e9a54bba.svg?la=es&amp;hash=BB2C73ED47AFFC76CDE8950835C685E0" alt="" />
+                        </div>
+                    </div>
+                    <div class="accordion-card" data-accordion="3" tabindex="0">
+                        <h3 role="button"
+                            class="accordion-card-heading"
+                            aria-controls=accordion-content-21
+                            aria-expanded="true">
+                            <span>Detectar contraseñas poco seguras</span>
+                            <svg
+          class="accordion-arrow"
+          width="14"
+          height="9"
+          viewBox="0 0 14 9"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M7.04085 0.83331C7.38906 0.832905 7.72059 0.973505 7.95071 1.21918L13.3118 6.16088C13.3118 6.16088 13.5996 6.46537 13.6624 6.89489C13.7095 7.21707 13.6003 7.62712 13.3118 7.93542C13.0525 8.21255 12.7318 8.31356 12.4474 8.2971C11.9936 8.27085 11.6173 7.99073 11.6173 7.99073L7.13978 4.04782C7.1148 4.02103 7.07874 3.98865 7.04085 3.98865C7.00295 3.98865 6.96689 4.02103 6.94191 4.04782L2.42731 7.99225C2.42731 7.99225 2.08562 8.2933 1.64493 8.33026C1.34816 8.35516 0.989519 8.22522 0.724218 7.93542C0.446084 7.6316 0.301779 7.21342 0.344496 6.89489C0.403031 6.45841 0.724218 6.16088 0.724218 6.16088L6.1294 1.22116C6.35992 0.974889 6.6919 0.833622 7.04085 0.83331Z"
+            fill="#25282D"
+          ></path>
+        </svg>
+                        </h3>
+                        <div class="accordion-content" id=accordion-content-21>
+                            <p><p>En el panel de seguridad podrá consultar las vulnerabilidades, desde contraseñas débiles o reutilizadas hasta direcciones de correo que han aparecido en filtraciones de datos gracias al control de la Dark Web. Así podrá tomar las medidas oportunas.</p></p>
+                            <a href="/es/features/dark-web-monitoring" class="lp-button tertiary positive jumbo" >Explorar el control de la Dark Web</a>
+
+                            <img src='/static/media/lazy.png' data-src="/-/media/32e566a865834b3eb24a5ef70d99ff72.svg?la=es&amp;hash=AE966DFBC69BAD9D6A538D69BB497843" alt="" />
+                        </div>
+                    </div>
+                    <div class="accordion-card" data-accordion="4" tabindex="0">
+                        <h3 role="button"
+                            class="accordion-card-heading"
+                            aria-controls=accordion-content-31
+                            aria-expanded="true">
+                            <span>Compartir contraseñas con seguridad</span>
+                            <svg
+          class="accordion-arrow"
+          width="14"
+          height="9"
+          viewBox="0 0 14 9"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M7.04085 0.83331C7.38906 0.832905 7.72059 0.973505 7.95071 1.21918L13.3118 6.16088C13.3118 6.16088 13.5996 6.46537 13.6624 6.89489C13.7095 7.21707 13.6003 7.62712 13.3118 7.93542C13.0525 8.21255 12.7318 8.31356 12.4474 8.2971C11.9936 8.27085 11.6173 7.99073 11.6173 7.99073L7.13978 4.04782C7.1148 4.02103 7.07874 3.98865 7.04085 3.98865C7.00295 3.98865 6.96689 4.02103 6.94191 4.04782L2.42731 7.99225C2.42731 7.99225 2.08562 8.2933 1.64493 8.33026C1.34816 8.35516 0.989519 8.22522 0.724218 7.93542C0.446084 7.6316 0.301779 7.21342 0.344496 6.89489C0.403031 6.45841 0.724218 6.16088 0.724218 6.16088L6.1294 1.22116C6.35992 0.974889 6.6919 0.833622 7.04085 0.83331Z"
+            fill="#25282D"
+          ></path>
+        </svg>
+                        </h3>
+                        <div class="accordion-content" id=accordion-content-31>
+                            <p><p>Comparta contraseñas y documentos con su equipo, amigos y familiares. Tenga un control absoluto sobre sus elementos compartidos con la posibilidad de ocultar contraseñas y revocar accesos con un simple clic.</p></p>
+                            <a href="/es/features/password-sharing" class="lp-button tertiary positive jumbo" >Explorar el intercambio de contrase&#241;as</a>
+
+                            <img src='/static/media/lazy.png' data-src="/-/media/d76e6ead615448c4abb9ce90f3477381.svg?la=es&amp;hash=D45DB834B4E1C9C86A6C5C29B99F6119" alt="" />
+                        </div>
+                    </div>
+            </div>
+
+            <div class="accordion-wrapper-col">
+<img src='/static/media/lazy.png' data-src="/-/media/6b5dda3ba89a4bf38b88725f8b048c0b.svg?la=es&amp;hash=8CDC6F706D9668EB24456665A1EF7B56" class="accordion-card-image accordion-card-image--open" data-accordian="1" alt="" /><img src='/static/media/lazy.png' data-src="/-/media/c59659a857114bfa9d20c352e9a54bba.svg?la=es&amp;hash=BB2C73ED47AFFC76CDE8950835C685E0" class="accordion-card-image" data-accordian="2" alt="" /><img src='/static/media/lazy.png' data-src="/-/media/32e566a865834b3eb24a5ef70d99ff72.svg?la=es&amp;hash=AE966DFBC69BAD9D6A538D69BB497843" class="accordion-card-image" data-accordian="3" alt="" /><img src='/static/media/lazy.png' data-src="/-/media/d76e6ead615448c4abb9ce90f3477381.svg?la=es&amp;hash=D45DB834B4E1C9C86A6C5C29B99F6119" class="accordion-card-image" data-accordian="4" alt="" />            </div>
+        </div>
+    </div>
+
+<div data-component-name="Widget Collection" class="lp-product-attributes  lp-product-attributes--left lp-product-attributes--4col" data-theme="" style=background-color:#F9F6F3>
+    <div class="lp-product-attributes-wrapper">
+
+            <section class="lp-intro lp-intro--small">
+                <h2>Seguridad, privacidad y cumplimiento de serie</h2>
+                <div class="lp-intro__copy">
+                    <h4></h4>
+                </div>
+            </section>
+
+        <div class="lp-product-attributes-row">
+                <div class="lp-product-attribute">
+<img src='/static/media/lazy.png' data-src="/-/media/545867c67f77462aaf3490aea964ed61.svg?la=es&amp;hash=2B6728F76494867990028A7D38D821BF" alt="" />
+                        <h3>Una contraseña menos que gestionar</h3>
+
+                    <p>Minimice el riesgo de exposición de datos y ahorre tiempo accediendo a su bóveda con biometría, ya sea de reconocimiento facial o huella dactilar, en lugar de utilizar su contraseña maestra.</p>
+
+<a href="/es/solutions/passwordless-access" class="lp-button tertiary positive medium" data-gaeventcategory="learn-more" data-gaeventaction="content_encryption-model" >Decir adi&#243;s a las contrase&#241;as</a>                </div>
+                <div class="lp-product-attribute">
+<img src='/static/media/lazy.png' data-src="/-/media/40d92bdf21944b8d9915d6fd87ad068f.svg?la=es&amp;hash=9015F671D4BB662B4FDC7ED4F10F6B3A" alt="" />
+                        <h3>Seguridad en cada punto de acceso</h3>
+
+                    <p>Con más de 100 políticas de seguridad, podrá personalizar la autenticación, la gestión de usuarios y los controles de acceso según las necesidades de su empresa.</p>
+
+<a href="/es/features/user-management" class="lp-button tertiary positive medium" data-gaeventcategory="learn-more" data-gaeventaction="content_compliance" >Explorar las pol&#237;ticas de seguridad</a>                </div>
+                <div class="lp-product-attribute">
+<img src='/static/media/lazy.png' data-src="/-/media/6853911c934a410dbcf5ea50128d45b4.svg?la=es&amp;hash=32890E0B66F23B30808B35DC5FEA6517" alt="" />
+                        <h3>Datos personales siempre privados</h3>
+
+                    <p>Gracias al cifrado AES-256 y a nuestro modelo de seguridad de conocimiento cero, su bóveda de contraseñas está protegida para que solo usted pueda acceder a ella y gestionar su contenido. </p>
+
+<a href="/es/security/zero-knowledge-security" class="lp-button tertiary positive medium" data-gaeventcategory="learn-more" data-gaeventaction="content_dark-web-monitoring" >Modelo de cifrado de LastPass</a>                </div>
+                <div class="lp-product-attribute">
+<img src='/static/media/lazy.png' data-src="/-/media/f17489970aa844ff9835b6fa00e694a9.svg?la=es&amp;hash=4B4AF9B6FAB50B37296BD0659B826BAE" alt="" />
+                        <h3>Cumplimiento para todos los sectores</h3>
+
+                    <p>LastPass se adhiere a certificaciones de primer nivel como ISO 27001, ISO 27701, SOC 2 Tipo II, SOC 3, BSI C5, GDPR e HIPPA para garantizar el cumplimiento de las normas del sector.</p>
+
+<a href="https://compliance.lastpass.com/" class="lp-button tertiary positive medium" data-gaeventcategory="learn-more" data-gaeventaction="content_mfa" >M&#225;s informaci&#243;n sobre normativas</a>                </div>
+        </div>
+    </div>
+</div>
+<div data-component-name="Pricing Titles" class="lp-pricing" style="background-color:#FFFFFF;background-image: url()">
+    <code class="exception" data-exception-message="Rendering Name:RTF Module,DataSource:{26D3486C-F1B8-4E07-90B9-8401510B42BD},Error:Error while rendering view: '/Views/Resources/RTFModule.cshtml' (model: 'Sitecore.Mvc.Presentation.RenderingModel, Sitecore.Mvc').&#xD;&#xA;The model item passed into the dictionary is of type 'Sitecore.Mvc.Presentation.RenderingModel', but this dictionary requires a model item of type 'Sitecore.Feature.Resources._RTFModule'."></code>
+    <div class="lp-prices" data-module="priceCards">
+
+            <div class="lp-prices__business" style="display: none;">
+                    <div class="lp-price-tile lp-price-tile--slim" >
+
+                        <div class="lp-price-tile-product">
+
+
+                                <h3 class="lp-price-tile-product__name">Premium</h3>
+
+                                <p class="lp-price-tile-product__description">Contraseñas gestionadas y compartidas en varios dispositivos para 1 persona.</p>
+                        </div>
+                            <div class="lp-price-tile-cost"  data-product="LPPremium">
+
+
+                                <span class="lp-price-tile-cost__amount">{LPPremium}</span>
+                                <div class="lp-price-tile-cost__terms">
+                                        <div>al mes</div>
+                                                                            <div class="lp-price-tile-cost__notes">
+                                            con pago anual*
+                                        </div>
+
+
+                                </div>
+
+                            </div>
+                        <div class="lp-price-tile-cta">
+                                    <button class="lp-price-tile-cta__primary">
+                                        <a href="https://lastpass.com/create-account.php?premium=1" class="lp-button lp-button--price buttonModifier primary brand medium" data-gaeventcategory="registration-intent_premium" data-gaeventaction="card_start-a-trial" >Probar Premium gratis</a>
+                                    </button>
+                            <div class="lp-price-tile-cta__secondary">
+<a href="https://lastpass.com/create_account.php?from=&amp;from_uri=%2Fpremium%2Fpayment&amp;directbuypremium=1" class="lp-button lp-button--price buttonModifier secondary brand medium" data-gaeventcategory="purchase-intent_premium" data-gaeventaction="card_buy-now" >Comprar ahora</a>                            </div>
+                        </div>
+                            <div class="lp-price-tile-features" data-module="toolTipV2">
+                                <ul class="lp-price-tile-features__items">
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check lp-price-tile-features__item--highlighted">
+                                            Sin límite de contraseñas
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check lp-price-tile-features__item--highlighted">
+                                            Acceso a todos los dispositivos
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check lp-price-tile-features__item--highlighted">
+                                            Uso compartido con varias personas
+                                                <div class="pricing-tooltip" data-module="tooltip-v2">
+                                                    <div class="pricing-tooltip__text">
+                                                        <div class="pricing-tooltip__text-title">Uso compartido con varias personas</div>
+                                                        <p>Comparta contraseñas y credenciales de inicio de sesión con usuarios de LastPass de confianza para un acceso seguro y práctico.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="mobile-tooltip">
+                                                    <div class="mobile-tooltip__content">
+                                                        <button aria-label="Close" class="mobile-tooltip__close"></button>
+                                                        <div class="mobile-tooltip__copy"></div>
+                                                    </div>
+                                                </div>
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check">
+                                            Generador de contraseñas
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check">
+                                            Guardar y autocompletar
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check">
+                                            Supervisión de Dark Web
+                                                <div class="pricing-tooltip" data-module="tooltip-v2">
+                                                    <div class="pricing-tooltip__text">
+                                                        <div class="pricing-tooltip__text-title">Supervisión de Dark Web</div>
+                                                        <p>Acceso a supervisión de las cuentas durante las 24 horas del día mediante una base de datos de credenciales expuestas y alertas inmediatas en caso de una filtración de datos.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="mobile-tooltip">
+                                                    <div class="mobile-tooltip__content">
+                                                        <button aria-label="Close" class="mobile-tooltip__close"></button>
+                                                        <div class="mobile-tooltip__copy"></div>
+                                                    </div>
+                                                </div>
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check">
+                                            Panel de seguridad
+                                                <div class="pricing-tooltip" data-module="tooltip-v2">
+                                                    <div class="pricing-tooltip__text">
+                                                        <div class="pricing-tooltip__text-title">Panel de seguridad</div>
+                                                        <p>Consulte la puntuación de seguridad de las contraseñas de su cuenta y descubra si alguna de sus cuentas ha sido expuesta desde el <a href="/es/features/security-dashboard">panel de seguridad</a>.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="mobile-tooltip">
+                                                    <div class="mobile-tooltip__content">
+                                                        <button aria-label="Close" class="mobile-tooltip__close"></button>
+                                                        <div class="mobile-tooltip__copy"></div>
+                                                    </div>
+                                                </div>
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check">
+                                            1 GB de almacenamiento de archivos cifrados
+                                                <div class="pricing-tooltip" data-module="tooltip-v2">
+                                                    <div class="pricing-tooltip__text">
+                                                        <div class="pricing-tooltip__text-title">1 GB de almacenamiento de archivos cifrados</div>
+                                                        <p>Disfrute de más espacio para notas seguras: 1 GB en lugar de 50 MB (plan gratuito) Guarde copias de seguridad digitales de los documentos más importantes: pasaportes, tarjetas de crédito, seguros, información fiscal, etc.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="mobile-tooltip">
+                                                    <div class="mobile-tooltip__content">
+                                                        <button aria-label="Close" class="mobile-tooltip__close"></button>
+                                                        <div class="mobile-tooltip__copy"></div>
+                                                    </div>
+                                                </div>
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check">
+                                            Inicio de sesión sin contraseña en la bóveda
+                                                <div class="pricing-tooltip" data-module="tooltip-v2">
+                                                    <div class="pricing-tooltip__text">
+                                                        <div class="pricing-tooltip__text-title">Inicio de sesión sin contraseña en la bóveda</div>
+                                                        <p>Inicie sesión en su bóveda sin su contraseña maestra mediante datos biométricos, un autenticador con la certificación FIDO2 o la aplicación LastPass Authenticator. Los usuarios del plan LastPass Free solo pueden usar la aplicación LastPass Authenticator para acceder sin contraseña a su bóveda.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="mobile-tooltip">
+                                                    <div class="mobile-tooltip__content">
+                                                        <button aria-label="Close" class="mobile-tooltip__close"></button>
+                                                        <div class="mobile-tooltip__copy"></div>
+                                                    </div>
+                                                </div>
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check">
+                                            Autenticación multifactor
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check">
+                                            Acceso de emergencia
+                                                <div class="pricing-tooltip" data-module="tooltip-v2">
+                                                    <div class="pricing-tooltip__text">
+                                                        <div class="pricing-tooltip__text-title">Acceso de emergencia</div>
+                                                        <p>Dé <a href="/es/features/emergency-access">acceso puntual a su bóveda</a> a otro usuario de LastPass en caso de emergencia o crisis.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="mobile-tooltip">
+                                                    <div class="mobile-tooltip__content">
+                                                        <button aria-label="Close" class="mobile-tooltip__close"></button>
+                                                        <div class="mobile-tooltip__copy"></div>
+                                                    </div>
+                                                </div>
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check">
+                                            Asistencia técnica personal
+                                        </li>
+                                </ul>
+                            </div>
+                                            </div>
+                    <div class="lp-price-tile lp-price-tile--featured lp-price-tile--slim" >
+                            <span class="lp-price-tile-eyebrow">El mejor valor para uso personal</span>
+
+                        <div class="lp-price-tile-product">
+
+
+                                <h3 class="lp-price-tile-product__name">Families</h3>
+
+                                <p class="lp-price-tile-product__description">6 licencias Premium para familiares y amigos con uso compartido de contraseña personalizable.</p>
+                        </div>
+                            <div class="lp-price-tile-cost"  data-product="LPFamilies">
+
+
+                                <span class="lp-price-tile-cost__amount">{LPFamilies}</span>
+                                <div class="lp-price-tile-cost__terms">
+                                        <div>al mes</div>
+                                                                            <div class="lp-price-tile-cost__notes">
+                                            con pago anual*
+                                        </div>
+
+
+                                </div>
+
+                            </div>
+                        <div class="lp-price-tile-cta">
+                                    <button class="lp-price-tile-cta__primary">
+                                        <a href="https://lastpass.com/families/trial" class="lp-button lp-button--price buttonModifier primary brand medium" data-gaeventcategory="registration-intent_families" data-gaeventaction="card_start-a-trial" >Probar Families gratis</a>
+                                    </button>
+                            <div class="lp-price-tile-cta__secondary">
+<a href="https://lastpass.com/families/trial?directbuyfamilies=1&amp;from_uri=/families/payment&amp;from=" class="lp-button lp-button--price buttonModifier secondary brand medium" data-gaeventcategory="purchase-intent_families" data-gaeventaction="card_buy-now" >Comprar ahora</a>                            </div>
+                        </div>
+                            <div class="lp-price-tile-features" data-module="toolTipV2">
+                                <ul class="lp-price-tile-features__items">
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check lp-price-tile-features__item--highlighted">
+                                            Incluye todas las funciones Premium
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check lp-price-tile-features__item--highlighted">
+                                            6 cuentas Premium
+                                                <div class="pricing-tooltip" data-module="tooltip-v2">
+                                                    <div class="pricing-tooltip__text">
+                                                        <div class="pricing-tooltip__text-title">6 cuentas Premium</div>
+                                                        <p>Gestione hasta 6 familiares: supervise la seguridad de las cuentas, dé de alta/baja miembros y organice las credenciales compartidas.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="mobile-tooltip">
+                                                    <div class="mobile-tooltip__content">
+                                                        <button aria-label="Close" class="mobile-tooltip__close"></button>
+                                                        <div class="mobile-tooltip__copy"></div>
+                                                    </div>
+                                                </div>
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check">
+                                            Panel de administrador de familia: gestión de usuarios y seguridad
+                                                <div class="pricing-tooltip" data-module="tooltip-v2">
+                                                    <div class="pricing-tooltip__text">
+                                                        <div class="pricing-tooltip__text-title">Panel de administrador de familia: gestión de usuarios y seguridad</div>
+                                                        <p>Cada miembro del plan Families tiene una bóveda de contraseñas cifrada independiente a la que nadie —ni tan siquiera el administrador de la familia— puede acceder. Las bóvedas incluyen todas las funciones de LastPass Premium.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="mobile-tooltip">
+                                                    <div class="mobile-tooltip__content">
+                                                        <button aria-label="Close" class="mobile-tooltip__close"></button>
+                                                        <div class="mobile-tooltip__copy"></div>
+                                                    </div>
+                                                </div>
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check">
+                                            Agrupación y uso compartido de elementos en carpetas
+                                                <div class="pricing-tooltip" data-module="tooltip-v2">
+                                                    <div class="pricing-tooltip__text">
+                                                        <div class="pricing-tooltip__text-title">Agrupación y uso compartido de elementos en carpetas</div>
+                                                        <p>Comparta datos y elementos de su cuenta con otros usuarios de LastPass en cómodas carpetas para garantizar el acceso seguro y mediante autorización.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="mobile-tooltip">
+                                                    <div class="mobile-tooltip__content">
+                                                        <button aria-label="Close" class="mobile-tooltip__close"></button>
+                                                        <div class="mobile-tooltip__copy"></div>
+                                                    </div>
+                                                </div>
+                                        </li>
+                                </ul>
+                            </div>
+                                            </div>
+                    <div class="lp-price-tile lp-price-tile--slim" >
+
+                        <div class="lp-price-tile-product">
+
+
+                                <h3 class="lp-price-tile-product__name">Teams</h3>
+
+                                <p class="lp-price-tile-product__description">Para equipos que acaban de empezar a gestionar sus contraseñas.</p>
+                        </div>
+                            <div class="lp-price-tile-cost"  data-product="LPTeams">
+
+
+                                <span class="lp-price-tile-cost__amount">{LPTeams}</span>
+                                <div class="lp-price-tile-cost__terms">
+                                        <div>por usuario/mes</div>
+                                                                            <div class="lp-price-tile-cost__notes">
+                                            con pago anual*
+                                        </div>
+
+
+                                </div>
+
+                            </div>
+                        <div class="lp-price-tile-cta">
+                                    <button class="lp-price-tile-cta__primary">
+                                        <a href="https://lastpass.com/teams_trial.php" class="lp-button lp-button--price buttonModifier primary positive medium" data-gaeventcategory="registration-intent_teams" data-gaeventaction="card_start-a-trial" >Probar Teams gratis</a>
+                                    </button>
+                            <div class="lp-price-tile-cta__secondary">
+<a href="https://lastpass.com/teams_trial.php?directbuy=1" class="lp-button lp-button--price buttonModifier secondary positive medium" data-gaeventcategory="purchase-intent_teams" data-gaeventaction="card_buy-now" >Comprar ahora</a>                            </div>
+                        </div>
+                            <div class="lp-price-tile-features" data-module="toolTipV2">
+                                <ul class="lp-price-tile-features__items">
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check lp-price-tile-features__item--highlighted">
+                                            Bóveda con contraseña para todos los usuarios
+                                                <div class="pricing-tooltip" data-module="tooltip-v2">
+                                                    <div class="pricing-tooltip__text">
+                                                        <div class="pricing-tooltip__text-title">Bóveda con contraseña para todos los usuarios</div>
+                                                        <p>Cada usuario de Teams obtiene una bóveda cifrada individual con las funciones clave del plan Premium.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="mobile-tooltip">
+                                                    <div class="mobile-tooltip__content">
+                                                        <button aria-label="Close" class="mobile-tooltip__close"></button>
+                                                        <div class="mobile-tooltip__copy"></div>
+                                                    </div>
+                                                </div>
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check lp-price-tile-features__item--highlighted">
+                                            Consola de administración para gestionar usuarios
+                                                <div class="pricing-tooltip" data-module="tooltip-v2">
+                                                    <div class="pricing-tooltip__text">
+                                                        <div class="pricing-tooltip__text-title">Consola de administración para gestionar usuarios</div>
+                                                        <p>Control sencillo y unificado en un único panel para la seguridad de la empresa, las filtraciones de datos, las cuentas y las políticas.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="mobile-tooltip">
+                                                    <div class="mobile-tooltip__content">
+                                                        <button aria-label="Close" class="mobile-tooltip__close"></button>
+                                                        <div class="mobile-tooltip__copy"></div>
+                                                    </div>
+                                                </div>
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check">
+                                            Panel de seguridad de equipo
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check">
+                                            25 políticas de seguridad
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check">
+                                            Autenticación multifactor
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check">
+                                            Carpetas compartidas
+                                                <div class="pricing-tooltip" data-module="tooltip-v2">
+                                                    <div class="pricing-tooltip__text">
+                                                        <div class="pricing-tooltip__text-title">Carpetas compartidas</div>
+                                                        <p>Comparta datos y elementos de su cuenta con otros usuarios de LastPass en cómodas carpetas para garantizar el acceso seguro y mediante autorización.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="mobile-tooltip">
+                                                    <div class="mobile-tooltip__content">
+                                                        <button aria-label="Close" class="mobile-tooltip__close"></button>
+                                                        <div class="mobile-tooltip__copy"></div>
+                                                    </div>
+                                                </div>
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check">
+                                            Lo mejor para pequeñas empresas
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--negative">
+                                            Sin inicio de sesión único (SSO)
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--negative">
+                                            Sin integraciones de directorios
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--negative">
+                                            Sin informes avanzados
+                                        </li>
+                                </ul>
+                            </div>
+                                            </div>
+                    <div class="lp-price-tile lp-price-tile--featured lp-price-tile--slim" >
+                            <span class="lp-price-tile-eyebrow">Escalable para tu negocio</span>
+
+                        <div class="lp-price-tile-product">
+
+
+                                <h3 class="lp-price-tile-product__name">Business</h3>
+
+                                <p class="lp-price-tile-product__description">Diseñado para empresas de cualquier tamaño, desde pequeñas startups hasta grandes corporaciones.</p>
+                        </div>
+                            <div class="lp-price-tile-cost"  data-product="LPBusiness">
+
+
+                                <span class="lp-price-tile-cost__amount">{LPBusiness}</span>
+                                <div class="lp-price-tile-cost__terms">
+                                        <div>por usuario/mes</div>
+                                                                            <div class="lp-price-tile-cost__notes">
+                                            con pago anual*
+                                        </div>
+
+
+                                </div>
+
+                            </div>
+                        <div class="lp-price-tile-cta">
+                                    <button class="lp-price-tile-cta__primary">
+                                        <a href="https://lastpass.com/enterprise_trial.php" class="lp-button lp-button--price buttonModifier primary positive medium" data-gaeventcategory="registration-intent_enterprise" data-gaeventaction="card_start-a-trial" >Probar Business gratis</a>
+                                    </button>
+                            <div class="lp-price-tile-cta__secondary">
+<a href="https://lastpass.com/enterprise_trial.php?directbuy=1" class="lp-button lp-button--price buttonModifier secondary positive medium" data-gaeventcategory="purchase-intent_enterprise" data-gaeventaction="card_buy-now" >Comprar ahora</a>                            </div>
+                        </div>
+                            <div class="lp-price-tile-features" data-module="toolTipV2">
+                                <ul class="lp-price-tile-features__items">
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check lp-price-tile-features__item--highlighted">
+                                            Incluye todas las funciones de Teams
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check lp-price-tile-features__item--highlighted">
+                                            Usuarios ilimitados
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check lp-price-tile-features__item--highlighted">
+                                            Más de 100 políticas de seguridad
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check lp-price-tile-features__item--highlighted">
+                                            LastPass Families para empleados
+                                                <div class="pricing-tooltip" data-module="tooltip-v2">
+                                                    <div class="pricing-tooltip__text">
+                                                        <div class="pricing-tooltip__text-title">LastPass Families para empleados</div>
+                                                        <p>LastPass Families permite a los empleados y a sus familias vivir y trabajar en cualquier sitio. Sus empleados tendrán acceso a una cuenta de LastPass personal con cinco licencias adicionales para compartir con familiares o amigos.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="mobile-tooltip">
+                                                    <div class="mobile-tooltip__content">
+                                                        <button aria-label="Close" class="mobile-tooltip__close"></button>
+                                                        <div class="mobile-tooltip__copy"></div>
+                                                    </div>
+                                                </div>
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check">
+                                            Gestión de grupos de usuarios
+                                                <div class="pricing-tooltip" data-module="tooltip-v2">
+                                                    <div class="pricing-tooltip__text">
+                                                        <div class="pricing-tooltip__text-title">Gestión de grupos de usuarios</div>
+                                                        <p>Importe o cree grupos para organizar usuarios, optimizar las carpetas compartidas y establecer políticas para usuarios específicos.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="mobile-tooltip">
+                                                    <div class="mobile-tooltip__content">
+                                                        <button aria-label="Close" class="mobile-tooltip__close"></button>
+                                                        <div class="mobile-tooltip__copy"></div>
+                                                    </div>
+                                                </div>
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check">
+                                            Integraciones de directorios
+                                                <div class="pricing-tooltip" data-module="tooltip-v2">
+                                                    <div class="pricing-tooltip__text">
+                                                        <div class="pricing-tooltip__text-title">Integraciones de directorios</div>
+                                                        <p>Automatice la incorporación y la salida de empleados mediante <a href="/es/features/directory-integration">integraciones de directorios de usuarios</a> como Microsoft Active Directory, Azure AD, Google Workspace, OneLogin y Okta.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="mobile-tooltip">
+                                                    <div class="mobile-tooltip__content">
+                                                        <button aria-label="Close" class="mobile-tooltip__close"></button>
+                                                        <div class="mobile-tooltip__copy"></div>
+                                                    </div>
+                                                </div>
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check">
+                                            Informes avanzados
+                                                <div class="pricing-tooltip" data-module="tooltip-v2">
+                                                    <div class="pricing-tooltip__text">
+                                                        <div class="pricing-tooltip__text-title">Informes avanzados</div>
+                                                        <p>Reciba informes automatizados y detallados sobre la actividad de los usuarios, políticas, seguridad, aplicaciones SSO y eventos SAML o intégrelos en sus sistemas con SIEM.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="mobile-tooltip">
+                                                    <div class="mobile-tooltip__content">
+                                                        <button aria-label="Close" class="mobile-tooltip__close"></button>
+                                                        <div class="mobile-tooltip__copy"></div>
+                                                    </div>
+                                                </div>
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check">
+                                            Biblioteca de aplicaciones de SSO preintegradas
+                                        </li>
+                                        <li class="lp-price-tile-features__item lp-price-tile-features__item--check">
+                                            Disponibilidad de complementos Advanced SSO y Advanced MFA
+                                                <div class="pricing-tooltip" data-module="tooltip-v2">
+                                                    <div class="pricing-tooltip__text">
+                                                        <div class="pricing-tooltip__text-title">Disponibilidad de complementos Advanced SSO y Advanced MFA</div>
+                                                        <p>Con el plan Business obtiene 3 aplicaciones de inicio de sesión único (SSO) con protección multifactor (MFA).  Obtenga aplicaciones y políticas ilimitadas con el complemento "Advanced SSO" y amplíe la autenticación sin contraseña con el "Advanced MFA".</p>
+                                                    </div>
+                                                </div>
+                                                <div class="mobile-tooltip">
+                                                    <div class="mobile-tooltip__content">
+                                                        <button aria-label="Close" class="mobile-tooltip__close"></button>
+                                                        <div class="mobile-tooltip__copy"></div>
+                                                    </div>
+                                                </div>
+                                        </li>
+                                </ul>
+                            </div>
+                                            </div>
+                <div class="lp-prices__license-note" style="display: flex; flex: 1 1 100%;">
+<p>¿Todavía no tiene claro si probar o comprar un plan de pago? Pruebe nuestro <a href="https://lastpass.com/create-account.php" target="_self">plan Free</a>. Siempre puede pasarse a Premium más adelante. <br /> <a href="/es/contact-sales">Contacte con el departamento de ventas</a> si desea obtener información sobre paquetes de licencias para sitios. Una licencia para sitios permite a todos los empleados tener una cuenta de LastPass pagando una tarifa plana en lugar de por licencia. La implantación de LastPass podrá crecer con su empresa sin ningún coste añadido.<br />
+* Los impuestos correspondientes se aplican al finalizar la compra.</p>
+</div>            </div>
+    </div>
+</div><section class="lp-separation-line-background" style="background-color: #FFFFFF;">
+    <div class="lp-separation-line">
+        <hr style="background-color: #E6E6E6;" />
+    </div>
+</section><section data-component-name="BoilerplateTrustSection" class="trust-section" style="background-color:#FFFFFF;">
+                    <section class="lp-intro lp-intro--small">
+
+
+                            <h2>100,000+ businesses rely on LastPass</h2>
+
+
+                    </section>
+                <section class="statistic-cards">
+                </section>
+                <section class="quote-cards">
+                    <div class="quote-card">
+                        <div class="quote-card-review">
+                                <div class="quote-card-header">
+                                    <img src='/static/media/lazy.png' data-src="/-/media/0c299bf63ef44bf4be57f9e44b3b4fb3.svg?la=es&amp;hash=200992F2A13A950474FB7D72D5876337" alt="" />
+                                    
+                                </div>
+                            <div class="quote-review-text">
+                                <img src='/static/media/lazy.png' data-src="/-/media/4063ace265274e6dbc4922085c39cfbf.svg?la=es&amp;hash=ADF4EDD013AA3C9CC8357B678B446D6E" class="quote-review-text__decoration" alt="" />
+                                <p class="lg-quote-card-review-text__paragraph">Nuestro riesgo de exposición era alto, dado que gestionamos más de 350 aplicaciones para 3500 empleados. LastPass ha sido la mejor inversión para activar el SSO y asegurar que cada punto de acceso e inicio de sesión esté protegido.</p>
+                            </div>
+                            <div class="quote-card-footer">
+                                
+                                <div class="quote-card-user">
+                                    <span class="quote-card-user__job">Tony Ledbetter, responsable sénior de seguridad de TI en HOLT CAT</span>
+                                    <div class="quote-card-user__adornment">
+<a href="/es/resources/case-studies/holt-cat" class="lp-button tertiary positive" data-gaeventcategory="learn-more" data-gaeventaction="content_case-studies" >Leer el caso de &#233;xito</a>                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="quote-card-media" style="background-image: url(&#39;/-/media/0ea92631a97d48a08aa5a318d2aaa56c.jpg&#39;)" ></div>
+                    </div>
+                </section>
+                    <section class="lp-intro lp-intro--small">
+
+                            <h2>+100.000 empresas confían en LastPass</h2>
+                    </section>
+                <section class="logo-brands">
+
+                            <div class="logo-brand">
+                                <img src='/static/media/lazy.png' data-src="/-/media/63bbe3600be445d59ac155c8e7c9e9f6.svg?la=es&amp;hash=E5A9C9DC4C164AE3798FE69BCF26CBB9" class="logo-brand__img" alt="" />
+                            </div>
+
+                            <div class="logo-brand">
+                                <img src='/static/media/lazy.png' data-src="/-/media/065fb2a1a6b8409195984fc31c142d7b.svg?la=es&amp;hash=8280CC55D35BF1BCC6AE28997DF9C45E" class="logo-brand__img" alt="" />
+                            </div>
+
+                            <div class="logo-brand">
+                                <img src='/static/media/lazy.png' data-src="/-/media/05327d60f1174306bb285b6ee7743894.svg?la=es&amp;hash=A5F0EE099630DECD957AB6C35C438A3D" class="logo-brand__img" alt="" />
+                            </div>
+
+
+                            <div class="logo-brand">
+                                <img src='/static/media/lazy.png' data-src="/-/media/557ccf4d83d04fcfbdb745b1feedad5a.svg?la=es&amp;hash=15C7A63FB132277302D33FC41842895F" class="logo-brand__img" alt="" />
+                            </div>
+
+                            <div class="logo-brand">
+                                <img src='/static/media/lazy.png' data-src="/-/media/2628420fcf4147ee90ca6daee7a8dce7.svg?la=es&amp;hash=44B63F80F151A589268D7FBA51AD74AB" class="logo-brand__img" alt="" />
+                            </div>
+
+                            <div class="logo-brand">
+                                <img src='/static/media/lazy.png' data-src="/-/media/6c8a037857bb4bb48ff0f1e588ebfb41.svg?la=es&amp;hash=E23898096A99043120E0D36314EBE452" class="logo-brand__img" alt="" />
+                            </div>
+                </section>
+</section>
+
+<div data-component-name="_ResourceCards" class="lp-resource-cards" data-module="resource-cards"  style='background-color: #F9F6F3'>
+
+            <section class="lp-intro lp-intro--small">
+
+
+                    <h2>Novedades de LastPass</h2>
+
+            </section>
+
+    
+
+        <div class="lp-resource__content--filtered" data-module="filter">
+            <div class="lp-resource-cards__wrapper all-articles">
+
+    <article data-component-name="Resource Card" class="lp-resource-card" data-url="/es/resources/case-studies/holt-cat" data-gaeventcategory="resource_learn-more" data-gaeventaction="content_featured-holtcat" data-topic="" data-type="ondemand">
+        <div>
+
+                <div class="lp-resource-card__header-image">
+                    <img src='/static/media/lazy.png' data-src="/-/media/1d87c95c27c34c859c30dbf9187d88d9.jpg?h=400&amp;w=800&amp;la=es&amp;hash=6D9E2B354198756B7038B6C39BB974FB" alt="" />
+                </div>
+
+            <div class="lp-resource-card__content-section">
+                    <span>Caso de &#233;xito</span>
+                                                    <h3>HOLT CAT sees a high adoption rate of LastPass due to its ease-of-use</h3>
+                
+                
+            </div>
+
+            <div class="lp-resource-card__cta-section">
+                <a href="/es/resources/case-studies/holt-cat" class="lp-button lp-button--tertiary lp-button--tertiary-blue lp-button--tertiary-icon-arrow" >Read the case study</a>
+
+            </div>
+        </div>
+    </article>
+
+    <article data-component-name="Resource Card" class="lp-resource-card" data-url="https://compliance.lastpass.com/" data-gaeventcategory="resource_learn-more" data-gaeventaction="content_featured-drata" data-topic="" data-type="ondemand">
+        <div>
+
+                <div class="lp-resource-card__header-image">
+                    <img src='/static/media/lazy.png' data-src="/-/media/423b6d490f2740c6b49ba4f4a0996453.jpg?h=400&amp;w=800&amp;la=es&amp;hash=48E7EB43B5F4856AB6E3A6D6AF320814" alt="" />
+                </div>
+
+            <div class="lp-resource-card__content-section">
+                    <span>Trust Center</span>
+                                                    <h3>LastPass launches new Compliance Center</h3>
+                
+                
+            </div>
+
+            <div class="lp-resource-card__cta-section">
+                <a href="https://compliance.lastpass.com/" class="lp-button lp-button--tertiary lp-button--tertiary-blue lp-button--tertiary-icon-arrow" target="_blank" >Go to Compliance Center</a>
+
+            </div>
+        </div>
+    </article>
+
+    <article data-component-name="Resource Card" class="lp-resource-card" data-url="/es/resources/reports/smb-commercial-cybersecurity-report" data-gaeventcategory="resource_learn-more" data-gaeventaction="content_featured-smbcybersecuritydisconnectreport" data-topic="" data-type="ondemand">
+        <div>
+
+                <div class="lp-resource-card__header-image">
+                    <img src='/static/media/lazy.png' data-src="/-/media/666888d861654270abed94772aa93f80.jpg?h=400&amp;w=800&amp;la=es&amp;hash=FB0CE550E1912C1316678DE3946F5241" alt="" />
+                </div>
+
+            <div class="lp-resource-card__content-section">
+                    <span>Informe</span>
+                                                    <h3>SMB Cybersecurity Disconnect Report</h3>
+                
+                
+            </div>
+
+            <div class="lp-resource-card__cta-section">
+                <a href="/es/resources/reports/smb-commercial-cybersecurity-report" class="lp-button lp-button--tertiary lp-button--tertiary-blue lp-button--tertiary-icon-arrow" >Get the report</a>
+
+            </div>
+        </div>
+    </article>
+            </div>
+
+            <div class="lp-resource-cards__wrapper filtered-articles">
+                <div class="filtered-articles__no-results">
+                    <p></p>
+                    <a class="lp-button lp-button__white reset" data-gaeventcategory="resource-filter" data-gaeventaction="no-results_clear-filter">
+                        
+                    </a>
+                </div>
+            </div>
+
+                <div class="lp-resource-cards__bottom-link">
+                    <a href="/es/resources" class="lp-button lp-button--tertiary lp-button--tertiary-blue lp-button--tertiary-jumbo lp-button--tertiary-icon-arrow" data-gaeventcategory="learn-more" data-gaeventaction="bottom_resources" >Ver todos los recursos</a>
+                </div>
+        </div>
+</div>
+    <div data-component-name="FAQ Module" class="lp-faq-wrap" data-module="faq" data-theme="1" style="background-color:  #F9F6F3; ">
+            <h2>Preguntas frecuentes</h2>
+                    <div class="lp-faq">
+                    <div class="lp-faq__item">
+                        <h4 class="lp-faq__header"><span tabindex="0">¿Cómo puedo acceder a LastPass?</span></h4>
+                        <div class="lp-faq__content">
+                            <p>LastPass es accesible desde ordenadores (macOS, Windows, Linux, Safari, Chrome, Firefox, Edge) y dispositivos móviles (iOS, watchOS y Android). Los usuarios gratuitos solo pueden utilizar LastPass en un tipo de dispositivo (ordenador o móvil), mientras que los usuarios de pago tienen acceso ilimitado.</p>
+                        </div>
+                    </div>
+                    <div class="lp-faq__item">
+                        <h4 class="lp-faq__header"><span tabindex="0">¿Cómo almacena LastPass las contraseñas de forma segura?</span></h4>
+                        <div class="lp-faq__content">
+                            <p>Su bóveda de LastPass protege los datos en su dispositivo de confianza a través del cifrado de conocimiento cero. Su dispositivo cifra y codifica en local sus contraseñas antes de enviarlas a los servidores de LastPass. La próxima vez que necesite iniciar sesión, LastPass le devolverá sus contraseñas cifradas, que serán descodificadas por su dispositivo de confianza.</p>
+                        </div>
+                    </div>
+                    <div class="lp-faq__item">
+                        <h4 class="lp-faq__header"><span tabindex="0">¿LastPass tiene acceso a mis contraseñas?</span></h4>
+                        <div class="lp-faq__content">
+                            <p>No, nuestro modelo de seguridad de conocimiento cero garantiza que sus datos siempre sean suyos. LastPass no tendrá visibilidad ni acceso a sus contraseñas maestras o lo que almacene en su bóveda, como credenciales, tarjetas de crédito, direcciones postales o notas seguras.</p>
+                        </div>
+                    </div>
+                    <div class="lp-faq__item">
+                        <h4 class="lp-faq__header"><span tabindex="0">¿Cómo funciona el cifrado de LastPass?</span></h4>
+                        <div class="lp-faq__content">
+                            <p>LastPass se basa en un <a rel="noopener noreferrer" href="https://www.lastpass.com/security/zero-knowledge-security" target="_blank">modelo de seguridad de conocimiento cero</a> que garantiza que usted es la única persona que conoce la contraseña maestra para acceder a su bóveda. Gracias al cifrado AES de 256 bits y a la función de derivación PBKDF2 con hash seguro (SHA256) y salting, su contraseña maestra nunca se guarda en nuestros servidores en texto plano. Esto garantiza solo usted la conozca.</p>
+                        </div>
+                    </div>
+                    <div class="lp-faq__item">
+                        <h4 class="lp-faq__header"><span tabindex="0">¿LastPass ya no es seguro?</span></h4>
+                        <div class="lp-faq__content">
+                            <p>LastPass protege todas las contraseñas por usted, garantizando que sus credenciales más importantes estén siempre a buen recaudo, disponibles y confidenciales. Hemos pasado por una gran transformación en materia de seguridad, lo que nos ha convertido en una empresa más fuerte, innovadora e independiente, con un compromiso inquebrantable en materia de seguridad, privacidad y satisfacción del cliente. </p>
+<p>Aprovechamos una oportunidad excepcional para establecer una nueva infraestructura de seguridad y privacidad en nuestros entornos de desarrollo y producción. Nos trasladamos a una plataforma en la nube específicamente diseñada para ser altamente disponible y segura, introdujimos una flota nueva de dispositivos de usuario final gestionados y mejoramos considerablemente la seguridad y privacidad en nuestra bóveda digital, logrando también el cumplimiento de la norma ISO 27701.</p>
+<p> Además, hemos invertido en reforzar nuestros equipos de privacidad y seguridad, estableciendo nuevas unidades de negocio, como nuestro equipo de operaciones de privacidad, seguridad y confianza (POST), cuyo objetivo es velar por la privacidad de los clientes y protegerlos frente al fraude y el abuso. Por otro lado, nuestro nuevo equipo de inteligencia y mitigación de amenazas (TIME) proporciona análisis de seguridad aplicables y tecnología avanzada sobre amenazas en LastPass Labs, nuestro centro de recursos para el mercado y nuestros clientes. </p><p>Gran parte de esta andadura está documentada en artículos de asistencia actualizados y un seguimiento casi en tiempo real de los sistemas LastPass en nuestro nuevo Centro de conformidad, que permite a los clientes estar al tanto de las novedades.</p>
+                        </div>
+                    </div>
+                    <div class="lp-faq__item">
+                        <h4 class="lp-faq__header"><span tabindex="0">¿Qué ocurre con LastPass? </span></h4>
+                        <div class="lp-faq__content">
+                            <p>
+LastPass es un popular gestor de contraseñas que ayuda a los usuarios a almacenar y gestionar sus credenciales. En diciembre de 2022, LastPass reveló un incidente de seguridad. LastPass mantiene su firme compromiso de ofrecer una gama de productos y servicios seguros a sus clientes, y no deja de mejorar e invertir en personas, procesos e infraestructuras para cumplir con este objetivo.</p>
+<p>Al agilizar el proceso de gestión de contraseñas y mejorar la seguridad, LastPass ofrece una solución integral a particulares y empresas que quieren proteger sus identidades digitales.</p>
+<p>Este artículo contiene más detalles sobre <a rel="noopener noreferrer" href="https://support.lastpass.com/s/document-item?language=en_US&amp;bundleId=lastpass&amp;topicId=LastPass/incident-work-completed-roadmap.html&amp;_LANG=enus" target="_blank">las medidas que hemos tomado para proteger LastPass</a>.</p>
+                        </div>
+                    </div>
+                    <div class="lp-faq__item">
+                        <h4 class="lp-faq__header"><span tabindex="0">¿Cuál es el lugar más seguro para guardar las contraseñas? </span></h4>
+                        <div class="lp-faq__content">
+                            <p>El lugar más seguro para guardar sus claves es un gestor de contraseñas como LastPass. Los gestores de contraseñas almacenan de forma segura sus credenciales de inicio de sesión en una bóveda cifrada, garantizando que solo usted tenga acceso a ellas. Con un gestor de contraseñas, podrá generar y guardar contraseñas únicas y seguras para todas sus cuentas. Esto reduce considerablemente el riesgo de que se vean expuestas. Este método no solo mejora su seguridad general, sino que también simplifica el proceso de gestión de varias contraseñas para facilitar una buena higiene de contraseñas.</p>
+<p>Encontrará más información en la <a href="/es/features/password-vault">bóveda de LastPass</a>.</p>
+                        </div>
+                    </div>
+                    <div class="lp-faq__item">
+                        <h4 class="lp-faq__header"><span tabindex="0">¿Qué alternativas hay más seguras que LastPass?  </span></h4>
+                        <div class="lp-faq__content">
+                            <p>
+Al considerar alternativas a LastPass, es importante buscar gestores de contraseñas que ofrezcan un cifrado robusto, auditorías de seguridad y políticas de privacidad transparentes. Aunque LastPass es un gestor de contraseñas eficaz y seguro, hay que tener en cuenta que todos los gestores de contraseñas se enfrentan a amenazas habituales, como los ataques de phishing. Para garantizar el máximo nivel de seguridad, los usuarios deben actualizar con frecuencia su software de gestión de contraseñas, activar la autenticación de doble factor (2FA) y estar alerta ante los intentos de suplantación de identidad.</p>
+<p>Es fundamental adoptar prácticas de seguridad, como usar una contraseña maestra única y compleja y configurar opciones de recuperación seguras. Además, los usuarios deben tener precaución sobre dónde introducen su contraseña maestra y estar alerta a las señales de posibles estafas de phishing. Al combinar un gestor de contraseñas fiable con estas recomendaciones, los usuarios podrán subir el listón de su seguridad digital en términos generales.</p>
+<p>Para ver más información, visite la <a href="/es/security">página de seguridad de LastPass</a> y nuestro sitio web de asistencia técnica para saber <a rel="noopener noreferrer" href="https://support.lastpass.com/s/document-item?language=en_US&amp;bundleId=lastpass&amp;topicId=LastPass/FAQ_LastPass_Secure.html&amp;_LANG=enus" target="_blank">qué hace que LastPass sea seguro</a>.</p>
+                        </div>
+                    </div>
+                    <div class="lp-faq__item">
+                        <h4 class="lp-faq__header"><span tabindex="0">¿Cuáles son las desventajas de LastPass? </span></h4>
+                        <div class="lp-faq__content">
+                            <p>
+Algunos usuarios consideran que las funciones limitadas de la versión gratuita de LastPass son una desventaja. Los planes de pago ofrecen más funciones, a cambio de una tarifa. Los usuarios de la versión gratuita podrían echar en falta funciones como el uso compartido de contraseñas, la asistencia personal al cliente y el acceso en caso de emergencia. Estas limitaciones pueden ser un inconveniente para quienes buscan herramientas de gestión de contraseñas más robustas, pero no quieren suscribirse a un plan de pago. Además, con la versión gratuita, los usuarios deben sincronizar sus contraseñas en un solo tipo de dispositivo, ya sea un ordenador o un dispositivo móvil.</p>
+<p>Obtén más información sobre <a href="/es/why-lastpass">por qué LastPass</a> es tan popular entre millones de personas y un referente para los expertos. </p>
+                        </div>
+                    </div>
+            </div>
+        
+    </div>
+
+ <script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "FAQPage",
+"mainEntity": [
+{
+"@type": "Question",
+"name": "¿Cómo puedo acceder a LastPass?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "LastPass es accesible desde ordenadores (macOS, Windows, Linux, Safari, Chrome, Firefox, Edge) y dispositivos móviles (iOS, watchOS y Android). Los usuarios gratuitos solo pueden utilizar LastPass en un tipo de dispositivo (ordenador o móvil), mientras que los usuarios de pago tienen acceso ilimitado."
+}
+}
+,{
+"@type": "Question",
+"name": "¿Cómo almacena LastPass las contraseñas de forma segura?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Su bóveda de LastPass protege los datos en su dispositivo de confianza a través del cifrado de conocimiento cero. Su dispositivo cifra y codifica en local sus contraseñas antes de enviarlas a los servidores de LastPass. La próxima vez que necesite iniciar sesión, LastPass le devolverá sus contraseñas cifradas, que serán descodificadas por su dispositivo de confianza."
+}
+}
+,{
+"@type": "Question",
+"name": "¿LastPass tiene acceso a mis contraseñas?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "No, nuestro modelo de seguridad de conocimiento cero garantiza que sus datos siempre sean suyos. LastPass no tendrá visibilidad ni acceso a sus contraseñas maestras o lo que almacene en su bóveda, como credenciales, tarjetas de crédito, direcciones postales o notas seguras."
+}
+}
+,{
+"@type": "Question",
+"name": "¿Cómo funciona el cifrado de LastPass?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "LastPass se basa en un modelo de seguridad de conocimiento cero que garantiza que usted es la única persona que conoce la contraseña maestra para acceder a su bóveda. Gracias al cifrado AES de 256 bits y a la función de derivación PBKDF2 con hash seguro (SHA256) y salting, su contraseña maestra nunca se guarda en nuestros servidores en texto plano. Esto garantiza solo usted la conozca."
+}
+}
+,{
+"@type": "Question",
+"name": "¿LastPass ya no es seguro?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "LastPass protege todas las contraseñas por usted, garantizando que sus credenciales más importantes estén siempre a buen recaudo, disponibles y confidenciales. Hemos pasado por una gran transformación en materia de seguridad, lo que nos ha convertido en una empresa más fuerte, innovadora e independiente, con un compromiso inquebrantable en materia de seguridad, privacidad y satisfacción del cliente. 
+Aprovechamos una oportunidad excepcional para establecer una nueva infraestructura de seguridad y privacidad en nuestros entornos de desarrollo y producción. Nos trasladamos a una plataforma en la nube específicamente diseñada para ser altamente disponible y segura, introdujimos una flota nueva de dispositivos de usuario final gestionados y mejoramos considerablemente la seguridad y privacidad en nuestra bóveda digital, logrando también el cumplimiento de la norma ISO 27701.
+ Además, hemos invertido en reforzar nuestros equipos de privacidad y seguridad, estableciendo nuevas unidades de negocio, como nuestro equipo de operaciones de privacidad, seguridad y confianza (POST), cuyo objetivo es velar por la privacidad de los clientes y protegerlos frente al fraude y el abuso. Por otro lado, nuestro nuevo equipo de inteligencia y mitigación de amenazas (TIME) proporciona análisis de seguridad aplicables y tecnología avanzada sobre amenazas en LastPass Labs, nuestro centro de recursos para el mercado y nuestros clientes. Gran parte de esta andadura está documentada en artículos de asistencia actualizados y un seguimiento casi en tiempo real de los sistemas LastPass en nuestro nuevo Centro de conformidad, que permite a los clientes estar al tanto de las novedades."
+}
+}
+,{
+"@type": "Question",
+"name": "¿Qué ocurre con LastPass? ",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "
+LastPass es un popular gestor de contraseñas que ayuda a los usuarios a almacenar y gestionar sus credenciales. En diciembre de 2022, LastPass reveló un incidente de seguridad. LastPass mantiene su firme compromiso de ofrecer una gama de productos y servicios seguros a sus clientes, y no deja de mejorar e invertir en personas, procesos e infraestructuras para cumplir con este objetivo.
+Al agilizar el proceso de gestión de contraseñas y mejorar la seguridad, LastPass ofrece una solución integral a particulares y empresas que quieren proteger sus identidades digitales.
+Este artículo contiene más detalles sobre las medidas que hemos tomado para proteger LastPass."
+}
+}
+,{
+"@type": "Question",
+"name": "¿Cuál es el lugar más seguro para guardar las contraseñas? ",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "El lugar más seguro para guardar sus claves es un gestor de contraseñas como LastPass. Los gestores de contraseñas almacenan de forma segura sus credenciales de inicio de sesión en una bóveda cifrada, garantizando que solo usted tenga acceso a ellas. Con un gestor de contraseñas, podrá generar y guardar contraseñas únicas y seguras para todas sus cuentas. Esto reduce considerablemente el riesgo de que se vean expuestas. Este método no solo mejora su seguridad general, sino que también simplifica el proceso de gestión de varias contraseñas para facilitar una buena higiene de contraseñas.
+Encontrará más información en la bóveda de LastPass."
+}
+}
+,{
+"@type": "Question",
+"name": "¿Qué alternativas hay más seguras que LastPass?  ",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "
+Al considerar alternativas a LastPass, es importante buscar gestores de contraseñas que ofrezcan un cifrado robusto, auditorías de seguridad y políticas de privacidad transparentes. Aunque LastPass es un gestor de contraseñas eficaz y seguro, hay que tener en cuenta que todos los gestores de contraseñas se enfrentan a amenazas habituales, como los ataques de phishing. Para garantizar el máximo nivel de seguridad, los usuarios deben actualizar con frecuencia su software de gestión de contraseñas, activar la autenticación de doble factor (2FA) y estar alerta ante los intentos de suplantación de identidad.
+Es fundamental adoptar prácticas de seguridad, como usar una contraseña maestra única y compleja y configurar opciones de recuperación seguras. Además, los usuarios deben tener precaución sobre dónde introducen su contraseña maestra y estar alerta a las señales de posibles estafas de phishing. Al combinar un gestor de contraseñas fiable con estas recomendaciones, los usuarios podrán subir el listón de su seguridad digital en términos generales.
+Para ver más información, visite la página de seguridad de LastPass y nuestro sitio web de asistencia técnica para saber qué hace que LastPass sea seguro."
+}
+}
+,{
+"@type": "Question",
+"name": "¿Cuáles son las desventajas de LastPass? ",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "
+Algunos usuarios consideran que las funciones limitadas de la versión gratuita de LastPass son una desventaja. Los planes de pago ofrecen más funciones, a cambio de una tarifa. Los usuarios de la versión gratuita podrían echar en falta funciones como el uso compartido de contraseñas, la asistencia personal al cliente y el acceso en caso de emergencia. Estas limitaciones pueden ser un inconveniente para quienes buscan herramientas de gestión de contraseñas más robustas, pero no quieren suscribirse a un plan de pago. Además, con la versión gratuita, los usuarios deben sincronizar sus contraseñas en un solo tipo de dispositivo, ya sea un ordenador o un dispositivo móvil.
+Obtén más información sobre por qué LastPass es tan popular entre millones de personas y un referente para los expertos. "
+}
+}
+
+]
+}
+</script>
+
+    <div data-component-name="Page End Callout" class="lp-page-end" style="background-color:#DDD2C1;background-image: url(/-/media/4b49008425ca4d02b94150354c7c52a5.svg)" data-theme="1">
+        <div class="lp-page-end__content">
+
+            
+
+                <h2 >Un gestor de contraseñas para proteger su vida profesional y personal</h2>
+            
+            
+
+
+
+
+                <div class="lp-button__container" >
+<a href="/es/products/business" class="lp-button primary brand jumbo" >Business</a>                    <a href="/es/products/personal" class="lp-button secondary brand jumbo" data-gaeventcategory="learn-more" data-gaeventaction="page-bottom_personal" >Personal</a>
+                </div>
+
+            <span class="lp-cta" >
+                Prueba gratuita para todos los planes disponibles. Sin tarjeta de crédito.
+            </span>
+
+            <input type="hidden" id="lphost" value="*.cloud.lastpass.com|*.dev.lastpass.com|localhost|127.0.0.1|localhost:8443|127.0.0.1:8443" />
+        </div>
+    </div>
+
+        </main>
+         
+<div class="section social">
+    <div class="content">
+        <div class="column">
+            <ul class="lp-social">
+         <li>Síganos en:</li>
+         <li>
+            <a target="_blank" href="https://www.facebook.com/LastPass">
+                  <svg width="24px" height="25px" viewbox="0 0 24 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="width: 24px;">
+                        <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+                        <title>img-icon-footer-facebook</title>
+                        <desc>Creada con Sketch.</desc>
+                        <defs>
+                              <path d="M15.3214373,23.5344038 C20.3332411,22.0938292 24,17.4751233 24,12 C24,5.372583 18.627417,0 12,0 C5.372583,0 0,5.372583 0,12 C0,18.5961405 5.32199337,23.9492628 11.9062547,23.9996415 L11.9062547,15.9575809 L9.06026912,15.9575809 L9.06026912,12.6540055 L11.9062547,12.6540055 L11.9062547,10.2209669 C11.9062547,7.39730283 13.6361674,5.85712242 16.1584919,5.85712242 C17.3638504,5.85712242 18.4017981,5.94640824 18.7031378,5.99105115 L18.7031378,8.93748324 L16.9509035,8.93748324 C15.578134,8.93748324 15.3214373,9.59596616 15.3214373,10.544628 L15.3214373,12.6540055 L18.5915305,12.6540055 L18.1562621,15.9575809 L15.3214373,15.9575809 L15.3214373,23.5344038 Z" id="facebook-path-1"></path>
+                        </defs>
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                              <g transform="translate(-198.000000, -2699.000000)">
+                                    <g transform="translate(0.000000, 2673.000000)">
+                                    <g transform="translate(0.000000, 0.344221)">
+                                          <g transform="translate(198.000000, 26.000000)">
+                                                <g>
+                                                <use fill="#00A3E0" xlink:href="#facebook-path-1"></use>
+                                                <use fill="#FFFFFF" xlink:href="#facebook-path-1"></use>
+                                                </g>
+                                          </g>
+                                    </g>
+                                    </g>
+                              </g>
+                        </g>
+                  </svg>
+            </a>
+         </li>
+         <li>
+            <a target="_blank" href="https://twitter.com/LastPass">
+                  <svg width="24px" height="25px" viewbox="0 0 24 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="width: 24px;">
+                        <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+                        <title>img-icon-footer-twitter</title>
+                        <desc>Creada con Sketch.</desc>
+                        <defs>
+                              <path d="M46,24 C52.627417,24 58,18.627417 58,12 C58,5.372583 52.627417,0 46,0 C39.372583,0 34,5.372583 34,12 C34,18.627417 39.372583,24 46,24 Z M52.54375,8.30625 C52.0453125,8.52109375 51.5039062,8.67578125 50.9453125,8.7359375 C51.5210937,8.3921875 51.959375,7.85078125 52.165625,7.20625 C51.6328125,7.52421875 51.03125,7.75625 50.4039062,7.8765625 C49.896875,7.33515625 49.175,7 48.3757813,7 C46.8375,7 45.6,8.24609375 45.6,9.77578125 C45.6,9.990625 45.6257813,10.2054687 45.66875,10.4117187 C43.365625,10.2914062 41.3117187,9.19140625 39.9453125,7.50703125 C39.7046875,7.91953125 39.5671875,8.3921875 39.5671875,8.9078125 C39.5671875,9.8703125 40.0570313,10.7210937 40.8046875,11.2195312 C40.3492187,11.2023437 39.9195312,11.0734375 39.55,10.8671875 L39.55,10.9015625 C39.55,12.2507812 40.5039062,13.3679687 41.7757813,13.6257812 C41.54375,13.6859375 41.2945312,13.7203125 41.0453125,13.7203125 C40.8648437,13.7203125 40.6929687,13.703125 40.5210937,13.6773437 C40.8734375,14.7773437 41.8960937,15.5765625 43.1164062,15.6023437 C42.1625,16.35 40.9679687,16.7882812 39.6703125,16.7882812 C39.4382813,16.7882812 39.2234375,16.7796875 39,16.7539062 C40.2289063,17.5445312 41.6898438,18 43.2625,18 C48.3671875,18 51.1601562,13.771875 51.1601562,10.1023437 C51.1601562,9.98203125 51.1601562,9.86171875 51.1515625,9.74140625 C51.6929687,9.34609375 52.165625,8.85625 52.54375,8.30625 Z" id="twitter-path-1"></path>
+                        </defs>
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                              <g transform="translate(-232.000000, -2699.000000)">
+                                    <g transform="translate(0.000000, 2673.000000)">
+                                    <g transform="translate(0.000000, 0.344221)">
+                                          <g transform="translate(198.000000, 26.000000)">
+                                                <g>
+                                                <use fill="#00A3E0" xlink:href="#twitter-path-1"></use>
+                                                <use fill="#FFFFFF" xlink:href="#twitter-path-1"></use>
+                                                </g>
+                                          </g>
+                                    </g>
+                                    </g>
+                              </g>
+                        </g>
+                  </svg>
+            </a>
+         </li>
+         
+         <li>
+            <a target="_blank" href="https://www.instagram.com/lastpassofficial/">
+                  <svg width="24px" height="25px" viewbox="0 0 24 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="width: 24px;">
+                        <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+                        <title>img-icon-footer-instagram</title>
+                        <desc>Creada con Sketch.</desc>
+                        <defs>
+                              <path d="M114,24 C120.627417,24 126,18.627417 126,12 C126,5.372583 120.627417,0 114,0 C107.372583,0 102,5.372583 102,12 C102,18.627417 107.372583,24 114,24 Z M120.714302,6.75893067 C120.714302,5.7946438 119.919658,5 118.955371,5 L108.758931,5 C107.794644,5 107,5.7946438 107,6.75893067 L107,16.9553714 C107,17.9196583 107.794644,18.7143021 108.758931,18.7143021 L118.955371,18.7143021 C119.919658,18.7143021 120.714302,17.9196583 120.714302,16.9553714 L120.714302,6.75893067 Z M119.160729,8.61607574 C119.160729,8.95536186 118.883943,9.2321479 118.544657,9.2321479 L116.991083,9.2321479 C116.651797,9.2321479 116.375011,8.95536186 116.375011,8.61607574 L116.375011,7.1428597 C116.375011,6.80357358 116.651797,6.52678753 116.991083,6.52678753 L118.544657,6.52678753 C118.883943,6.52678753 119.160729,6.80357358 119.160729,7.1428597 L119.160729,8.61607574 Z M116.625011,11.8303653 C116.625011,13.3035813 115.392867,14.5000113 113.86608,14.5000113 C112.348221,14.5000113 111.116076,13.3035813 111.116076,11.8303653 C111.116076,10.3571492 112.348221,9.16071925 113.86608,9.16071925 C115.392867,9.16071925 116.625011,10.3571492 116.625011,11.8303653 Z M119.160729,16.5892995 C119.160729,16.8928713 118.919657,17.133943 118.616085,17.133943 L109.071431,17.133943 C108.767859,17.133943 108.526788,16.8928713 108.526788,16.5892995 L108.526788,10.8035783 L109.785718,10.8035783 C109.669646,11.1696502 109.607146,11.5714364 109.607146,11.9732226 C109.607146,14.2589396 111.517863,16.1071561 113.86608,16.1071561 C116.223225,16.1071561 118.133942,14.2589396 118.133942,11.9732226 C118.133942,11.5714364 118.071442,11.1696502 117.95537,10.8035783 L119.160729,10.8035783 L119.160729,16.5892995 Z" id="instagram-path-1"></path>
+                        </defs>
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                              <g transform="translate(-300.000000, -2699.000000)">
+                                    <g transform="translate(0.000000, 2673.000000)">
+                                    <g transform="translate(0.000000, 0.344221)">
+                                          <g transform="translate(198.000000, 26.000000)">
+                                                <g>
+                                                <use fill="#00A3E0" xlink:href="#instagram-path-1"></use>
+                                                <use fill="#FFFFFF" xlink:href="#instagram-path-1"></use>
+                                                </g>
+                                          </g>
+                                    </g>
+                                    </g>
+                              </g>
+                        </g>
+                  </svg>
+            </a>
+         </li>
+         <li>
+            <a target="_blank" href="https://www.youtube.com/c/LastPass">
+                  <svg width="24px" height="25px" viewbox="0 0 24 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="width: 24px;">
+                        <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+                        <title>img-icon-footer-youtube</title>
+                        <desc>Creada con Sketch.</desc>
+                        <defs>
+                              <path d="M148,24 C154.627417,24 160,18.627417 160,12 C160,5.372583 154.627417,0 148,0 C141.372583,0 136,5.372583 136,12 C136,18.627417 141.372583,24 148,24 Z M151.300012,12.1428657 C151.300012,12.3319282 151.205481,12.5123969 151.042199,12.6069282 L146.642199,15.3569282 C146.556262,15.4170844 146.453137,15.4428657 146.350012,15.4428657 C146.255481,15.4428657 146.169543,15.4170844 146.083606,15.3741157 C145.911731,15.2795844 145.800012,15.0905219 145.800012,14.8928657 L145.800012,9.39286566 C145.800012,9.19520941 145.911731,9.00614691 146.083606,8.91161566 C146.255481,8.81708441 146.470324,8.81708441 146.642199,8.92880316 L151.042199,11.6788032 C151.205481,11.7733344 151.300012,11.9538032 151.300012,12.1428657 Z M155.700012,12.1428657 C155.700012,10.9139594 155.700012,9.60770941 155.433606,8.41317816 C155.244543,7.57099066 154.574231,6.95224066 153.766418,6.85770941 C151.858606,6.64286566 149.925012,6.64286566 148.000012,6.64286566 C146.075012,6.64286566 144.141418,6.64286566 142.233606,6.85770941 C141.425793,6.95224066 140.764074,7.57099066 140.575012,8.41317816 C140.300012,9.60770941 140.300012,10.9139594 140.300012,12.1428657 C140.300012,13.3717719 140.300012,14.6780219 140.566418,15.8725532 C140.755481,16.7147407 141.425793,17.3334907 142.233606,17.4280219 C144.141418,17.6428657 146.075012,17.6428657 148.000012,17.6428657 C149.925012,17.6428657 151.858606,17.6428657 153.766418,17.4280219 C154.574231,17.3334907 155.244543,16.7147407 155.425012,15.8725532 C155.700012,14.6780219 155.700012,13.3717719 155.700012,12.1428657 Z" id="youtube-path-1"></path>
+                        </defs>
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                              <g transform="translate(-334.000000, -2699.000000)">
+                                    <g transform="translate(0.000000, 2673.000000)">
+                                    <g transform="translate(0.000000, 0.344221)">
+                                          <g transform="translate(198.000000, 26.000000)">
+                                                <g>
+                                                <use fill="#00A3E0" xlink:href="#youtube-path-1"></use>
+                                                <use fill="#FFFFFF" xlink:href="#youtube-path-1"></use>
+                                                </g>
+                                          </g>
+                                    </g>
+                                    </g>
+                              </g>
+                        </g>
+                  </svg>
+            </a>
+         </li>
+         <li>
+            <a target="_blank" href="https://www.linkedin.com/company/lastpass">
+                  <svg width="24px" height="25px" viewbox="0 0 24 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="width: 24px;">
+                        <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+                        <title>img-icon-footer-linkedin</title>
+                        <desc>Creada con Sketch.</desc>
+                        <defs>
+                              <path d="M182,24 C188.627417,24 194,18.627417 194,12 C194,5.372583 188.627417,0 182,0 C175.372583,0 170,5.372583 170,12 C170,18.627417 175.372583,24 182,24 Z M176.645092,17.6383912 L176.645092,9.89284629 L179.223221,9.89284629 L179.223221,17.6383912 L176.645092,17.6383912 Z M179.390631,7.50445058 C179.390631,8.2410586 178.832595,8.84373789 177.928576,8.84373789 L177.917415,8.84373789 C177.046879,8.84373789 176.488842,8.2410586 176.488842,7.50445058 C176.488842,6.74552111 177.0692,6.16516327 177.950898,6.16516327 C178.832595,6.16516327 179.379471,6.74552111 179.390631,7.50445058 Z M185.919657,17.6383912 L185.919657,13.4977613 C185.919657,12.4486529 185.551353,11.7455271 184.625013,11.7455271 C183.910726,11.7455271 183.486618,12.2254384 183.296886,12.6830282 C183.229922,12.8504391 183.218761,13.0848144 183.218761,13.3080289 L183.218761,17.6383912 L180.640633,17.6383912 C180.674115,10.6182936 180.640633,9.89284629 180.640633,9.89284629 L183.218761,9.89284629 L183.218761,11.0200798 L183.19644,11.0200798 C183.531261,10.4843648 184.145101,9.71427464 185.529032,9.71427464 C187.225462,9.71427464 188.497785,10.8191867 188.497785,13.1964217 L188.497785,17.6383912 L185.919657,17.6383912 Z" id="linkedin-path-1"></path>
+                        </defs>
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                              <g transform="translate(-368.000000, -2699.000000)">
+                                    <g transform="translate(0.000000, 2673.000000)">
+                                    <g transform="translate(0.000000, 0.344221)">
+                                          <g transform="translate(198.000000, 26.000000)">
+                                                <g>
+                                                <use fill="#00A3E0" xlink:href="#linkedin-path-1"></use>
+                                                <use fill="#FFFFFF" xlink:href="#linkedin-path-1"></use>
+                                                </g>
+                                          </g>
+                                    </g>
+                                    </g>
+                              </g>
+                        </g>
+                  </svg>
+            </a>
+         </li>
+         <li>
+            <a target="_blank" href="https://community.spiceworks.com/pages/lastpass">
+            <svg width="24px" height="25px" viewbox="0 0 24 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="width: 24px;">
+                        <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+                        <title>img-icon-footer-spiceworks</title>
+                        <desc>Creada con Sketch.</desc>
+                        <defs>
+                              <path d="M216,24 C222.627417,24 228,18.627417 228,12 C228,5.372583 222.627417,0 216,0 C209.372583,0 204,5.372583 204,12 C204,18.627417 209.372583,24 216,24 Z M212.581404,10.5664625 C215.281227,6.89575254 218.882039,5.156333 221.20773,7.37403176 C222.917618,8.99951705 222.443882,13.3227278 220.050913,16.28729 C219.957599,16.4066414 219.856945,16.5210999 219.756466,16.6306655 C220.082542,16.2998717 220.397434,15.9439146 220.702365,15.5682111 C223.889204,11.6149372 224.485262,6.81152508 222.042491,4.8410916 C219.597098,2.87030864 215.031865,4.48163952 211.847647,8.4336902 C208.656439,12.3885368 208.059158,17.1902015 210.504376,19.1602855 C211.901993,20.2851241 213.989506,20.2400397 216.11459,19.263036 C214.697925,19.7883218 213.392924,19.6687957 212.404037,18.9809963 C209.893989,17.2328395 210.323864,13.6344743 212.581404,10.5664625 Z" id="spiceworks-path-1"></path>
+                        </defs>
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                              <g transform="translate(-402.000000, -2699.000000)">
+                                    <g transform="translate(0.000000, 2673.000000)">
+                                    <g transform="translate(0.000000, 0.344221)">
+                                          <g transform="translate(198.000000, 26.000000)">
+                                                <g>
+                                                <use fill="#00A3E0" xlink:href="#spiceworks-path-1"></use>
+                                                <use fill="#FFFFFF" xlink:href="#spiceworks-path-1"></use>
+                                                </g>
+                                          </g>
+                                    </g>
+                                    </g>
+                              </g>
+                        </g>
+                  </svg>
+            </a>
+         </li>
+      </ul>
+        </div>
+    </div>
+</div>    
+
+<footer class="container">
+    <div data-component-name="Footer" class="section top" data-module="mobileFooter">
+    <div class="content">
+        <div class="column">
+                <h5>LastPass</h5>
+                <ul class="menu">
+                        <li class="menu-item ">
+                            <a href="/es" data-gaeventcategory="footer" data-gaeventaction="lastpass-homepage" >P&#225;gina de inicio</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="https://lastpass.com/misc_download2.php" data-gaeventcategory="footer" data-gaeventaction="lastpass-download" >Descargar</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/es/pricing?tab=business" data-gaeventcategory="footer" data-gaeventaction="lastpass-pricing" >Precios</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/es/how-lastpass-works" data-gaeventcategory="footer" data-gaeventaction="lastpass-how-it-works" >C&#243;mo funciona</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/es/products/family-password-manager" data-gaeventcategory="footer" data-gaeventaction="lastpass-families" >Families</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/es/pricing/lastpass-premium-vs-free" data-gaeventcategory="footer" data-gaeventaction="lastpass-premium-free" >Premium y Free: diferencias</a>
+                        </li>
+                </ul>
+        </div>
+
+        <div class="column">
+                <h5>Funciones</h5>
+                <ul class="menu">
+                        <li class="menu-item ">
+                            <a href="/es/features/autofill" data-gaeventcategory="footer" data-gaeventaction="features-autofill" >Autocompletar</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/es/features/password-vault" data-gaeventcategory="footer" data-gaeventaction="features-password-vault" >B&#243;veda de contrase&#241;as</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/es/solutions/digital-wallet" data-gaeventcategory="footer" data-gaeventaction="features-digital-wallet" >Monedero digital</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/es/password-manager" data-gaeventcategory="footer" data-gaeventaction="features-password-manager" >Gestor de contrase&#241;as</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/es/features/password-generator" data-gaeventcategory="footer" data-gaeventaction="features-password-generator" >Generador de contrase&#241;as</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/es/features/dark-web-monitoring" data-gaeventcategory="footer" data-gaeventaction="features-dark-web" >Control de Dark Web</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="https://lastpass.com/auth/" data-gaeventcategory="footer" data-gaeventaction="features-authenticator" >LastPass Authenticator</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/es/products/business/family-benefits" data-gaeventcategory="footer" data-gaeventaction="features-family-dashboard" >Panel del administrador de la familia</a>
+                        </li>
+                </ul>
+        </div>
+
+        <div class="column">
+                <h5>Para empresas</h5>
+                <ul class="menu">
+                        <li class="menu-item ">
+                            <a href="/es/team-password-manager" data-gaeventcategory="footer" data-gaeventaction="business-teams" >Teams</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/es/products/business" data-gaeventcategory="footer" data-gaeventaction="business-business" >Business</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/es/solutions/enterprise-password-management" data-gaeventcategory="footer" data-gaeventaction="business-enterprise" >Enterprise</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/es/products/multifactor-authentication" data-gaeventcategory="footer" data-gaeventaction="business-mfa" >Autenticaci&#243;n multifactor</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/es/products/sso" data-gaeventcategory="footer" data-gaeventaction="business-sso" >Inicio de sesi&#243;n &#250;nico</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/es/resources" data-gaeventcategory="footer" data-gaeventaction="business-resources" >Recursos para empresas</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="https://admin.lastpass.com/" data-gaeventcategory="footer" data-gaeventaction="business-admin-login" >Inicio de sesi&#243;n del administrador</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/es/resources/tools/password-management-roi-calculator" data-gaeventcategory="footer" data-gaeventaction="business-roi-calculator" >Calculadora de ROI</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/es/partner" data-gaeventcategory="footer" data-gaeventaction="company-partners" >Asociados</a>
+                        </li>
+                </ul>
+        </div>
+
+        <div class="column">
+                <h5>Recursos</h5>
+                <ul class="menu">
+                        <li class="menu-item ">
+                            <a href="https://support.lastpass.com/" data-gaeventcategory="footer" target="_blank" data-gaeventaction="resources-support-center" >Support Center</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/es/university" data-gaeventcategory="footer" data-gaeventaction="resources-university" >LastPass University</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/es/partner" data-gaeventcategory="footer" data-gaeventaction="resources-partners" >Asociados</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="https://blog.lastpass.com/" data-gaeventcategory="footer" data-gaeventaction="resources-blog" >Blog</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="https://support.lastpass.com/s/community?language=es" data-gaeventcategory="footer" target="_blank" data-gaeventaction="resources-community" >Comunidad </a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="https://lastpass.com/my.php" data-gaeventcategory="footer" data-gaeventaction="resources-account" >Mi cuenta</a>
+                        </li>
+                </ul>
+        </div>
+
+        <div class="column">
+                <h5>Empresa</h5>
+                <ul class="menu">
+                        <li class="menu-item ">
+                            <a href="/es/trust-center" data-gaeventcategory="footer" data-gaeventaction="trust-center" >Trust Center</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/es/security/zero-knowledge-security" data-gaeventcategory="footer" data-gaeventaction="business-security" >Seguridad</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/es/trust-center/privacy" data-gaeventcategory="footer" data-gaeventaction="trust-privacy" >Privacy</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/es/trust-center/compliance" data-gaeventcategory="footer" data-gaeventaction="trust-compliance" >Compliance</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/es/legal-center" data-gaeventcategory="footer" data-gaeventaction="trust-legal-center" >Centro legal</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/es/trust-center/security/responsible-disclosure" data-gaeventcategory="footer" data-gaeventaction="trust-legal-center" >Revelaci&#243;n de vulnerabilidades de seguridad</a>
+                        </li>
+                </ul>
+                <h5>Productos</h5>
+                <ul class="menu">
+                        <li class="menu-item ">
+                            <a href="/es/company/about-us" data-gaeventcategory="footer" data-gaeventaction="company-about" >Qui&#233;nes somos</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/es/company/careers" data-gaeventcategory="footer" data-gaeventaction="company-jobs" >Oportunidades de trabajo</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/es/company/newsroom" data-gaeventcategory="footer" data-gaeventaction="company-newsroom" >Sala de prensa</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/es/contact-us" data-gaeventcategory="footer" title="Contacto" data-gaeventaction="company-contact" >Contacto</a>
+                        </li>
+                </ul>
+        </div>
+        
+        <div class="column">
+                <h5>Conseguir LastPass</h5>
+                <ul class="menu">
+                        <li class="menu-item ">
+                            <a href="https://lastpass.com/misc_download2.php?tab=mac#maclpmacosx" data-gaeventcategory="footer" data-gaeventaction="browsers-mac" >Mac</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="https://lastpass.com/misc_download2.php?tab=windows&amp;anchor=wx" data-gaeventcategory="footer" data-gaeventaction="browsers-windows" >Windows</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="https://lastpass.com/misc_download2.php?tab=linux&amp;anchor=linux#linuxlplinux" data-gaeventcategory="footer" data-gaeventaction="browsers-linux" >Linux</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="https://lastpass.com/misc_download2.php?tab=windows&amp;anchor=cr" data-gaeventcategory="footer" data-gaeventaction="browsers-chrome" >Chrome</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="https://lastpass.com/misc_download2.php?tab=windows&amp;anchor=ff" data-gaeventcategory="footer" data-gaeventaction="browsers-firefox" >Firefox</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="https://lastpass.com/misc_download2.php?tab=windows&amp;anchor=sfjs" data-gaeventcategory="footer" data-gaeventaction="browsers-safari" >Safari</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="https://lastpass.com/misc_download2.php?tab=windows&amp;anchor=op" data-gaeventcategory="footer" data-gaeventaction="browsers-opera" >Opera</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="https://microsoftedge.microsoft.com/addons/detail/lastpass-free-password-m/bbcinlkgjjkejfdpemiealijmmooekmp" data-gaeventcategory="footer" target="_blank" data-gaeventaction="browsers-microsoft-edge" >Microsoft Edge</a>
+                        </li>
+                </ul>
+<ul class="list-images">
+<li><a target="_blank" href="https://itunes.apple.com/app/id324613447" data-gaeventaction="get_lastpass-app-store" data-gaeventcategory="footer"><span class="icon-appstore"></span></a></li>
+<li><a target="_blank" href="https://play.google.com/store/apps/details?id=com.lastpass.lpandroid&amp;hl=en" data-gaeventaction="get_lastpass-google-play" data-gaeventcategory="footer"><span class="icon-googleplay"></span></a></li>
+</ul>
+        </div>
+
+    </div>
+</div>
+   
+
+
+            
+
+
+    <section class="lp-separation-line-background"><div class="lp-separation-line "><hr style="background-color: rgb(76, 83, 93);"></div></section>
+    <div class="slim-footer">
+        <div class="slim-footer__inner">
+            
+
+<div class="slim-footer__language-selector">
+    <div class="language-selector" data-module="pickLanguage">
+        <ul class="language-selector__drop">
+                            <li>
+                                <a href="/en">
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/es">
+                                    Espa&#241;ol
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/de">
+                                    Deutsch
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/fr">
+                                    Fran&#231;ais
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/it">
+                                    Italiano
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/nl">
+                                    Nederlands
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/pt">
+                                    Portugu&#234;s
+                                </a>
+                            </li>
+        </ul>
+        <button type="button" class="language-selector__button" data-toggle="modal" data-target="#langmodal" id="lang-btn">
+            <span class="icon"></span><span class="lang-text">Espa&#241;ol</span>
+        </button>
+    </div>
+</div><ul class="slim-footer__sub-footer">
+            <li>
+                <a href="/es/legal-center/privacy-policy" data-gaeventcategory="footer" data-gaeventaction="LastPass PrivacyPolicy" >Pol&#237;tica de privacidad</a>
+            </li>
+            <li>
+                <a href="/es/legal-center/terms-of-service/business" data-gaeventcategory="footer" data-gaeventaction="LastPass Terms of Service" >T&#233;rminos de servicio</a>
+            </li>
+            <li>
+                <a href="/es/legal-center/impressum" data-gaeventcategory="footer" data-gaeventaction="resources-imprint" >Aviso legal</a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" class="cookie-preferences-anchor" data-gaeventcategory="footer" data-gaeventaction="resources-cookies" >Preferencias de cookies</a>
+            </li>
+            <li>
+                <a href="/es/legal-center/your-privacy-choices" class="privacy-choices-link" data-gaeventcategory="footer" data-gaeventaction="LastPass YourPrivacyPolicy" >Sus opciones de privacidad</a>
+            </li>
+    <li>
+        <p>
+<a href="/es/legal-center/trademark" >&#169; 2024 LastPass US LP. Todos los derechos reservados.</a>        </p>
+    </li>
+</ul>
+        </div>
+    </div>
+</footer>
+        
+        
+        <script>
+
+function setCookie(cname, cvalue, exdays, domain, samesite, secure = true) {
+    var d = new Date(),
+        expires
+
+    d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000)
+
+    window.location.hostname === 'localhost' ? (secure = false) : secure
+
+    if (exdays.constructor == Number) {
+        expires = exdays === Infinity ? '; expires=Fri, 31 Dec 9999 23:59:59 GMT' : 'expires=' + d.toUTCString()
+    }
+
+    document.cookie =
+        cname +
+        '=' +
+        cvalue +
+        ';' +
+        expires +
+        (domain ? ';domain=' + domain + ';path=/' : '') +
+        ';SameSite=' +
+        samesite +
+        ';' +
+        (secure ? 'Secure;' : '')
+}
+
+function getCookieValue(cname) {
+    var nameEQ = cname + '=',
+        ca = document.cookie.split(';')
+    /* eslint-disable */
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i]
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length)
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length)
+    }
+    /* eslint-enable */
+    return null
+}
+
+window.addEventListener('load', () => {
+
+        var amplitudeButtons = document.querySelectorAll('.hp-personal-cta-trial');
+
+        amplitudeButtons.forEach(element => {
+            element.onclick = function () { setCookie('lp_optimizely', JSON.stringify({ "Jan-23-HP-Personal-CTA-Trial": "Control" }), 60, 'lastpass.com', 'None') };
+        });
+})
+</script>
+        <!-- Instance: PD1LDWK000EZM -->
+<!-- Lang: es -->
+<!-- #1 Premium Support Tool at Your Fingertips -->
+<!-- Let there be sight. -->
+<input type="hidden" id="data-country" data-country-code="CO" />
+
+    <script>
+        var akCIp = '190.26.15.100';
+    </script>
+
+        
+            <script>
+        var geolocationPhoneNumbers = {"LP_CONTACT_SALES":{"defaultPhone":"+1-888-621-0540","geolocatedPhones":[{"country":"AU","phone":"+61 1800 319 781"},{"country":"IN","phone":"000 800 050 3449"},{"country":"NZ","phone":"+64 (0) 800 234 343"},{"country":"SG","phone":"+65 800 492 2330"}]},"LP_CONTACT_SALES_NAVIGATION":{"defaultPhone":"+1-833-854-6520","geolocatedPhones":[{"country":"AU","phone":"1800 231 820"},{"country":"IN","phone":"000 800 050 3462"},{"country":"NZ","phone":"+64 (0) 800 369 513"},{"country":"SG","phone":"+65 800 492 2418"},{"country":"DE","phone":"0800 181 2837"},{"country":"IE","phone":"1800 851 218"},{"country":"NL","phone":"0800 022 3742"},{"country":"UK,GB","phone":"0800 069 8183"}]}};
+    </script>
+
+        
+
+
+<style>
+
+@media (min-width: 1300px) {
+    .top-banner--above-header + .lp-header .menu-wrapper {
+        top: 116px;
+    }
+}
+.unit-price-pre-discount {
+        text-decoration:line-through;
+        color: #6b7482;
+    }
+</style>
+<script>
+window.addEventListener('load', () => {
+    let banner = document.querySelector('.top-banner--above-header')
+    if(banner !== null && window.innerWidth > 1299) {
+        let dropdowns = [...document.querySelectorAll('.menu-wrapper')]
+        let headerHeight = document.querySelector('.lp-header').offsetHeight;
+        const bannerHeight = banner.offsetHeight;
+
+        function position() {
+            const scrollDepth = window.scrollY;
+            const subtract = (bannerHeight - scrollDepth) > -1 ? bannerHeight - scrollDepth : 0;
+            if(window.innerWidth > 1299) {
+                dropdowns.forEach((drop) => {
+                    drop.setAttribute('style', `top: ${subtract + headerHeight}px`);
+                })
+            } else {
+                dropdowns.forEach((drop) => {
+                    drop.setAttribute('style', `top: 0px`);
+                })
+            }
+        }
+
+        window.addEventListener('scroll', position)
+        window.addEventListener('resize', position)
+    }
+
+(()=>{
+    const popup = document.querySelector('.side-popup');
+    const alreadySeen = sessionStorage.getItem('sticky-banner-shown');
+    if(alreadySeen && popup !== null) {
+        popup.style.display = 'none'
+    }
+})();})
+</script>
+
+    </body>
+</html>

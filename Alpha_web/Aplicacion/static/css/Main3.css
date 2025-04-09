@@ -1,0 +1,83 @@
+.StyleRegistro {
+    background-image: url("../img/Registro.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    overflow-x: hidden; /* Eliminate horizontal scrollbar */
+    width: 100%; /* Ensure full width */
+}
+
+h2,.cont{
+    list-style: none;
+    text-align: center;
+    line-height: 1.4;
+    font-size: 25px;
+    text-shadow: 0 0 10px #e90d0d;
+    color: #ffffff;
+}
+
+p {
+    list-style: none;
+    text-align: center;
+    line-height: 1.4;
+    font-size: 20px;
+    text-shadow: 0 0 10px #0de91f;
+    color: #ffffff;
+}
+
+.text { color: #ffffff; 
+    margin-left: 0;
+    text-align: justify;
+    list-style: none;
+    text-align: left;
+    line-height: 1.4;
+    font-size: 21px;
+} 
+
+.ext{
+    list-style: none;
+    text-align: left;
+    line-height: 0;
+    font-size: 25px;
+    text-shadow: 0 0 10px #e90d0d;
+    color: #ffffff;
+}
+
+.inf { 
+    color: #ffffff; 
+    margin-left: 80px;
+    text-align:justify;
+}
+
+input, textarea, select {
+    min-width: 100%;
+    box-sizing: border-box;
+    padding: 6px 12px;
+    border: none;
+    border: 1px solid #2e9952;
+    box-shadow: 0px 0px 15px #0003;
+    background-color: transparent;
+    border-radius: 5px;
+    color: #f1efef;
+    margin: 8px 0px;
+}
+
+fieldset {
+    margin-top: 20px;
+    border: 1px solid #f1efef;
+    border-radius: 5px;
+}
+
+legend {
+    padding: 0px 6px;
+}

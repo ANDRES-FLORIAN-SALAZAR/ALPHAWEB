@@ -1,0 +1,4 @@
+cd "C:\Users\duvan\OneDrive\Desktop\PROGRAMACIÓN\APLICACIONES WEB\ALPHA_WEB\DOCUMENTO"
+
+
+<!DOCTYPE html> <html lang="es"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Contraseñas</title> <link href="{{ url_for('custom_static', filename='Main5.css') }}" rel="stylesheet"> </head> <body> <!-- Contenido del cuerpo --> </body> </html>
