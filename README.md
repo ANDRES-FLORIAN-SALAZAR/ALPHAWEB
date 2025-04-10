@@ -29,4 +29,4 @@ Un codificador de contraseñas es esencial para proteger la información sensibl
 
 Las contribuciones son bienvenidas. Por favor, abre un issue o envía un pull request con tus sugerencias o mejoras.
 
-**Nota**: Este gestor de contraseñas fue desarrollado por Dubanoaia Adelin en 2023, con el objetivo de mejorar la seguridad digital de los usuarios.
+**Nota**: Este gestor de contraseñas fue desarrollado por Duvan Andres Florian Salazar en 2025, con el objetivo de mejorar la seguridad digital de los usuarios.
