@@ -54,12 +54,7 @@ def Registro(request):
         try:
             if tipo_registro == 'natural':
                 return registro_persona_natural(request)
-            elif tipo_registro == 'empresa':
-                return registro_empresa_completo(request)
-            else:
-                messages.error(request, "Tipo de registro no válido.")
-                return redirect('registro')
-                
+            
         except Exception as e:
             logger.error(f"Error en el registro: {str(e)}")
             messages.error(request, 'Ocurrió un error durante el registro. Por favor intente nuevamente.')
