@@ -59,27 +59,6 @@ class Persona(models.Model):
         verbose_name_plural = 'Usuarios'
 
 
-class Empresa(models.Model):
-    nombre_empresa = models.CharField(max_length=100)
-    nit = models.CharField(max_length=20, unique=True)
-    direccion = models.CharField(max_length=255)
-    telefono = models.CharField(max_length=15)
-    email = models.EmailField()
-    persona = models.ForeignKey(
-        Persona,
-        on_delete=models.CASCADE,
-        related_name='empresas'
-    )
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
-    activa = models.BooleanField(default=True)
-
-    def __str__(self):
-        return f"{self.nombre_empresa} (NIT: {self.nit})"
-
-    class Meta:
-        verbose_name_plural = 'Empresas'
-
-
 def documento_path(instance, filename):
     # Ruta: documentos/user_id/year/month/filename
     return f'documentos/user_{instance.usuario.id}/{filename}'
