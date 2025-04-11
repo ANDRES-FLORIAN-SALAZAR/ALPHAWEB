@@ -45,7 +45,7 @@ def Registro(request):
             messages.error(request, "Por favor seleccione un tipo de registro.")
             return redirect('registro')
         
-        email = request.POST.get('email') if tipo_registro == 'natural' else request.POST.get('email_empresa')
+        email = request.POST.get('email') if tipo_registro == 'natural')
         
         if email and Persona.objects.filter(email=email).exists():
             messages.error(request, "El email ya está registrado. Por favor utilice otro o inicie sesión.")
