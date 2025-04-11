@@ -13,6 +13,4 @@ urlpatterns = [
     path('caja-fuerte/subir/', views.subir_documento, name='subir_documento'),
     path('caja-fuerte/ver/<int:documento_id>/', views.ver_documento, name='ver_documento'),
     path('caja-fuerte/eliminar/<int:documento_id>/', views.eliminar_documento, name='eliminar_documento'),
-    path('logout/', views.cerrar_sesion, name='logout'),
-    path('registro-empresas/', views.registro_empresa_completo, name='registro_empresas'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
