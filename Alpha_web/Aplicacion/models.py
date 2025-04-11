@@ -1,33 +1,48 @@
 from django.db import models
 from django.contrib.auth.hashers import make_password
+from django.core.validators import FileExtensionValidator  # Añade esta importación
 import os
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Persona(models.Model):
-    # Información básica (Usuario y Administrador)
+    GENERO_OPCIONES = [
+        ('Masculino', 'Masculino'),
+        ('Femenino', 'Femenino'),
+        ('Otro', 'Otro'),
+        ('Prefiero no decir', 'Prefiero no decir')
+    ]
+    
+    ROL_OPCIONES = [
+        ('Administrador', 'Administrador'),
+        ('Empresa', 'Empresa'), 
+        ('Usuario', 'Usuario')
+    ]
+
+    # Información básica
     nombre = models.CharField(max_length=100)
     apellido = models.CharField(max_length=100, blank=True)
     email = models.EmailField(unique=True)
     telefono = models.CharField(max_length=15, blank=True)
-    contraseña = models.CharField(max_length=100)  # Se encriptará antes de guardar
-    edad = models.IntegerField(null=True, blank=True)  # Campo opcional
+    contraseña = models.CharField(max_length=128)  # Longitud adecuada para hash
+    edad = models.PositiveIntegerField(
+        null=True, 
+        blank=True,
+        validators=[MinValueValidator(18), MaxValueValidator(100)]
+    )
     genero = models.CharField(
         max_length=50,
-        choices=[('Masculino', 'Masculino'), ('Femenino', 'Femenino')],
-        null=True, blank=True
+        choices=GENERO_OPCIONES,
+        null=True, 
+        blank=True
     )
-
-    # Información de empresa
-    nombre_empresa = models.CharField(max_length=100, null=True, blank=True)  # Opcional
-    nit = models.CharField(max_length=20, null=True, blank=True)  # Opcional, removed unique constraint
-    direccion_empresa = models.CharField(max_length=255, null=True, blank=True)  # Opcional
-
-    # Rol del usuario (Administrador, Empresa, Usuario)
     rol = models.CharField(
         max_length=50,
-        choices=[('Administrador', 'Administrador'), ('Empresa', 'Empresa'), ('Usuario', 'Usuario')],
+        choices=ROL_OPCIONES,
         default='Usuario'
     )
-    
+    fecha_registro = models.DateTimeField(auto_now_add=True)
+    ultimo_acceso = models.DateTimeField(auto_now=True)
+
     def save(self, *args, **kwargs):
         # Encriptar contraseña antes de guardar
         if self.contraseña and not self.contraseña.startswith('pbkdf2_sha256$'):
@@ -35,44 +50,87 @@ class Persona(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        if self.rol == 'Empresa':
-            return f"{self.nombre_empresa} - {self.rol}"
+        if self.rol == 'Empresa' and hasattr(self, 'empresa'):
+            return f"{self.empresa.nombre_empresa} - {self.rol}"
         return f"{self.nombre} {self.apellido} - {self.rol}"
 
-def documento_path(instance, filename):
-    # Crea una ruta personalizada para cada archivo
-    return f'documentos/{instance.usuario.id}/{filename}'
+    class Meta:
+        verbose_name = 'Usuario'
+        verbose_name_plural = 'Usuarios'
 
-class Empresas(models.Model):
+
+class Empresa(models.Model):
     nombre_empresa = models.CharField(max_length=100)
     nit = models.CharField(max_length=20, unique=True)
-    direccion_empresa = models.CharField(max_length=255)
-    telefono_empresa = models.CharField(max_length=15)
-    email_empresa = models.EmailField()
-    usuario = models.ForeignKey(Persona, on_delete=models.CASCADE, related_name='empresas')
+    direccion = models.CharField(max_length=255)
+    telefono = models.CharField(max_length=15)
+    email = models.EmailField()
+    persona = models.ForeignKey(
+        Persona,
+        on_delete=models.CASCADE,
+        related_name='empresas'
+    )
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    activa = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.nombre_empresa
-    
+        return f"{self.nombre_empresa} (NIT: {self.nit})"
+
+    class Meta:
+        verbose_name_plural = 'Empresas'
+
+
+def documento_path(instance, filename):
+    # Ruta: documentos/user_id/year/month/filename
+    return f'documentos/user_{instance.usuario.id}/{filename}'
+
 class DocumentoCajaFuerte(models.Model):
-    usuario = models.ForeignKey(Persona, on_delete=models.CASCADE, related_name='documentos')
+    CATEGORIAS = [
+        ('Personal', 'Personal'),
+        ('Laboral', 'Laboral'),
+        ('Financiero', 'Financiero'),
+        ('Médico', 'Médico'),
+        ('Legal', 'Legal'),
+        ('Otro', 'Otro')
+    ]
+
+    usuario = models.ForeignKey(
+        Persona, 
+        on_delete=models.CASCADE, 
+        related_name='documentos'
+    )
     nombre = models.CharField(max_length=200)
-    archivo = models.FileField(upload_to=documento_path)
-    descripcion = models.TextField(blank=True, null=True)
-    categoria = models.CharField(max_length=100, 
-                              choices=[
-                                  ('Personal', 'Personal'),
-                                  ('Laboral', 'Laboral'),
-                                  ('Financiero', 'Financiero'),
-                                  ('Médico', 'Médico'),
-                                  ('Legal', 'Legal'),
-                                  ('Otro', 'Otro')
-                              ],
-                              default='Personal')
+    archivo = models.FileField(
+        upload_to=documento_path,
+        validators=[FileExtensionValidator(
+            allowed_extensions=['pdf', 'doc', 'docx', 'xls', 'xlsx', 'jpg', 'jpeg', 'png']
+        )]
+    )
+    descripcion = models.TextField(blank=True)
+    categoria = models.CharField(
+        max_length=100, 
+        choices=CATEGORIAS,
+        default='Personal'
+    )
     fecha_subida = models.DateTimeField(auto_now_add=True)
-    
+    tamaño = models.PositiveIntegerField(editable=False)  # en bytes
+
+    def save(self, *args, **kwargs):
+        # Calcular tamaño antes de guardar
+        if self.archivo:
+            self.tamaño = self.archivo.size
+        super().save(*args, **kwargs)
+
     def filename(self):
         return os.path.basename(self.archivo.name)
-    
+
+    def tamaño_mb(self):
+        return round(self.tamaño / (1024 * 1024), 2) if self.tamaño else 0
+
     def __str__(self):
-        return f"{self.nombre} - {self.usuario}"
+        return f"{self.nombre} ({self.categoria}) - {self.usuario}"
+
+    class Meta:
+        verbose_name = 'Documento'
+        verbose_name_plural = 'Documentos'
+        ordering = ['-fecha_subida']

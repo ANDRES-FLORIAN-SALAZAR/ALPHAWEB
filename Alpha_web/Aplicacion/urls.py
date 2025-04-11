@@ -5,13 +5,14 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('Planes/', views.Planes, name='Planes'),
-    path('Inicio_Sesión/', views.Inicio_Sesión, name='Inicio_Sesión'),
-    path('Registro/', views.Registro, name='Registro'),
-    path('Contraseñas/', views.Contraseñas, name='Contraseñas'),
-    path('CajaFuerte/', views.caja_fuerte, name='CajaFuerte'),
-    path('CajaFuerte/subir/', views.subir_documento, name='SubirDocumento'),
-    path('CajaFuerte/ver/<int:documento_id>/', views.ver_documento, name='VerDocumento'),
-    path('CajaFuerte/eliminar/<int:documento_id>/', views.eliminar_documento, name='EliminarDocumento'),
-    path('logout/', views.cerrar_sesion, name='Logout'),
+    path('planes/', views.Planes, name='Planes'),
+    path('inicio-sesion/', views.Inicio_Sesion, name='inicio_sesion'),
+    path('registro/', views.Registro, name='registro'),
+    path('contrasenas/', views.Contraseñas, name='contrasenas'),
+    path('caja-fuerte/', views.caja_fuerte, name='caja_fuerte'),
+    path('caja-fuerte/subir/', views.subir_documento, name='subir_documento'),
+    path('caja-fuerte/ver/<int:documento_id>/', views.ver_documento, name='ver_documento'),
+    path('caja-fuerte/eliminar/<int:documento_id>/', views.eliminar_documento, name='eliminar_documento'),
+    path('logout/', views.cerrar_sesion, name='logout'),
+    path('registro-empresas/', views.registro_empresa_completo, name='registro_empresas'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
