@@ -11,12 +11,6 @@ class Persona(models.Model):
         ('Otro', 'Otro'),
         ('Prefiero no decir', 'Prefiero no decir')
     ]
-    
-    ROL_OPCIONES = [
-        ('Administrador', 'Administrador'),
-        ('Empresa', 'Empresa'), 
-        ('Usuario', 'Usuario')
-    ]
 
     # Información básica
     nombre = models.CharField(max_length=100)
@@ -48,11 +42,6 @@ class Persona(models.Model):
         if self.contraseña and not self.contraseña.startswith('pbkdf2_sha256$'):
             self.contraseña = make_password(self.contraseña)
         super().save(*args, **kwargs)
-
-    def __str__(self):
-        if self.rol == 'Empresa' and hasattr(self, 'empresa'):
-            return f"{self.empresa.nombre_empresa} - {self.rol}"
-        return f"{self.nombre} {self.apellido} - {self.rol}"
 
     class Meta:
         verbose_name = 'Usuario'
