@@ -101,65 +101,6 @@ def registro_persona_natural(request):
     messages.success(request, '¡Registro exitoso! Por favor inicia sesión.')
     return redirect('Inicio_Sesion')
 
-def registro_empresa_completo(request):
-    # Primero crear la persona (representante legal)
-    nombre_completo = request.POST.get('nombre_completo', '')
-    if not nombre_completo:
-        messages.error(request, "El nombre completo del representante es obligatorio.")
-        return redirect('registro')
-    
-    partes_nombre = nombre_completo.split()
-    representante = Persona()
-    if partes_nombre:
-        representante.nombre = partes_nombre[0]
-        if len(partes_nombre) > 1:
-            representante.apellido = ' '.join(partes_nombre[1:])
-    
-    email = request.POST.get('email', '')
-    if not email:
-        messages.error(request, "El email del representante es obligatorio.")
-        return redirect('registro')
-    
-    contraseña = request.POST.get('contraseña', '')
-    if not contraseña:
-        messages.error(request, "La contraseña es obligatoria.")
-        return redirect('registro')
-    
-    representante.email = email
-    representante.contraseña = make_password(contraseña)
-    representante.edad = request.POST.get('edad') or None
-    representante.telefono = request.POST.get('celular', '')
-    representante.genero = request.POST.get('genero', '')
-    representante.rol = 'Empresa'
-    representante.save()
-    
-    # Ahora crear la empresa
-    nombre_empresa = request.POST.get('nombre_empresa', '')
-    if not nombre_empresa:
-        messages.error(request, "El nombre de la empresa es obligatorio.")
-        return redirect('registro')
-    
-    nit = request.POST.get('nit', '')
-    if not nit:
-        messages.error(request, "El NIT es obligatorio.")
-        return redirect('registro')
-    
-    if Empresa.objects.filter(nit=nit).exists():
-        messages.error(request, "El NIT ya está registrado.")
-        return redirect('registro')
-    
-    empresa = Empresa(
-        nombre_empresa=nombre_empresa,
-        nit=nit,
-        direccion_empresa=request.POST.get('direccion_empresa', ''),
-        telefono_empresa=request.POST.get('telefono_empresa', ''),
-        email_empresa=request.POST.get('email_empresa', ''),
-        persona=representante
-    )
-    empresa.save()
-    
-    messages.success(request, '¡Registro de empresa exitoso! Por favor inicia sesión.')
-    return redirect('Inicio_Sesion')
 
 # Página principal
 def home(request):
