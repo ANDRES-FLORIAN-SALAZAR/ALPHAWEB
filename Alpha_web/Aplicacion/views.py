@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.http import HttpResponse, FileResponse
 from django.contrib.auth.hashers import check_password, make_password
-from .models import Persona, Empresa, DocumentoCajaFuerte
+from .models import Persona, DocumentoCajaFuerte
 import os
 import logging
 from functools import wraps
