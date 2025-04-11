@@ -10,7 +10,7 @@ from functools import wraps
 # Configurar el logger
 logger = logging.getLogger(__name__)
 
-# Función para verificar si un usuario está autenticado
+# Función para verificar autenticación
 def verificar_autenticacion(request):
     if 'usuario_id' in request.session:
         try:
@@ -19,83 +19,80 @@ def verificar_autenticacion(request):
             del request.session['usuario_id']
     return None
 
-# Decorador personalizado para verificar si un usuario está autenticado
+# Decorador para autenticación requerida
 def requiere_autenticacion(view_func):
     @wraps(view_func)
     def _wrapped_view(request, *args, **kwargs):
         usuario = verificar_autenticacion(request)
         if not usuario:
             messages.error(request, 'Debes iniciar sesión para acceder a esta página.')
-            return redirect('Inicio_Sesion')  # Corregido: 'Inicio_Sesión' -> 'Inicio_Sesion'
+            return redirect('Inicio_Sesion')
         return view_func(request, *args, **kwargs)
     return _wrapped_view
 
-# Función de registro
+# Registro simplificado solo para personas naturales
 def Registro(request):
-    # Si el usuario ya está autenticado, redirigir a home
     if verificar_autenticacion(request):
         return redirect('home')
-        
+
     if request.method == 'POST':
-        logger.info(f"Datos del formulario: {request.POST}")
-        
-        tipo_registro = request.POST.get('tipo_registro')
-        
-        if not tipo_registro:
-            messages.error(request, "Por favor seleccione un tipo de registro.")
-            return redirect('registro')
-        
-        email = request.POST.get('email') if tipo_registro == 'natural')
-        
-        if email and Persona.objects.filter(email=email).exists():
-            messages.error(request, "El email ya está registrado. Por favor utilice otro o inicie sesión.")
-            return redirect('registro')
-            
         try:
-            if tipo_registro == 'natural':
-                return registro_persona_natural(request)
-            
+            return registro_persona_natural(request)
         except Exception as e:
-            logger.error(f"Error en el registro: {str(e)}")
-            messages.error(request, 'Ocurrió un error durante el registro. Por favor intente nuevamente.')
+            logger.error(f"Error en registro: {str(e)}")
+            messages.error(request, 'Error durante el registro. Intenta nuevamente.')
             return redirect('registro')
-    
+
     return render(request, 'Registro.html')
 
 def registro_persona_natural(request):
-    nombre_completo = request.POST.get('nombre_completo', '')
+    # Validar campos obligatorios
+    nombre_completo = request.POST.get('nombre_completo', '').strip()
+    email = request.POST.get('email', '').strip()
+    contraseña = request.POST.get('contraseña', '').strip()
+
     if not nombre_completo:
         messages.error(request, "El nombre completo es obligatorio.")
         return redirect('registro')
-    
-    partes_nombre = nombre_completo.split()
-    nueva_persona = Persona()
-    if partes_nombre:
-        nueva_persona.nombre = partes_nombre[0]
-        if len(partes_nombre) > 1:
-            nueva_persona.apellido = ' '.join(partes_nombre[1:])
-    
-    email = request.POST.get('email', '')
     if not email:
         messages.error(request, "El email es obligatorio.")
         return redirect('registro')
-    
-    contraseña = request.POST.get('contraseña', '')
     if not contraseña:
         messages.error(request, "La contraseña es obligatoria.")
         return redirect('registro')
-    
-    nueva_persona.email = email
-    nueva_persona.contraseña = make_password(contraseña)
-    nueva_persona.edad = request.POST.get('edad') or None
-    nueva_persona.telefono = request.POST.get('celular', '')
-    nueva_persona.genero = request.POST.get('genero', '')
-    nueva_persona.rol = 'Usuario'
+
+    # Verificar email único
+    if Persona.objects.filter(email=email).exists():
+        messages.error(request, "El email ya está registrado.")
+        return redirect('registro')
+
+    # Dividir nombre completo
+    partes_nombre = nombre_completo.split(' ', 1)
+    nombre = partes_nombre[0]
+    apellido = partes_nombre[1] if len(partes_nombre) > 1 else ''
+
+    # Crear usuario
+    nueva_persona = Persona(
+        nombre=nombre,
+        apellido=apellido,
+        email=email,
+        contraseña=make_password(contraseña),
+        telefono=request.POST.get('celular', '').strip(),
+        genero=request.POST.get('genero', '').strip(),
+        rol='Usuario'
+    )
+
+    # Validar edad opcional
+    if edad := request.POST.get('edad', '').strip():
+        try:
+            nueva_persona.edad = int(edad)
+        except ValueError:
+            messages.error(request, "La edad debe ser un número válido.")
+            return redirect('registro')
+
     nueva_persona.save()
-    
     messages.success(request, '¡Registro exitoso! Por favor inicia sesión.')
     return redirect('Inicio_Sesion')
-
 
 # Página principal
 def home(request):
