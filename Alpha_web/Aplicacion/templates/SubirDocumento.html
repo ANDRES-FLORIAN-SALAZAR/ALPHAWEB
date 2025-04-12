@@ -1,0 +1,60 @@
+{% extends "base.html"%}
+{% load static %}
+{% block content %}
+
+<div class="StyleSubirDocumento">
+    <div class="cajafuerte-header">
+        <h1 class="cajafuerte-title">Subir Nuevo Documento</h1>
+        {% if messages %}
+            <div class="cajafuerte-messages">
+                {% for message in messages %}
+                    <div class="message {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    
+    <div class="cajafuerte-form-container">
+        <form action="{% url 'SubirDocumento' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset>
+                <legend>Información del Documento</legend>
+                
+                <div class="form-group">
+                    <label for="nombre">Nombre del documento:</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Ingrese un nombre descriptivo" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="descripcion">Descripción (opcional):</label>
+                    <textarea id="descripcion" name="descripcion" placeholder="Agregue detalles sobre este documento" rows="3"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="categoria">Categoría:</label>
+                    <select id="categoria" name="categoria" required>
+                        <option value="Personal">Personal</option>
+                        <option value="Laboral">Laboral</option>
+                        <option value="Financiero">Financiero</option>
+                        <option value="Médico">Médico</option>
+                        <option value="Legal">Legal</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="archivo">Seleccionar archivo:</label>
+                    <input type="file" id="archivo" name="archivo" required>
+                    <p class="file-help">Formatos aceptados: PDF, Word, Excel, imágenes, etc.</p>
+                </div>
+            </fieldset>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn-submit">Subir Documento</button>
+                <a href="{% url 'CajaFuerte' %}" class="btn-cancel">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
