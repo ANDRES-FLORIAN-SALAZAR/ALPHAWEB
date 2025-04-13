@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.http import HttpResponse, FileResponse
+from django.http import FileResponse, HttpResponse
 from django.contrib.auth.hashers import check_password, make_password
 from .models import Persona, DocumentoCajaFuerte
 import os
@@ -49,7 +49,7 @@ def registro_persona_natural(request):
     # Validar campos obligatorios
     nombre_completo = request.POST.get('nombre_completo', '').strip()
     email = request.POST.get('email', '').strip()
-    contraseña = request.POST.get('contraseña', '').strip()
+    contrasena = request.POST.get('Contrasena', '').strip()
 
     if not nombre_completo:
         messages.error(request, "El nombre completo es obligatorio.")
@@ -57,8 +57,8 @@ def registro_persona_natural(request):
     if not email:
         messages.error(request, "El email es obligatorio.")
         return redirect('registro')
-    if not contraseña:
-        messages.error(request, "La contraseña es obligatoria.")
+    if not contrasena:
+        messages.error(request, "La contrasena es obligatoria.")
         return redirect('registro')
 
     # Verificar email único
@@ -76,7 +76,7 @@ def registro_persona_natural(request):
         nombre=nombre,
         apellido=apellido,
         email=email,
-        contraseña=make_password(contraseña),
+        contrasena=make_password(contrasena),
         telefono=request.POST.get('celular', '').strip(),
         genero=request.POST.get('genero', '').strip(),
         rol='Usuario'
@@ -88,16 +88,17 @@ def registro_persona_natural(request):
             nueva_persona.edad = int(edad)
         except ValueError:
             messages.error(request, "La edad debe ser un número válido.")
-            return redirect('registro')
+            return redirect('Registro')
 
     nueva_persona.save()
     messages.success(request, '¡Registro exitoso! Por favor inicia sesión.')
     return redirect('Inicio_Sesion')
 
-# Página principal
+# Página principal   
+
 def home(request):
     usuario = verificar_autenticacion(request)
-    return render(request, 'home.html', {'usuario': usuario})   
+    return render(request, 'home.html', {'usuario': usuario})
 
 def Planes(request):
     usuario = verificar_autenticacion(request)
@@ -110,16 +111,16 @@ def Inicio_Sesion(request):  # Nombre corregido para consistencia
         
     if request.method == 'POST':
         email = request.POST.get('email')
-        contraseña = request.POST.get('contraseña')
+        contrasena = request.POST.get('Contrasena')
         
-        if not email or not contraseña:
+        if not email or not contrasena:
             messages.error(request, "Por favor complete todos los campos.")
             return render(request, 'Inicio_Sesion.html')
         
         try:
             usuario = Persona.objects.get(email=email)
             
-            if check_password(contraseña, usuario.contraseña):
+            if check_password(contrasena, usuario.contrasena):
                 request.session['usuario_id'] = usuario.id
                 request.session.set_expiry(1209600)  # 2 semanas
                 
@@ -128,15 +129,15 @@ def Inicio_Sesion(request):  # Nombre corregido para consistencia
                 
                 return redirect(request.GET.get('next', 'home'))
             else:
-                messages.error(request, 'Contraseña incorrecta.')
+                messages.error(request, 'Contrasena incorrecta.')
         except Persona.DoesNotExist:
             messages.error(request, 'No existe un usuario con ese email.')
     
     return render(request, 'Inicio_Sesion.html')
 
-def Contraseñas(request):
+def Contrasenas(request):
     usuario = verificar_autenticacion(request)
-    return render(request, 'Contraseñas.html', {'usuario': usuario})
+    return render(request, 'Contrasenas.html', {'usuario': usuario})
 
 def cerrar_sesion(request):
     if 'usuario_id' in request.session:

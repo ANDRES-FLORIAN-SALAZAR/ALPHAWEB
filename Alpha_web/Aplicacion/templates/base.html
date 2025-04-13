@@ -21,15 +21,17 @@
         <div class="nav-links">
             <a href="{% url 'home' %}">Home</a>
             <a href="{% url 'Planes' %}">Nuestros Planes</a>
+            
             {% if request.session.usuario_id %}
                 <a href="{% url 'CajaFuerte' %}">Caja Fuerte</a>
-                <a href="{% url 'Contraseñas' %}">Contraseñas</a>
+                <a href="{% url 'Contrasenas' %}">Contrasenas</a>
                 <a href="{% url 'Logout' %}">Cerrar Sesión</a>
+            
             {% else %}
-                <a href="{% url 'Registro' %}">Regístrate</a>
-                <a href="{% url 'RegistroEmpresas' %}">Regístrate</a>
-                <a href="{% url 'Inicio_Sesión' %}">Iniciar Sesión</a>
-                <a href="{% url 'Contraseñas' %}">Contraseñas</a>
+                <a href="{% url 'registro' %}">Regístrate</a>
+                <a href="{% url 'Inicio_Sesion' %}">Iniciar Sesión</a>
+                <a href="{% url 'Contrasenas' %}">Contrasenas</a>
+            
             {% endif %}
         </div>
         
@@ -62,13 +64,12 @@
             <li><a href="{% url 'Planes' %}">Nuestros Planes</a></li>
             {% if request.session.usuario_id %}
                 <li><a href="{% url 'CajaFuerte' %}">Caja Fuerte</a></li>
-                <li><a href="{% url 'Contraseñas' %}">Contraseñas</a></li>
+                <li><a href="{% url 'Contrasenas' %}">Contrasenas</a></li>
                 <li><a href="{% url 'Logout' %}">Cerrar Sesión</a></li>
             {% else %}
-                <li><a href="{% url 'Registro' %}">Registro</a></li>
-    <li><a href="{% url 'RegistroEmpresas' %}">RegistroEmpresas</a></li>
-                <li><a href="{% url 'Inicio_Sesión' %}">Iniciar Sesión</a></li>
-                <li><a href="{% url 'Contraseñas' %}">Contraseñas</a></li>
+                <li><a href="{% url 'registro' %}">Regístrate</a></li>
+                <li><a href="{% url 'Inicio_Sesion' %}">Iniciar Sesión</a></li>
+                <li><a href="{% url 'Contrasenas' %}">Contrasenas</a></li>
             {% endif %}
         </ul>
     </div>
@@ -108,7 +109,6 @@
     <a href="#popup5">Sus opciones de privacidad</a> |
 </div>
 
-<!-- Popups/Tarjetas de información -->
 <div id="popup1" class="overlay" onclick="closePopup(event)">
     <div class="popup-card" onclick="event.stopPropagation()">
         <h2>Política de Privacidad</h2>

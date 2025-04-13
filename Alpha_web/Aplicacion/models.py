@@ -21,7 +21,7 @@ class Persona(models.Model):
     apellido = models.CharField(max_length=100, blank=True)
     email = models.EmailField(unique=True)
     telefono = models.CharField(max_length=15, blank=True)
-    contraseña = models.CharField(max_length=128)
+    contrasena = models.CharField(max_length=128)
     edad = models.PositiveIntegerField(
         null=True,
         blank=True,
@@ -42,8 +42,8 @@ class Persona(models.Model):
     ultimo_acceso = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
-        if self.contraseña and not self.contraseña.startswith('pbkdf2_sha256$'):
-            self.contraseña = make_password(self.contraseña)
+        if self.contrasena and not self.contrasena.startswith('pbkdf2_sha256$'):
+            self.contrasena = make_password(self.contrasena)
         super().save(*args, **kwargs)
 
     class Meta:

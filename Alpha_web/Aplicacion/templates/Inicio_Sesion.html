@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="StyleInicio_Sesión">
-    <form action="{% url 'Inicio_Sesión' %}" method="post">
+    <form action="{% url 'Inicio_Sesion' %}" method="post">
         {% csrf_token %}
         <fieldset>
             <center><legend>INICIO DE SESIÓN</legend></center>
@@ -22,9 +22,9 @@
                 <img src="{% static 'Iconos/login.jpg' %}" alt="login" class="imagen">
             </div>
             <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="contraseña" placeholder="Contraseña" required>
+            <input type="password" name="contrasena" placeholder="Contrasena" required>
             <input type="submit" value="Iniciar Sesión">
-            <a href="{% url 'Registro' %}" class="btn-registro">
+            <a href="{% url 'registro' %}" class="btn-registro">
                 <input type="button" value="Registrarse">
             </a>
         </fieldset>

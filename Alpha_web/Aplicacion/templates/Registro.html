@@ -13,7 +13,7 @@
     </div>
     {% endif %}
 
-    <form action="{% url 'Registro' %}" method="POST">
+    <form action="{% url 'registro' %}" method="POST">
         {% csrf_token %}
         <fieldset>
             <legend>TIPO DE REGISTRO</legend>
@@ -28,7 +28,7 @@
             <legend>INFORMACIÓN PERSONAL</legend>
             <input type="text" name="nombre_completo" placeholder="Nombre Completo" required>
             <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="contraseña" placeholder="Contraseña" required>
+            <input type="password" name="contrasena" placeholder="Contrasena" required>
             <input type="number" name="edad" placeholder="Edad">
             <input type="tel" name="celular" placeholder="Celular">
             <label for="genero">Género</label>
@@ -40,7 +40,7 @@
         </fieldset>
 
         <center><button type="submit">Registrarse</button></center>
-        <h1>¿Ya tienes una cuenta? <a href="{% url 'Inicio_Sesión' %}">Inicia sesión aquí</a></h1>
+        <h1>¿Ya tienes una cuenta? <a href="{% url 'Inicio_Sesion' %}">Inicia sesión aquí</a></h1>
     </form>
 </div>
 
