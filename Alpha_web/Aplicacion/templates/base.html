@@ -17,6 +17,7 @@
         
     </head>
 <body>
+
     <div class="navbar">
         <div class="nav-links">
             <a href="{% url 'home' %}">Home</a>
@@ -62,15 +63,19 @@
         <ul class="inf">
             <li><a href="{% url 'home' %}">Home</a></li>
             <li><a href="{% url 'Planes' %}">Nuestros Planes</a></li>
+            
             {% if request.session.usuario_id %}
                 <li><a href="{% url 'CajaFuerte' %}">Caja Fuerte</a></li>
                 <li><a href="{% url 'Contrasenas' %}">Contrasenas</a></li>
                 <li><a href="{% url 'Logout' %}">Cerrar Sesión</a></li>
+            
             {% else %}
                 <li><a href="{% url 'registro' %}">Regístrate</a></li>
                 <li><a href="{% url 'Inicio_Sesion' %}">Iniciar Sesión</a></li>
                 <li><a href="{% url 'Contrasenas' %}">Contrasenas</a></li>
+            
             {% endif %}
+            
         </ul>
     </div>
     
