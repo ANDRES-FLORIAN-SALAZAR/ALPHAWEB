@@ -32,4 +32,4 @@ Las contribuciones son bienvenidas. Por favor, abre un issue o envía un pull re
 **Nota**: Este gestor de contraseñas fue desarrollado por Duvan Andres Florian Salazar en 2025, con el objetivo de mejorar la seguridad digital de los usuarios.
 
 Innovando la Seguridad de Contraseñas en la Era Digital tiene licencia
-bajo CC POR 4.0 © 2 por DUVAN ANDRÉS FLORIAN SALAZAR [![CC BY 4.0](https://i.creativecommons.org/l/by/4.0/88x31.png)](https://creativecommons.org/licenses/by/4.0/) [![Persona](https://img.shields.io/badge/Persona-Duvan%20Andr%C3%A9s%20Florian%20Salazar-blue)](https://github.com/duvanflorian)
+bajo CC POR 4.0 © 2 por DUVAN ANDRÉS FLORIAN SALAZAR [![CC BY 4.0](https://i.creativecommons.org/l/by/4.0/88x31.png)](https://creativecommons.org/licenses/by/4.0/)
