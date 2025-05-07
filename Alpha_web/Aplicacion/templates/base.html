@@ -58,26 +58,24 @@
         {% block content %}{% endblock %}
     </div>
 
-    <div class="footer-column">
-        <h2>Enlaces Rápidos</h2>
-        <ul class="inf">
-            <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="{% url 'Planes' %}">Nuestros Planes</a></li>
-            
-            {% if request.session.usuario_id %}
-                <li><a href="{% url 'CajaFuerte' %}">Caja Fuerte</a></li>
-                <li><a href="{% url 'Contrasenas' %}">Contrasenas</a></li>
-                <li><a href="{% url 'Logout' %}">Cerrar Sesión</a></li>
-            
-            {% else %}
-                <li><a href="{% url 'registro' %}">Regístrate</a></li>
-                <li><a href="{% url 'Inicio_Sesion' %}">Iniciar Sesión</a></li>
-                <li><a href="{% url 'Contrasenas' %}">Contrasenas</a></li>
-            
-            {% endif %}
-            
-        </ul>
-    </div>
+    <div class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h2>Enlaces Rápidos</h2>
+                <ul class="inf">
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'Planes' %}">Nuestros Planes</a></li>
+                    {% if request.session.usuario_id %}
+                        <li><a href="{% url 'CajaFuerte' %}">Caja Fuerte</a></li>
+                        <li><a href="{% url 'Contrasenas' %}">Contraseñas</a></li>
+                        <li><a href="{% url 'Logout' %}">Cerrar Sesión</a></li>
+                    {% else %}
+                        <li><a href="{% url 'registro' %}">Regístrate</a></li>
+                        <li><a href="{% url 'Inicio_Sesion' %}">Iniciar Sesión</a></li>
+                        <li><a href="{% url 'Contrasenas' %}">Contraseñas</a></li>
+                    {% endif %}
+                </ul>
+            </div>
     
             <div class="footer-column">
                 <h2>Contacto</h2>
@@ -101,18 +99,20 @@
             </div>
         </div>
     
-        <hr>
+        <hr />
+    
         <div class="final">
             <p>&copy; 2024 ALPHA WEB. Todos los derechos reservados.</p>
         </div>
     
         <div class="footer-links">
-    <a href="#popup1">Política de privacidad</a> | 
-    <a href="#popup2">Términos de servicio</a> |
-    <a href="#popup3">Aviso legal</a> |
-    <a href="#popup4">Preferencias de cookies</a> |
-    <a href="#popup5">Sus opciones de privacidad</a> |
-</div>
+            <a href="#popup1">Política de privacidad</a> |
+            <a href="#popup2">Términos de servicio</a> |
+            <a href="#popup3">Aviso legal</a> |
+            <a href="#popup4">Preferencias de cookies</a> |
+            <a href="#popup5">Sus opciones de privacidad</a>
+        </div>
+    </div>
 
 <div id="popup1" class="overlay" onclick="closePopup(event)">
     <div class="popup-card" onclick="event.stopPropagation()">
@@ -200,5 +200,4 @@
             </ul>
             <p>Para ejercer tus derechos, contáctanos a través de nuestro formulario.</p>
         </div>
-    </div>
 </div>
