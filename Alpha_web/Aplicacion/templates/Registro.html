@@ -23,12 +23,12 @@
                 <option value="natural">Persona Natural</option>
             </select>
         </fieldset>
-
+    
         <fieldset id="campos_natural" style="display:none;">
             <legend>INFORMACIÓN PERSONAL</legend>
             <input type="text" name="nombre_completo" placeholder="Nombre Completo" required>
             <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="contrasena" placeholder="Contrasena" required>
+            <input type="password" name="password" placeholder="Contraseña" required>
             <input type="number" name="edad" placeholder="Edad">
             <input type="tel" name="celular" placeholder="Celular">
             <label for="genero">Género</label>
@@ -38,11 +38,10 @@
                 <option value="Femenino">Femenino</option>
             </select>
         </fieldset>
-
+    
         <center><button type="submit">Registrarse</button></center>
         <h1>¿Ya tienes una cuenta? <a href="{% url 'Inicio_Sesion' %}">Inicia sesión aquí</a></h1>
     </form>
-</div>
 
 <script>
     function mostrarCampos() {
