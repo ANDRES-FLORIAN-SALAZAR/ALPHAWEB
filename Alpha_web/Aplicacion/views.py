@@ -96,8 +96,8 @@ def Planes(request):
 
 def Inicio_Sesion(request):
     if verificar_autenticacion(request):
-        return redirect('home')
-        
+        return redirect('Planes')  # Cambio aquí
+
     if request.method == 'POST':
         email = request.POST.get('email')
         contrasena = request.POST.get('contrasena')
@@ -112,12 +112,12 @@ def Inicio_Sesion(request):
                 request.session['usuario_id'] = usuario.id
                 request.session.set_expiry(1209600)
                 messages.success(request, f'¡Bienvenido, {usuario.nombre}!')
-                return redirect(request.GET.get('next', 'home'))
+                return redirect('Planes')
             else:
                 messages.error(request, 'Contraseña incorrecta.')
         except Persona.DoesNotExist:
             messages.error(request, 'No existe un usuario con ese email.')
-    
+
     return render(request, 'Inicio_Sesion.html')
 
 def Contrasenas(request):
