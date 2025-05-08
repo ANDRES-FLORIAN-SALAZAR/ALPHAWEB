@@ -1,4 +1,3 @@
-# views.py (corregido)
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.http import FileResponse
@@ -96,8 +95,8 @@ def Planes(request):
 
 def Inicio_Sesion(request):
     if verificar_autenticacion(request):
-        return redirect('home')
-        
+        return redirect('Planes')  # Cambio aquí
+
     if request.method == 'POST':
         email = request.POST.get('email')
         contrasena = request.POST.get('contrasena')
@@ -112,12 +111,12 @@ def Inicio_Sesion(request):
                 request.session['usuario_id'] = usuario.id
                 request.session.set_expiry(1209600)
                 messages.success(request, f'¡Bienvenido, {usuario.nombre}!')
-                return redirect(request.GET.get('next', 'home'))
+                return redirect('Planes')
             else:
                 messages.error(request, 'Contraseña incorrecta.')
         except Persona.DoesNotExist:
             messages.error(request, 'No existe un usuario con ese email.')
-    
+
     return render(request, 'Inicio_Sesion.html')
 
 def Contrasenas(request):
@@ -199,8 +198,8 @@ def eliminar_documento(request, documento_id):
             logger.error(f"Error al eliminar documento {documento_id}: {str(e)}")
             messages.error(request, 'Error al eliminar el documento.')
         
-        return redirect('caja_fuerte')
+        return redirect('CajaFuerte')
     
-    return render(request, 'confirmar_eliminar_documento.html', {
+    return render(request, 'EliminarDocumento.html', {
         'documento': documento
     })
