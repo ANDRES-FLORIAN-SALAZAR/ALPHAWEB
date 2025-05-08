@@ -36,13 +36,13 @@
                 {% for documento in documentos %}
                     <div class="documento-card" data-categoria="{{ documento.categoria }}">
                         <div class="documento-icon">
-                            {% if documento.archivo.name|lower| slice:"-3:" == ".pdf" %}
+                            {% if documento.archivo.name|lower|endswith:".pdf" %}
                                 <img src="{% static 'Iconos/pdf-icon.jpg' %}" alt="PDF" />
-                            {% elif documento.archivo.name|lower|eslice:"-3:" == ".doc" or documento.archivo.name|lower|endswith:".docx" %}
+                            {% elif documento.archivo.name|lower|endswith:".doc" or documento.archivo.name|lower|endswith:".docx" %}
                                 <img src="{% static 'Iconos/word-icon.jpg' %}" alt="Word" />
-                            {% elif documento.archivo.name|lower|slice:"-3:" == ".xls" or documento.archivo.name|lower|endswith:".xlsx" %}
+                            {% elif documento.archivo.name|lower|endswith:".xls" or documento.archivo.name|lower|endswith:".xlsx" %}
                                 <img src="{% static 'Iconos/excel-icon.jpg' %}" alt="Excel" />
-                            {% elif documento.archivo.name|lower|slice:"-3:" == ".jpg" or documento.archivo.name|lower|endswith:".jpeg" or documento.archivo.name|lower|endswith:".png" %}
+                            {% elif documento.archivo.name|lower|endswith:".jpg" or documento.archivo.name|lower|endswith:".jpeg" or documento.archivo.name|lower|endswith:".png" %}
                                 <img src="{% static 'Iconos/image-icon.jpg' %}" alt="Imagen" />
                             {% else %}
                                 <img src="{% static 'Iconos/file-icon.jpg' %}" alt="Archivo" />

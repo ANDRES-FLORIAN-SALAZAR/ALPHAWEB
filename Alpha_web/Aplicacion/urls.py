@@ -15,4 +15,5 @@ urlpatterns = [
     path('caja-fuerte/subir/', views.subir_documento, name='subir_documento'),
     path('caja-fuerte/ver/<int:documento_id>/', views.ver_documento, name='ver_documento'),
     path('caja-fuerte/eliminar/<int:documento_id>/', views.eliminar_documento, name='eliminar_documento'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
