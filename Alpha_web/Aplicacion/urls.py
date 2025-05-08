@@ -12,8 +12,6 @@ urlpatterns = [
     path('cajaFuerte/', views.caja_fuerte, name='CajaFuerte'),
     path('contrasenas/', views.Contrasenas, name='Contrasenas'),
     path('cerrar-sesion/', views.cerrar_sesion, name='Logout'),
-    
-    # Documentos
     path('subir-documento/', views.subir_documento, name='SubirDocumento'),
     path('ver-documento/<int:documento_id>/', views.ver_documento, name='VerDocumento'),
     path('eliminar-documento/<int:documento_id>/', views.eliminar_documento, name='EliminarDocumento'),
