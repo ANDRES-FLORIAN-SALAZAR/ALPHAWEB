@@ -49,7 +49,7 @@ def registro_persona_natural(request):
     # Validar campos obligatorios
     nombre_completo = request.POST.get('nombre_completo', '').strip()
     email = request.POST.get('email', '').strip()
-    contrasena = request.POST.get('Contrasena', '').strip()
+    contrasena = request.POST.get('password', '').strip()
 
     if not nombre_completo:
         messages.error(request, "El nombre completo es obligatorio.")
@@ -111,7 +111,7 @@ def Inicio_Sesion(request):  # Nombre corregido para consistencia
         
     if request.method == 'POST':
         email = request.POST.get('email')
-        contrasena = request.POST.get('Contrasena')
+        contrasena = request.POST.get('contrasena')
         
         if not email or not contrasena:
             messages.error(request, "Por favor complete todos los campos.")
