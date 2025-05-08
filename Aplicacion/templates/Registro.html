@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="StyleRegistro">
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <form action="{% url 'registro' %}" method="POST">
+        {% csrf_token %}
+        <fieldset>
+            <legend>TIPO DE REGISTRO</legend>
+            <label for="tipo_registro">Seleccione el tipo de registro:</label>
+            <select id="tipo_registro" name="tipo_registro" required onchange="mostrarCampos()">
+                <option value="">Seleccione...</option>
+                <option value="natural">Persona Natural</option>
+            </select>
+        </fieldset>
+    
+        <fieldset id="campos_natural" style="display:none;">
+            <legend>INFORMACIÓN PERSONAL</legend>
+            <input type="text" name="nombre_completo" placeholder="Nombre Completo" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Contraseña" required>
+            <input type="number" name="edad" placeholder="Edad">
+            <input type="tel" name="celular" placeholder="Celular">
+            <label for="genero">Género</label>
+            <select id="genero" name="genero">
+                <option value="">Seleccione...</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Femenino">Femenino</option>
+            </select>
+        </fieldset>
+    
+        <center><button type="submit">Registrarse</button></center>
+        <h1>¿Ya tienes una cuenta? <a href="{% url 'Inicio_Sesion' %}">Inicia sesión aquí</a></h1>
+    </form>
+
+<script>
+    function mostrarCampos() {
+        var tipoRegistro = document.getElementById("tipo_registro").value;
+        document.getElementById("campos_natural").style.display = (tipoRegistro === "natural") ? "block" : "none";
+        }
+</script>
+
+{% endblock %}
