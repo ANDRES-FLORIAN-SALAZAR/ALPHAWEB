@@ -142,7 +142,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'Aplicacion/static'),
+    os.path.join(BASE_DIR, 'Aplicacion/static')
 ]
 
 # Configuración para limitar el tamaño de los archivos (por ejemplo, 5MB)

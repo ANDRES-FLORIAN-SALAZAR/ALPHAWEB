@@ -1,16 +1,15 @@
+# views.py (corregido)
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.http import FileResponse, HttpResponse
+from django.http import FileResponse
 from django.contrib.auth.hashers import check_password, make_password
 from .models import Persona, DocumentoCajaFuerte
 import os
 import logging
 from functools import wraps
 
-# Configurar el logger
 logger = logging.getLogger(__name__)
 
-# Función para verificar autenticación
 def verificar_autenticacion(request):
     if 'usuario_id' in request.session:
         try:
@@ -19,7 +18,6 @@ def verificar_autenticacion(request):
             del request.session['usuario_id']
     return None
 
-# Decorador para autenticación requerida
 def requiere_autenticacion(view_func):
     @wraps(view_func)
     def _wrapped_view(request, *args, **kwargs):
@@ -30,7 +28,6 @@ def requiere_autenticacion(view_func):
         return view_func(request, *args, **kwargs)
     return _wrapped_view
 
-# Registro simplificado solo para personas naturales
 def Registro(request):
     if verificar_autenticacion(request):
         return redirect('home')
@@ -46,10 +43,9 @@ def Registro(request):
     return render(request, 'Registro.html')
 
 def registro_persona_natural(request):
-    # Validar campos obligatorios
     nombre_completo = request.POST.get('nombre_completo', '').strip()
     email = request.POST.get('email', '').strip()
-    contrasena = request.POST.get('Contrasena', '').strip()
+    contrasena = request.POST.get('password', '').strip()
 
     if not nombre_completo:
         messages.error(request, "El nombre completo es obligatorio.")
@@ -61,17 +57,14 @@ def registro_persona_natural(request):
         messages.error(request, "La contrasena es obligatoria.")
         return redirect('registro')
 
-    # Verificar email único
     if Persona.objects.filter(email=email).exists():
         messages.error(request, "El email ya está registrado.")
         return redirect('registro')
 
-    # Dividir nombre completo
     partes_nombre = nombre_completo.split(' ', 1)
     nombre = partes_nombre[0]
     apellido = partes_nombre[1] if len(partes_nombre) > 1 else ''
 
-    # Crear usuario
     nueva_persona = Persona(
         nombre=nombre,
         apellido=apellido,
@@ -82,19 +75,16 @@ def registro_persona_natural(request):
         rol='Usuario'
     )
 
-    # Validar edad opcional
     if edad := request.POST.get('edad', '').strip():
         try:
             nueva_persona.edad = int(edad)
         except ValueError:
             messages.error(request, "La edad debe ser un número válido.")
-            return redirect('Registro')
+            return redirect('registro')
 
     nueva_persona.save()
     messages.success(request, '¡Registro exitoso! Por favor inicia sesión.')
     return redirect('Inicio_Sesion')
-
-# Página principal   
 
 def home(request):
     usuario = verificar_autenticacion(request)
@@ -104,14 +94,13 @@ def Planes(request):
     usuario = verificar_autenticacion(request)
     return render(request, 'Planes.html', {'usuario': usuario})
 
-# Función de inicio de sesión
-def Inicio_Sesion(request):  # Nombre corregido para consistencia
+def Inicio_Sesion(request):
     if verificar_autenticacion(request):
         return redirect('home')
         
     if request.method == 'POST':
         email = request.POST.get('email')
-        contrasena = request.POST.get('Contrasena')
+        contrasena = request.POST.get('contrasena')
         
         if not email or not contrasena:
             messages.error(request, "Por favor complete todos los campos.")
@@ -119,17 +108,13 @@ def Inicio_Sesion(request):  # Nombre corregido para consistencia
         
         try:
             usuario = Persona.objects.get(email=email)
-            
             if check_password(contrasena, usuario.contrasena):
                 request.session['usuario_id'] = usuario.id
-                request.session.set_expiry(1209600)  # 2 semanas
-                
-                nombre_usuario = usuario.nombre or usuario.nombre_empresa or usuario.email
-                messages.success(request, f'¡Bienvenido, {nombre_usuario}!')
-                
+                request.session.set_expiry(1209600)
+                messages.success(request, f'¡Bienvenido, {usuario.nombre}!')
                 return redirect(request.GET.get('next', 'home'))
             else:
-                messages.error(request, 'Contrasena incorrecta.')
+                messages.error(request, 'Contraseña incorrecta.')
         except Persona.DoesNotExist:
             messages.error(request, 'No existe un usuario con ese email.')
     
@@ -146,7 +131,6 @@ def cerrar_sesion(request):
     messages.success(request, '¡Has cerrado sesión correctamente!')
     return redirect('home')
 
-# Vistas para la Caja Fuerte
 @requiere_autenticacion
 def caja_fuerte(request):
     usuario = verificar_autenticacion(request)
@@ -166,7 +150,7 @@ def subir_documento(request):
         
         if not nombre or not archivo:
             messages.error(request, 'Nombre y archivo son campos requeridos.')
-            return redirect('subir_documento')
+            return redirect('SubirDocumento')
         
         try:
             DocumentoCajaFuerte.objects.create(
@@ -182,7 +166,7 @@ def subir_documento(request):
             logger.error(f"Error al subir documento: {str(e)}")
             messages.error(request, 'Error al subir el documento. Intente nuevamente.')
     
-    return render(request, 'SubirDocumento.html', {'usuario': usuario})
+    return render(request, 'SubirDocumento.html')
 
 @requiere_autenticacion
 def ver_documento(request, documento_id):
