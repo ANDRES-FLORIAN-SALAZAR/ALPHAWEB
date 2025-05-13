@@ -1,32 +1,76 @@
-# ALPHAWEB
 
-En el mundo digital de hoy, la seguridad de las contraseñas es más importante que nunca. Con tantos servicios en línea que requieren contraseñas, recordarlas todas puede ser un desafío. Este gestor de contraseñas seguro y cifrado permite a los usuarios crear, almacenar y gestionar contraseñas únicas y complejas para cada servicio en línea, sin la necesidad de recordarlas todas. Además, incluye un generador de contraseñas aleatorias y robustas para garantizar la máxima seguridad.
+# 🔐 Alpha Web: Innovando la Seguridad de Contraseñas en la Era Digital
 
-## Características Principales
+**Alpha Web** es una solución moderna y segura para la gestión de contraseñas y documentos sensibles, diseñada para proteger la información personal en un mundo digital cada vez más interconectado. Este gestor permite generar, almacenar y proteger contraseñas de forma segura mediante tecnologías de cifrado, además de ofrecer un entorno tipo "caja fuerte digital" para tus archivos importantes.
 
-- **Almacenamiento Seguro**: Guarda tus contraseñas en un formato cifrado, protegiéndolas de accesos no autorizados.
-- **Generador de Contraseñas**: Crea contraseñas aleatorias y complejas para cada servicio.
-- **Codificación Avanzada**: Utiliza algoritmos de hash para transformar las contraseñas en representaciones codificadas, dificultando su descifrado.
-- **Salting**: Añade datos aleatorios a las contraseñas antes de codificarlas, proporcionando una capa adicional de seguridad.
+---
 
-## Importancia de la Codificación de Contraseñas
+## 🚀 Características Principales
 
-Un codificador de contraseñas es esencial para proteger la información sensible del usuario. Cuando las contraseñas se almacenan en su forma original, son vulnerables a ataques cibernéticos. Al codificarlas, se vuelven incomprensibles y, por lo tanto, inútiles para cualquier persona que obtenga acceso no autorizado.
+- **🔒 Almacenamiento Seguro**  
+  Guarda todas tus contraseñas utilizando algoritmos de cifrado, evitando accesos no autorizados.
 
-### Beneficios Clave:
-1. **Protección de Información Sensible**: Garantiza que tus datos personales estén seguros.
-2. **Representación Codificada (Hash)**: Transforma las contraseñas en un formato difícil de descifrar.
-3. **Salting**: Añade una capa extra de seguridad mediante datos aleatorios antes de la codificación.
+- **🔑 Generador de Contraseñas**  
+  Crea contraseñas aleatorias, fuertes y únicas para cada servicio, mejorando tu seguridad en línea.
 
-## Uso
+- **🧬 Codificación Avanzada (Hashing)**  
+  Convierte las contraseñas en representaciones irreversibles mediante funciones hash, evitando que sean legibles en caso de violación de seguridad.
 
-1. **Instalación**: Clona este repositorio y sigue las instrucciones de instalación.
-2. **Configuración**: Configura tu cuenta y establece una contraseña maestra segura.
-3. **Gestión de Contraseñas**: Añade, edita o elimina contraseñas según tus necesidades.
-4. **Generador de Contraseñas**: Utiliza la herramienta integrada para crear contraseñas robustas.
+- **🧂 Salting**  
+  Añade datos aleatorios a las contraseñas antes del hash, dificultando los ataques con diccionario y aumentando la robustez de la protección.
 
-## Contribuciones
+- **🗂️ Caja Fuerte Digital para Documentos**  
+  Entorno seguro para **almacenar, clasificar y gestionar documentos sensibles** como archivos personales, laborales, financieros o legales. Incluye:
+  - Subida y visualización de documentos con iconos representativos (.pdf, .docx, .jpg, etc.).
+  - Clasificación por categorías (Personal, Laboral, Financiero, Médico, Legal, Otro).
+  - Filtro dinámico por tipo de documento.
+  - Acciones rápidas: descargar y eliminar documentos directamente desde la interfaz.
 
-Las contribuciones son bienvenidas. Por favor, abre un issue o envía un pull request con tus sugerencias o mejoras.
+---
+
+## 📌 ¿Por qué es Importante?
+
+Guardar contraseñas y documentos en texto plano o sin protección adecuada representa un riesgo serio. Alpha Web evita esto utilizando técnicas modernas de seguridad que dificultan el acceso no autorizado a tu información más valiosa.
+
+---
+
+## ✅ Beneficios Clave
+
+- Protección integral para contraseñas y documentos personales.
+- Representación codificada (hashing) con salting para máxima seguridad.
+- Generación de contraseñas seguras en segundos.
+- Almacenamiento seguro y organizado de documentos críticos.
+
+---
+
+## 🛠️ Instalación
+
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/ANDRES-FLORIAN-SALAZAR/ALPHAWEB
+   cd ALPHAWEB
+   ```
+
+2. Sigue las instrucciones del archivo `INSTALL.md` para completar la configuración.
+
+---
+
+## ⚙️ Uso Básico
+
+1. **Configura tu cuenta** con una contraseña maestra segura.
+2. **Gestiona contraseñas** de forma centralizada.
+3. **Utiliza el generador de contraseñas** para mejorar la seguridad.
+4. **Accede a la Caja Fuerte Digital** para guardar documentos sensibles de forma segura y organizada.
+
+---
+
+## 🤝 Contribuciones
+
+Las contribuciones son bienvenidas. Puedes:
+
+- Reportar errores mediante *issues*.
+- Proponer mejoras o nuevas funciones mediante *pull requests*.
+
+---
 
 ## Innovando la Seguridad de Contraseñas en la Era Digital tiene licencia bajo CC POR 4.0 © 2 por DUVAN ANDRÉS FLORIAN SALAZAR [![CC BY 4.0](https://i.creativecommons.org/l/by/4.0/88x31.png)](https://creativecommons.org/licenses/by/4.0/)
