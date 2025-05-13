@@ -1,8 +1,7 @@
-{% extends "base.html"%}
+{% extends "base.html" %}
 {% load static %}
 {% block content %}
 {% load custom_filters %}
-
 
 <div class="StyleCajaFuerte">
     <div class="cajafuerte-header">
@@ -74,24 +73,6 @@
     </div>
 </div>
 
-<script>
-    function filtrarPorCategoria() {
-        var categoria = document.getElementById('categoria-filter').value;
-        var documentos = document.querySelectorAll('.documento-card');
-        
-        documentos.forEach(function(doc) {
-            if (categoria === 'todas' || doc.getAttribute('data-categoria') === categoria) {
-                doc.style.display = 'flex';
-            } else {
-                doc.style.display = 'none';
-            }
-        });
-    }
-    
-    // Función de ayuda para verificar si un string termina con cierta extensión
-    function endsWith(str, suffix) {
-        return str.indexOf(suffix, str.length - suffix.length) !== -1;
-    }
-</script>
+<script src="{% static 'js/cajafuerte.js' %}"></script>
 
 {% endblock %}

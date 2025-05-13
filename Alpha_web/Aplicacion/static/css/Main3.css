@@ -13,8 +13,8 @@
     padding: 20px;
     box-sizing: border-box;
     overflow-y: auto;
-    overflow-x: hidden; /* Eliminate horizontal scrollbar */
-    width: 100%; /* Ensure full width */
+    overflow-x: hidden;
+    width: 100%;
 }
 
 h2,.cont{
@@ -76,8 +76,10 @@ fieldset {
     margin-top: 20px;
     border: 1px solid #f1efef;
     border-radius: 5px;
+    color: #f1efef;
 }
 
 legend {
     padding: 0px 6px;
+    color: #f1efef;
 }

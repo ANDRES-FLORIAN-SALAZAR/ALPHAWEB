@@ -13,8 +13,8 @@
     padding: 20px;
     box-sizing: border-box;
     overflow-y: auto;
-    overflow-x: hidden; /* Eliminate horizontal scrollbar */
-    width: 100%; /* Ensure full width */
+    overflow-x: hidden;
+    width: 100%;
 }
 
 form {
@@ -69,3 +69,7 @@ legend {
     padding: 0px 6px;
 }
 
+select {
+    background-color: #ffffff;
+    color: #000000;
+}

@@ -95,7 +95,7 @@ def Planes(request):
 
 def Inicio_Sesion(request):
     if verificar_autenticacion(request):
-        return redirect('Planes')  # Cambio aquí
+        return redirect('Planes') 
 
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -160,12 +160,14 @@ def subir_documento(request):
                 archivo=archivo
             )
             messages.success(request, '¡Documento subido con éxito!')
-            return redirect('caja_fuerte')
+            return redirect('SubirDocumento')
         except Exception as e:
             logger.error(f"Error al subir documento: {str(e)}")
             messages.error(request, 'Error al subir el documento. Intente nuevamente.')
-    
+            return redirect('SubirDocumento')
+
     return render(request, 'SubirDocumento.html')
+
 
 @requiere_autenticacion
 def ver_documento(request, documento_id):

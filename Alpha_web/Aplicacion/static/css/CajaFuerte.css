@@ -180,7 +180,6 @@
     color: #ffffff;
 }
 
-/* Estilos para el formulario de subir documento */
 .cajafuerte-form-container {
     background-color: rgba(0, 0, 0, 0.7);
     padding: 20px;
@@ -233,12 +232,11 @@
 }
 
 .btn-cancel {
-    background-color: #6c757d;
-    color: #ffffff;
+    background-color: #0de91f;
+    color: #000000;
     text-decoration: none;
 }
 
-/* Estilos para la página de eliminar documento */
 .delete-confirmation {
     background-color: rgba(0, 0, 0, 0.7);
     padding: 20px;
@@ -259,14 +257,14 @@
 }
 
 .delete-warning {
-    color: #dc3545;
+    color: #ffffff;
     font-size: 16px;
     margin: 20px 0;
 }
 
 .documento-details {
     text-align: left;
-    background-color: rgba(51, 51, 51, 0.8);
+    background-color: #070707;
     padding: 15px;
     border-radius: 5px;
     margin: 20px 0;
@@ -293,7 +291,7 @@
 
 .btn-delete {
     background-color: #dc3545;
-    color: #ffffff;
+    color: #0a0a0a;
     padding: 10px 20px;
     border-radius: 5px;
     border: none;
@@ -301,7 +299,21 @@
     font-size: 16px;
 }
 
-/* Para compatibilidad con dispositivos móviles */
+.btn-cancel {
+    background-color: 
+    color: #050505;
+    padding: 4px 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+option {
+    background-color: #ffffff;
+    color: #070707;
+}
+
 @media (max-width: 768px) {
     .documentos-grid {
         grid-template-columns: 1fr;
