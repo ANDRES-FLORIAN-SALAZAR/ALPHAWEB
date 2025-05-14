@@ -74,6 +74,6 @@ Las contribuciones son bienvenidas. Puedes:
 ---
 ## 🎥 Instructivo de Uso
 
-Haz clic para ver el video instructivo paso a paso sobre cómo usar **Alpha Web**: [Ver Video](./static/Videos/INSTRUCTIVO.mp4).
+🎥 [Haz clic aquí para ver el video instructivo](./static/Videos/INSTRUCTIVO.mp4).
 
 ## Innovando la Seguridad de Contraseñas en la Era Digital tiene licencia bajo CC POR 4.0 © 2 por DUVAN ANDRÉS FLORIAN SALAZAR [![CC BY 4.0](https://i.creativecommons.org/l/by/4.0/88x31.png)](https://creativecommons.org/licenses/by/4.0/)
