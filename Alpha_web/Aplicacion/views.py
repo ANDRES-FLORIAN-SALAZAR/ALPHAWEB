@@ -1,12 +1,10 @@
 import logging
 import os
 from functools import wraps
-
 from django.contrib import messages
 from django.contrib.auth.hashers import check_password, make_password
 from django.http import FileResponse
 from django.shortcuts import get_object_or_404, redirect, render
-
 from .models import DocumentoCajaFuerte, Persona
 
 logger = logging.getLogger(__name__)
@@ -168,7 +166,6 @@ def subir_documento(request):
             return redirect("SubirDocumento")
 
     return render(request, "SubirDocumento.html")
-
 
 @requiere_autenticacion
 def ver_documento(request, documento_id):

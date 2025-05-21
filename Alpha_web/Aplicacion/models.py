@@ -7,7 +7,6 @@ from django.core.validators import (
 )
 from django.db import models
 
-
 class Persona(models.Model):
     GENERO_OPCIONES = [
         ("Masculino", "Masculino"),
