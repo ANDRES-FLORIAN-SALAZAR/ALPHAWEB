@@ -37,11 +37,11 @@
 }
 
 .cajafuerte-messages .success {
-    background-color: rgba(46, 153, 82, 0.7);
+    background-color: #2e9934;
 }
 
 .cajafuerte-messages .error {
-    background-color: rgba(233, 13, 13, 0.7);
+    background-color: #dc3545;
 }
 
 .cajafuerte-actions {
@@ -79,7 +79,7 @@
 }
 
 .cajafuerte-container {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: #000000be;
     padding: 20px;
     border-radius: 8px;
     flex: 1;
@@ -92,7 +92,7 @@
 }
 
 .documento-card {
-    background-color: rgba(51, 51, 51, 0.8);
+    background-color: #333333;
     border-radius: 8px;
     padding: 15px;
     display: flex;
@@ -102,18 +102,20 @@
 
 .documento-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px #000000;
 }
 
 .documento-icon {
     text-align: center;
     margin-bottom: 10px;
+    
 }
 
 .documento-icon img {
     width: 60px;
     height: 60px;
     border: none;
+    
 }
 
 .documento-info {
@@ -181,7 +183,7 @@
 }
 
 .cajafuerte-form-container {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: #000000;
     padding: 20px;
     border-radius: 8px;
     max-width: 600px;
@@ -238,7 +240,7 @@
 }
 
 .delete-confirmation {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: #000000;
     padding: 20px;
     border-radius: 8px;
     max-width: 600px;
@@ -300,7 +302,7 @@
 }
 
 .btn-cancel {
-    background-color: 
+    background-color: #0de91f;
     color: #050505;
     padding: 4px 10px;
     border-radius: 5px;
