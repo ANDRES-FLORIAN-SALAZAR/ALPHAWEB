@@ -14,7 +14,7 @@ class Persona(models.Model):
         ("Femenino", "Femenino"),
         ("Otro", "Otro"),
         ("Prefiero no decir", "Prefiero no decir"),
-    ]=()
+    ]
 
     ROL_OPCIONES = [
         ("Usuario", "Usuario"),
