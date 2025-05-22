@@ -21,7 +21,7 @@ def verificar_autenticacion(request: HttpRequest) -> Persona | None:
 
 def requiere_autenticacion(view_func: callable) -> callable:
     @wraps(view_func)
-    def _wrapped_view(request: HttpRequest, *args, **kwargs):
+    def _wrapped_view(request: HttpRequest, *args, **kwargs) -> HttpResponse:
         usuario = verificar_autenticacion(request)
         if not usuario:
             messages.error(request, "Debes iniciar sesión para acceder a esta página.")
