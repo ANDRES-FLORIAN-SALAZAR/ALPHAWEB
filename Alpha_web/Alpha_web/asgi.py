@@ -1,4 +1,5 @@
-"""ASGI config for Alpha_web project.
+"""
+ASGI config for Alpha_web project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 

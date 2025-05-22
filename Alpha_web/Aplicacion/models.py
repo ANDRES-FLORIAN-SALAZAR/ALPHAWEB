@@ -7,6 +7,7 @@ from django.core.validators import (
 )
 from django.db import models
 
+
 class Persona(models.Model):
     GENERO_OPCIONES = [
         ("Masculino", "Masculino"),
@@ -43,7 +44,7 @@ class Persona(models.Model):
     fecha_registro = models.DateTimeField(auto_now_add=True)
     ultimo_acceso = models.DateTimeField(auto_now=True)
 
-    def save(self, *args, **kwargs):
+    def save(self, *args:list, **kwargs:dict) -> None:
         if self.contrasena and not self.contrasena.startswith("pbkdf2_sha256$"):
             self.contrasena = make_password(self.contrasena)
         super().save(*args, **kwargs)

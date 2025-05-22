@@ -64,6 +64,13 @@ Guardar contraseñas y documentos en texto plano o sin protección adecuada repr
 
 ---
 
+## Verificaciones con RUFF
+
+D104 = Modificaciones en el archivo __init__.py
+N999 = Por avances de proyecto se realiza el proceso de ignoración mientras se va mejorando la aplicación
+D203 = Por estilo de docstring se realiza remplazo de linea
+D212 = por estilo de docstring se omite esta regla dado que es duplicada
+
 ## 🤝 Contribuciones
 
 Las contribuciones son bienvenidas. Puedes:

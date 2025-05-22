@@ -1,15 +1,17 @@
 import logging
 import os
 from functools import wraps
+
 from django.contrib import messages
 from django.contrib.auth.hashers import check_password, make_password
-from django.http import FileResponse
+from django.http import FileResponse, HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
+
 from .models import DocumentoCajaFuerte, Persona
 
 logger = logging.getLogger(__name__)
 
-def verificar_autenticacion(request):
+def verificar_autenticacion(request: HttpRequest) -> Persona | None:
     if "usuario_id" in request.session:
         try:
             return Persona.objects.get(id=request.session["usuario_id"])
@@ -17,9 +19,9 @@ def verificar_autenticacion(request):
             del request.session["usuario_id"]
     return None
 
-def requiere_autenticacion(view_func):
+def requiere_autenticacion(view_func: callable) -> callable:
     @wraps(view_func)
-    def _wrapped_view(request, *args, **kwargs):
+    def _wrapped_view(request: HttpRequest, *args, **kwargs):
         usuario = verificar_autenticacion(request)
         if not usuario:
             messages.error(request, "Debes iniciar sesión para acceder a esta página.")
@@ -27,7 +29,7 @@ def requiere_autenticacion(view_func):
         return view_func(request, *args, **kwargs)
     return _wrapped_view
 
-def Registro(request):
+def Registro(request: HttpRequest) -> HttpResponse:
     if verificar_autenticacion(request):
         return redirect("home")
 
@@ -41,7 +43,7 @@ def Registro(request):
 
     return render(request, "Registro.html")
 
-def registro_persona_natural(request):
+def registro_persona_natural(request: HttpRequest) -> HttpResponse:
     nombre_completo = request.POST.get("nombre_completo", "").strip()
     email = request.POST.get("email", "").strip()
     contrasena = request.POST.get("password", "").strip()
@@ -85,15 +87,16 @@ def registro_persona_natural(request):
     messages.success(request, "¡Registro exitoso! Por favor inicia sesión.")
     return redirect("Inicio_Sesion")
 
-def home(request):
+def home(request: HttpRequest) -> HttpResponse:
+
     usuario = verificar_autenticacion(request)
     return render(request, "home.html", {"usuario": usuario})
 
-def Planes(request):
+def Planes(request: HttpRequest) -> HttpResponse:
     usuario = verificar_autenticacion(request)
     return render(request, "Planes.html", {"usuario": usuario})
 
-def Inicio_Sesion(request):
+def Inicio_Sesion(request: HttpRequest) -> HttpResponse:
     if verificar_autenticacion(request):
         return redirect("Planes")
 
@@ -118,11 +121,11 @@ def Inicio_Sesion(request):
 
     return render(request, "Inicio_Sesion.html")
 
-def Contrasenas(request):
+def Contrasenas(request: HttpRequest) -> HttpResponse:
     usuario = verificar_autenticacion(request)
     return render(request, "Contrasenas.html", {"usuario": usuario})
 
-def cerrar_sesion(request):
+def cerrar_sesion(request: HttpRequest) -> HttpResponse:
     if "usuario_id" in request.session:
         del request.session["usuario_id"]
         request.session.flush()
@@ -130,7 +133,7 @@ def cerrar_sesion(request):
     return redirect("home")
 
 @requiere_autenticacion
-def caja_fuerte(request):
+def caja_fuerte(request: HttpRequest) -> HttpResponse:
     usuario = verificar_autenticacion(request)
     documentos = DocumentoCajaFuerte.objects.filter(usuario=usuario).order_by("-fecha_subida")
     return render(request, "CajaFuerte.html", {
@@ -139,7 +142,7 @@ def caja_fuerte(request):
     })
 
 @requiere_autenticacion
-def subir_documento(request):
+def subir_documento(request: HttpRequest) -> HttpResponse:
     usuario = verificar_autenticacion(request)
 
     if request.method == "POST":
@@ -168,7 +171,7 @@ def subir_documento(request):
     return render(request, "SubirDocumento.html")
 
 @requiere_autenticacion
-def ver_documento(request, documento_id):
+def ver_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
     usuario = verificar_autenticacion(request)
     documento = get_object_or_404(DocumentoCajaFuerte, id=documento_id, usuario=usuario)
 
@@ -184,7 +187,7 @@ def ver_documento(request, documento_id):
         return redirect("caja_fuerte")
 
 @requiere_autenticacion
-def eliminar_documento(request, documento_id):
+def eliminar_documento(request: HttpRequest, documento_id: int):
     usuario = verificar_autenticacion(request)
     documento = get_object_or_404(DocumentoCajaFuerte, id=documento_id, usuario=usuario)
 
@@ -195,7 +198,7 @@ def eliminar_documento(request, documento_id):
             documento.delete()
             messages.success(request, "Documento eliminado correctamente.")
         except Exception as e:
-            logger.error(f"Error al eliminar documento {documento_id}: {e!s}")
+            logger.exception(f"Error al eliminar documento {documento_id}: {e!s}")
             messages.error(request, "Error al eliminar el documento.")
 
         return redirect("CajaFuerte")

@@ -1,4 +1,5 @@
-"""WSGI config for Alpha_web project.
+"""
+WSGI config for Alpha_web project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
