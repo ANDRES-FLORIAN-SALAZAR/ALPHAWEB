@@ -4,6 +4,12 @@ from django.urls import path
 
 from Aplicacion import views
 
+""" en este archivo se encuentran las vistas de la aplicacion, las cuales son funciones que manejan las peticiones HTTP
+
+y devuelven respuestas HTTP.
+
+Las vistas son responsables de la logica de negocio y de interactuar con los modelos y plantillas para generar la respuesta adecuada."""
+
 urlpatterns = [
     path("", views.home, name="home"),
     path("registro/", views.Registro, name="registro"),

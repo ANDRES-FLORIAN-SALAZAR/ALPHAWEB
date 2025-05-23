@@ -3,7 +3,7 @@ from django import template
 register = template.Library()
 
 @register.filter
-def endswith(value, suffix):
+def endswith(value, suffix: any):
     """Retorna True si 'value' termina con 'suffix'."""
     try:
         return str(value).lower().endswith(str(suffix).lower())

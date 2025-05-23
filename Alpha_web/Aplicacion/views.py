@@ -9,9 +9,27 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from .models import DocumentoCajaFuerte, Persona
 
+""" en este archivo se encuentran las vistas de la aplicacion
+
+las cuales son funciones que manejan las peticiones HTTP y devuelven respuestas HTTP.
+
+Las vistas son responsables de la logica de negocio
+
+y de interactuar con los modelos y plantillas para generar la respuesta adecuada. """
+
 logger = logging.getLogger(__name__)
 
 def verificar_autenticacion(request: HttpRequest) -> Persona | None:
+    """
+    Verifica la autenticación del usuario en la sesión.
+
+    Args:
+        request (HttpRequest): La solicitud HTTP del usuario.
+
+    Returns:
+        Persona | None: El objeto Persona si está autenticado, None en caso contrario.
+
+    """
     if "usuario_id" in request.session:
         try:
             return Persona.objects.get(id=request.session["usuario_id"])
@@ -21,7 +39,7 @@ def verificar_autenticacion(request: HttpRequest) -> Persona | None:
 
 def requiere_autenticacion(view_func: callable) -> callable:
     @wraps(view_func)
-    def _wrapped_view(request: HttpRequest, *args, **kwargs) -> HttpResponse:
+    def _wrapped_view(request: HttpRequest, *args: int, **kwargs: int) -> HttpResponse:
         usuario = verificar_autenticacion(request)
         if not usuario:
             messages.error(request, "Debes iniciar sesión para acceder a esta página.")

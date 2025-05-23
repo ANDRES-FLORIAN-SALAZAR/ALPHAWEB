@@ -61,6 +61,7 @@ def documento_path(instance, filename):
 
 class DocumentoCajaFuerte(models.Model):
     CATEGORIAS = [
+        
         ("Personal", "Personal"),
         ("Laboral", "Laboral"),
         ("Financiero", "Financiero"),
@@ -74,6 +75,7 @@ class DocumentoCajaFuerte(models.Model):
         on_delete=models.CASCADE,
         related_name="documentos",
     )
+    
     nombre = models.CharField(max_length=200)
     archivo = models.FileField(
         upload_to=documento_path,
@@ -90,13 +92,17 @@ class DocumentoCajaFuerte(models.Model):
     fecha_subida = models.DateTimeField(auto_now_add=True)
     tamaño = models.PositiveIntegerField(editable=False)
 
+    class Meta:
+        """Configuración de metadatos del modelo."""
+
+        verbose_name = "Documento"
+        verbose_name_plural = "Documentos"
+        ordering = ["-fecha_subida"]
+
     def save(self, *args: list, **kwargs: dict):
         """Actualiza el tamaño del archivo antes de guardar el modelo."""
         if self.archivo:
             self.tamaño = self.archivo.size
         super().save(*args, **kwargs)
 
-    class Meta:
-        verbose_name = "Documento"
-        verbose_name_plural = "Documentos"
-        ordering = ["-fecha_subida"]
+
