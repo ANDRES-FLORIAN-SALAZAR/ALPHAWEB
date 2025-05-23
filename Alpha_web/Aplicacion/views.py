@@ -1,6 +1,11 @@
+"""
+"este archivo contiene las vistas de la aplicacion.
+
+las cuales son funciones que manejan las peticiones HTTP y devuelven respuestas HTTP.
+"""
 import logging
-import os
 from functools import wraps
+from pathlib import Path
 
 from django.contrib import messages
 from django.contrib.auth.hashers import check_password, make_password
@@ -38,6 +43,17 @@ def verificar_autenticacion(request: HttpRequest) -> Persona | None:
     return None
 
 def requiere_autenticacion(view_func: callable) -> callable:
+    """
+    Requiere autenticación para vistas específicas.
+
+    Args:
+        view_func (callable): La función de vista a decorar.
+
+    Returns:
+        callable: La función de vista decorada.
+
+    """
+
     @wraps(view_func)
     def _wrapped_view(request: HttpRequest, *args: int, **kwargs: int) -> HttpResponse:
         usuario = verificar_autenticacion(request)
@@ -47,21 +63,37 @@ def requiere_autenticacion(view_func: callable) -> callable:
         return view_func(request, *args, **kwargs)
     return _wrapped_view
 
-def Registro(request: HttpRequest) -> HttpResponse:
+def registro(request: HttpRequest) -> HttpResponse:
+    """
+    Módulo de vistas de la aplicación.
+
+    Contiene las funciones que manejan las solicitudes HTTP y la lógica de negocio
+
+    relacionada con la autenticación, registro, y otras funcionalidades.
+    """
     if verificar_autenticacion(request):
-        return redirect("home")
+        return redirect("Planes")
 
     if request.method == "POST":
         try:
             return registro_persona_natural(request)
-        except Exception as e:
-            logger.error(f"Error en registro: {e!s}")
-            messages.error(request, "Error durante el registro. Intenta nuevamente.")
-            return redirect("registro")
+        except Exception:
+            logger.exception("Error en registro: %s")
+            raise
 
-    return render(request, "Registro.html")
+    return render(request, "registro.html")
 
 def registro_persona_natural(request: HttpRequest) -> HttpResponse:
+    """
+    Registra una nueva persona natural.
+
+    Args:
+        request (HttpRequest): La solicitud HTTP del usuario.
+
+    Returns:
+        HttpResponse: La respuesta HTTP después de intentar registrar a la persona.
+
+    """
     nombre_completo = request.POST.get("nombre_completo", "").strip()
     email = request.POST.get("email", "").strip()
     contrasena = request.POST.get("password", "").strip()
@@ -106,17 +138,46 @@ def registro_persona_natural(request: HttpRequest) -> HttpResponse:
     return redirect("Inicio_Sesion")
 
 def home(request: HttpRequest) -> HttpResponse:
+    """
+    Vista para la página de inicio.
 
+    Args:
+        request (HttpRequest): La solicitud HTTP.
+
+    Returns:
+        HttpResponse: La respuesta HTTP con la página de inicio.
+
+    """
     usuario = verificar_autenticacion(request)
     return render(request, "home.html", {"usuario": usuario})
 
-def Planes(request: HttpRequest) -> HttpResponse:
-    usuario = verificar_autenticacion(request)
-    return render(request, "Planes.html", {"usuario": usuario})
+def planes(request: HttpRequest) -> HttpResponse:
+    """
+    Vista para mostrar los planes disponibles.
 
-def Inicio_Sesion(request: HttpRequest) -> HttpResponse:
+    Args:
+        request (HttpRequest): La solicitud HTTP.
+
+    Returns:
+        HttpResponse: La respuesta HTTP con la lista de planes.
+
+    """
+    usuario = verificar_autenticacion(request)
+    return render(request, "planes.html", {"usuario": usuario})
+
+def inicio_sesion(request: HttpRequest) -> HttpResponse:
+    """
+    Vista para el inicio de sesión.
+
+    Args:
+        request (HttpRequest): La solicitud HTTP.
+
+    Returns:
+        HttpResponse: La respuesta HTTP con el formulario de inicio de sesión.
+
+    """
     if verificar_autenticacion(request):
-        return redirect("Planes")
+        return redirect("planes")
 
     if request.method == "POST":
         email = request.POST.get("email")
@@ -132,35 +193,74 @@ def Inicio_Sesion(request: HttpRequest) -> HttpResponse:
                 request.session["usuario_id"] = usuario.id
                 request.session.set_expiry(1209600)
                 messages.success(request, f"¡Bienvenido, {usuario.nombre}!")
-                return redirect("Planes")
+                return redirect("planes")
             messages.error(request, "Contraseña incorrecta.")
         except Persona.DoesNotExist:
             messages.error(request, "No existe un usuario con ese email.")
 
     return render(request, "Inicio_Sesion.html")
 
-def Contrasenas(request: HttpRequest) -> HttpResponse:
+def contrasenas(request: HttpRequest) -> HttpResponse:
+    """
+    Vista para cambiar la contraseña del usuario.
+
+    Args:
+        request (HttpRequest): La solicitud HTTP.
+
+    Returns:
+        HttpResponse: La respuesta HTTP después de intentar cambiar la contraseña.
+
+    """
     usuario = verificar_autenticacion(request)
     return render(request, "Contrasenas.html", {"usuario": usuario})
 
 def cerrar_sesion(request: HttpRequest) -> HttpResponse:
+    """
+    Vista para cerrar sesión del usuario.
+
+    Args:
+        request (HttpRequest): La solicitud HTTP.
+
+    Returns:
+        HttpResponse: La respuesta HTTP después de cerrar sesión.
+
+    """
     if "usuario_id" in request.session:
-        del request.session["usuario_id"]
         request.session.flush()
     messages.success(request, "¡Has cerrado sesión correctamente!")
     return redirect("home")
 
 @requiere_autenticacion
 def caja_fuerte(request: HttpRequest) -> HttpResponse:
+    """
+    Vista para la caja fuerte del usuario.
+
+    Args:
+        request (HttpRequest): La solicitud HTTP.
+
+    Returns:
+        HttpResponse: La respuesta HTTP con la caja fuerte del usuario.
+
+    """
     usuario = verificar_autenticacion(request)
     documentos = DocumentoCajaFuerte.objects.filter(usuario=usuario).order_by("-fecha_subida")
-    return render(request, "CajaFuerte.html", {
+    return render(request, "caja_fuerte.html", {
         "usuario": usuario,
         "documentos": documentos,
     })
 
 @requiere_autenticacion
 def subir_documento(request: HttpRequest) -> HttpResponse:
+    """
+    Vista para subir documentos a la caja fuerte.
+
+    Args:
+        request (HttpRequest): La solicitud HTTP.
+
+    Returns:
+        HttpResponse: La respuesta HTTP después de intentar subir el documento.
+
+    """
     usuario = verificar_autenticacion(request)
 
     if request.method == "POST":
@@ -169,7 +269,7 @@ def subir_documento(request: HttpRequest) -> HttpResponse:
 
         if not nombre or not archivo:
             messages.error(request, "Nombre y archivo son campos requeridos.")
-            return redirect("SubirDocumento")
+            return redirect("subir_documento")
 
         try:
             DocumentoCajaFuerte.objects.create(
@@ -180,47 +280,69 @@ def subir_documento(request: HttpRequest) -> HttpResponse:
                 archivo=archivo,
             )
             messages.success(request, "¡Documento subido con éxito!")
-            return redirect("SubirDocumento")
-        except Exception as e:
-            logger.error(f"Error al subir documento: {e!s}")
+            return redirect("subir_documento")
+        except Exception:
+            logger.exception("Error al subir documento")
             messages.error(request, "Error al subir el documento. Intente nuevamente.")
-            return redirect("SubirDocumento")
+            return redirect("subir_documento")
 
-    return render(request, "SubirDocumento.html")
+    return render(request, "subir_documento.html", {"usuario": usuario})
 
 @requiere_autenticacion
 def ver_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
+    """
+    Vista para ver un documento en la caja fuerte.
+
+    Args:
+        request (HttpRequest): La solicitud HTTP.
+        documento_id (int): El ID del documento a ver.
+
+    Returns:
+        HttpResponse: La respuesta HTTP con el documento solicitado.
+
+    """
     usuario = verificar_autenticacion(request)
     documento = get_object_or_404(DocumentoCajaFuerte, id=documento_id, usuario=usuario)
 
     try:
         return FileResponse(
-            open(documento.archivo.path, "rb"),
+            Path(documento.archivo.path).open("rb"),
             as_attachment=True,
-            filename=os.path.basename(documento.archivo.name),
+            filename=documento.archivo.name,
         )
-    except Exception as e:
-        logger.error(f"Error al acceder al documento {documento_id}: {e!s}")
+    except Exception:
+        logger.exception("Error al acceder al documento: %s")
         messages.error(request, "Error al acceder al documento.")
         return redirect("caja_fuerte")
 
 @requiere_autenticacion
-def eliminar_documento(request: HttpRequest, documento_id: int):
+def eliminar_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
+    """
+    Elimina un documento de la caja fuerte.
+
+    Args:
+        request (HttpRequest): La solicitud HTTP.
+        documento_id (int): El ID del documento a eliminar.
+
+    Returns:
+        HttpResponse: La respuesta HTTP después de intentar eliminar el documento.
+
+    """
     usuario = verificar_autenticacion(request)
     documento = get_object_or_404(DocumentoCajaFuerte, id=documento_id, usuario=usuario)
 
     if request.method == "POST":
         try:
-            if documento.archivo and os.path.isfile(documento.archivo.path):
-                os.remove(documento.archivo.path)
+            if documento.archivo and Path(documento.archivo.path).is_file():
+                Path(documento.archivo.path).unlink()
             documento.delete()
             messages.success(request, "Documento eliminado correctamente.")
-        except Exception as e:
-            logger.exception(f"Error al eliminar documento {documento_id}: {e!s}")
+        except Exception:
+            logger.exception("Error al eliminar documento")
             messages.error(request, "Error al eliminar el documento.")
 
-        return redirect("CajaFuerte")
+        return redirect("caja_fuerte")
 
-    return render(request, "EliminarDocumento.html", {
+    return render(request, "eliminar_documento.html", {
         "documento": documento,
     })

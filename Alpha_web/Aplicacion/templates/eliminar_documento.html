@@ -33,11 +33,11 @@
         </div>
         
         <div class="delete-actions">
-            <form action="{% url 'EliminarDocumento' documento.id %}" method="post">
+            <form action="{% url 'eliminar_documento' documento.id %}" method="post">
                 {% csrf_token %}
                 <button type="submit" class="btn-delete">Sí, eliminar documento</button>
             </form>
-            <a href="{% url 'CajaFuerte' %}" class="btn-cancel">Cancelar</a>
+            <a href="{% url 'caja_fuerte' %}" class="btn-cancel">Cancelar</a>
         </div>
     </div>
 </div>
