@@ -154,7 +154,5 @@ class DocumentoCajaFuerte(models.Model):
     def save(self, *args: list, **kwargs: dict) -> None:
         """Actualiza el tamaño del archivo antes de guardar el modelo."""
         if self.archivo:
-            self.tamaño = self.archivo.size
+            self.tamano = self.archivo.size  # ← CORREGIDO
         super().save(*args, **kwargs)
-
-
