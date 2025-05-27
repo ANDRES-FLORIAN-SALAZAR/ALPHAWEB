@@ -1,4 +1,3 @@
-
 # 🔐 Alpha Web: Innovando la Seguridad de Contraseñas en la Era Digital
 
 **Alpha Web** es una solución moderna y segura para la gestión de contraseñas y documentos sensibles, diseñada para proteger la información personal en un mundo digital cada vez más interconectado. Este gestor permite generar, almacenar y proteger contraseñas de forma segura mediante tecnologías de cifrado, además de ofrecer un entorno tipo "caja fuerte digital" para tus archivos importantes.
@@ -64,7 +63,22 @@ Guardar contraseñas y documentos en texto plano o sin protección adecuada repr
 
 ---
 
-## Verificaciones con RUFF
+## 🎥 Video Instructivo
+
+[![Ver Video Instructivo en YouTube](https://img.shields.io/badge/YouTube-Video%20Tutorial-red?logo=youtube&logoColor=white&style=for-the-badge)](https://youtu.be/AIm4dOFtgwU)  
+🔔 Haz clic en el enlace para ver una guía paso a paso sobre cómo utilizar Alpha Web de manera segura y eficiente.
+
+---
+
+## 🐕 Verificaciones con RUFF
+
+RUFF es una herramienta de análisis estático para código Python, enfocada en la detección rápida de errores y el cumplimiento de estilos.  
+![RUFF Logo](https://raw.githubusercontent.com/charliermarsh/ruff/main/docs/_static/logo-light.png#gh-light-mode-only)
+![RUFF Logo](https://raw.githubusercontent.com/charliermarsh/ruff/main/docs/_static/logo-dark.png#gh-dark-mode-only)
+
+- Ejecuta `ruff .` para analizar el código y recibir sugerencias de mejora.
+- Integra RUFF en tu flujo de trabajo para mantener un código limpio y consistente.
+
 
 D104 = Modificaciones en el archivo __init__.py
 N999 = Por avances de proyecto se realiza el proceso de ignoración mientras se va mejorando la aplicación
@@ -83,3 +97,4 @@ Las contribuciones son bienvenidas. Puedes:
 ---
 
 ## Innovando la Seguridad de Contraseñas en la Era Digital tiene licencia bajo CC POR 4.0 © 2 por DUVAN ANDRÉS FLORIAN SALAZAR [![CC BY 4.0](https://i.creativecommons.org/l/by/4.0/88x31.png)](https://creativecommons.org/licenses/by/4.0/)
+
