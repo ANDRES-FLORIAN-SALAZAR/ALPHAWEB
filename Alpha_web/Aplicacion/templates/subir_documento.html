@@ -15,7 +15,7 @@
     </div>
     
     <div class="cajafuerte-form-container">
-        <form action="{% url 'SubirDocumento' %}" method="post" enctype="multipart/form-data">
+        <form action="{% url 'subir_documento' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <fieldset>
                 <legend>Información del Documento</legend>
@@ -51,7 +51,7 @@
             
             <div class="form-actions">
                 <button type="submit" class="btn-submit">Subir Documento</button>
-                <a href="{% url 'CajaFuerte' %}" class="btn-cancel">Cancelar</a>
+                <a href="{% url 'caja_fuerte' %}" class="btn-cancel">Cancelar</a>
             </div>
         </form>
     </div>

@@ -16,7 +16,7 @@
     
     <div class="delete-confirmation">
         <div class="warning-icon">
-            <img src="{% static 'Iconos/warning.jpg' %}" alt="Advertencia" />
+            <img src="{% static 'Iconos/warning.gif' %}" alt="Advertencia" />
         </div>
         
         <h2>¿Estás seguro de que deseas eliminar este documento?</h2>
@@ -33,11 +33,11 @@
         </div>
         
         <div class="delete-actions">
-            <form action="{% url 'EliminarDocumento' documento.id %}" method="post">
+            <form action="{% url 'eliminar_documento' documento.id %}" method="post">
                 {% csrf_token %}
                 <button type="submit" class="btn-delete">Sí, eliminar documento</button>
             </form>
-            <a href="{% url 'CajaFuerte' %}" class="btn-cancel">Cancelar</a>
+            <a href="{% url 'caja_fuerte' %}" class="btn-cancel">Cancelar</a>
         </div>
     </div>
 </div>
