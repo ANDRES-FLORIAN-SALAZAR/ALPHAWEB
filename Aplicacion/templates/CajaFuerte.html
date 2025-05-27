@@ -1,0 +1,97 @@
+{% extends "base.html"%}
+{% load static %}
+{% block content %}
+{% load custom_filters %}
+
+
+<div class="StyleCajaFuerte">
+    <div class="cajafuerte-header">
+        <h1 class="cajafuerte-title">Mi Caja Fuerte Digital</h1>
+        {% if messages %}
+            <div class="cajafuerte-messages">
+                {% for message in messages %}
+                    <div class="message {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    
+    <div class="cajafuerte-actions">
+        <a href="{% url 'SubirDocumento' %}" class="btn-action">Subir nuevo documento</a>
+    </div>
+    
+    <div class="cajafuerte-filters">
+        <select id="categoria-filter" onchange="filtrarPorCategoria()">
+            <option value="todas">Todas las categorías</option>
+            <option value="Personal">Personal</option>
+            <option value="Laboral">Laboral</option>
+            <option value="Financiero">Financiero</option>
+            <option value="Médico">Médico</option>
+            <option value="Legal">Legal</option>
+            <option value="Otro">Otro</option>
+        </select>
+    </div>
+    
+    <div class="cajafuerte-container">
+        {% if documentos %}
+            <div class="documentos-grid">
+                {% for documento in documentos %}
+                    <div class="documento-card" data-categoria="{{ documento.categoria }}">
+                        <div class="documento-icon">
+                            {% if documento.archivo.name|endswith:".pdf" %}
+                                <img src="{% static 'Iconos/pdf-icon.jpg' %}" alt="PDF" />
+                            {% elif documento.archivo.name|endswith:".doc" or documento.archivo.name|lower|endswith:".docx" %}
+                                <img src="{% static 'Iconos/word-icon.jpg' %}" alt="Word" />
+                            {% elif documento.archivo.name|endswith:".xls" or documento.archivo.name|lower|endswith:".xlsx" %}
+                                <img src="{% static 'Iconos/excel-icon.jpg' %}" alt="Excel" />
+                            {% elif documento.archivo.name|endswith:".jpg" or documento.archivo.name|lower|endswith:".jpeg" or documento.archivo.name|lower|endswith:".png" %}
+                                <img src="{% static 'Iconos/image-icon.jpg' %}" alt="Imagen" />
+                            {% else %}
+                                <img src="{% static 'Iconos/file-icon.jpg' %}" alt="Archivo" />
+                            {% endif %}
+                        </div>
+                        <div class="documento-info">
+                            <h3>{{ documento.nombre }}</h3>
+                            <p class="documento-categoria">{{ documento.categoria }}</p>
+                            <p class="documento-fecha">{{ documento.fecha_subida|date:"d/m/Y H:i" }}</p>
+                            {% if documento.descripcion %}
+                                <p class="documento-descripcion">{{ documento.descripcion|truncatechars:100 }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="documento-actions">
+                            <a href="{% url 'VerDocumento' documento.id %}" class="btn-ver">Descargar</a>
+                            <a href="{% url 'EliminarDocumento' documento.id %}" class="btn-eliminar">Eliminar</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="cajafuerte-empty">
+                <p>No tienes documentos guardados en tu caja fuerte.</p>
+                <p>¡Comienza a subir documentos importantes para mantenerlos seguros!</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    function filtrarPorCategoria() {
+        var categoria = document.getElementById('categoria-filter').value;
+        var documentos = document.querySelectorAll('.documento-card');
+        
+        documentos.forEach(function(doc) {
+            if (categoria === 'todas' || doc.getAttribute('data-categoria') === categoria) {
+                doc.style.display = 'flex';
+            } else {
+                doc.style.display = 'none';
+            }
+        });
+    }
+    
+    // Función de ayuda para verificar si un string termina con cierta extensión
+    function endsWith(str, suffix) {
+        return str.indexOf(suffix, str.length - suffix.length) !== -1;
+    }
+</script>
+
+{% endblock %}

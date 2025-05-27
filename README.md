@@ -71,6 +71,8 @@ N999 = Por avances de proyecto se realiza el proceso de ignoración mientras se 
 D203 = Por estilo de docstring se realiza remplazo de linea
 D212 = por estilo de docstring se omite esta regla dado que es duplicada
 
+---
+
 ## 🤝 Contribuciones
 
 Las contribuciones son bienvenidas. Puedes:

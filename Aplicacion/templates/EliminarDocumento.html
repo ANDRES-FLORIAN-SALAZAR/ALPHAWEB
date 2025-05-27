@@ -1,0 +1,45 @@
+{% extends "base.html"%}
+{% load static %}
+{% block content %}
+
+<div class="StyleEliminarDocumento">
+    <div class="cajafuerte-header">
+        <h1 class="cajafuerte-title">Eliminar Documento</h1>
+        {% if messages %}
+            <div class="cajafuerte-messages">
+                {% for message in messages %}
+                    <div class="message {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    
+    <div class="delete-confirmation">
+        <div class="warning-icon">
+            <img src="{% static 'Iconos/warning.jpg' %}" alt="Advertencia" />
+        </div>
+        
+        <h2>¿Estás seguro de que deseas eliminar este documento?</h2>
+        <p class="delete-warning">Esta acción no se puede deshacer. El documento se eliminará permanentemente de tu caja fuerte.</p>
+        
+        <div class="documento-details">
+            <h3>Detalles del documento:</h3>
+            <p><strong>Nombre:</strong> {{ documento.nombre }}</p>
+            <p><strong>Categoría:</strong> {{ documento.categoria }}</p>
+            <p><strong>Fecha de subida:</strong> {{ documento.fecha_subida|date:"d/m/Y H:i" }}</p>
+            {% if documento.descripcion %}
+                <p><strong>Descripción:</strong> {{ documento.descripcion }}</p>
+            {% endif %}
+        </div>
+        
+        <div class="delete-actions">
+            <form action="{% url 'EliminarDocumento' documento.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn-delete">Sí, eliminar documento</button>
+            </form>
+            <a href="{% url 'CajaFuerte' %}" class="btn-cancel">Cancelar</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
