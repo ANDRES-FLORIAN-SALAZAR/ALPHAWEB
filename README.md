@@ -73,8 +73,6 @@ Guardar contraseñas y documentos en texto plano o sin protección adecuada repr
 ## 🐕 Verificaciones con RUFF
 
 RUFF es una herramienta de análisis estático para código Python, enfocada en la detección rápida de errores y el cumplimiento de estilos.  
-![RUFF Logo](https://raw.githubusercontent.com/charliermarsh/ruff/main/docs/_static/logo-light.png#gh-light-mode-only)
-![RUFF Logo](https://raw.githubusercontent.com/charliermarsh/ruff/main/docs/_static/logo-dark.png#gh-dark-mode-only)
 
 - Ejecuta `ruff .` para analizar el código y recibir sugerencias de mejora.
 - Integra RUFF en tu flujo de trabajo para mantener un código limpio y consistente.
