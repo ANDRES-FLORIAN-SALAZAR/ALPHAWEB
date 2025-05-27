@@ -5,7 +5,7 @@
 <div class="StyleInicio_Sesión">
     <form action="{% url 'inicio_sesion' %}" method="post">
         {% csrf_token %}
-        <fieldset>
+        <fieldset><br>
             <center><legend>INICIO DE SESIÓN</legend></center>
             
             {% if messages %}

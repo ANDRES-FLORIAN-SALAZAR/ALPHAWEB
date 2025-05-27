@@ -64,12 +64,29 @@ Guardar contraseñas y documentos en texto plano o sin protección adecuada repr
 
 ---
 
-## Verificaciones con RUFF
+## 🎥 Video Instructivo
+
+[![Ver Video Instructivo en YouTube](https://img.shields.io/badge/YouTube-Video%20Tutorial-red?logo=youtube&logoColor=white&style=for-the-badge)](https://youtu.be/AIm4dOFtgwU)  
+🔔 Haz clic en el enlace para ver una guía paso a paso sobre cómo utilizar Alpha Web de manera segura y eficiente.
+
+---
+
+## 🐕 Verificaciones con RUFF
+
+RUFF es una herramienta de análisis estático para código Python, enfocada en la detección rápida de errores y el cumplimiento de estilos.  
+![RUFF Logo](https://raw.githubusercontent.com/charliermarsh/ruff/main/docs/_static/logo-light.png#gh-light-mode-only)
+![RUFF Logo](https://raw.githubusercontent.com/charliermarsh/ruff/main/docs/_static/logo-dark.png#gh-dark-mode-only)
+
+- Ejecuta `ruff .` para analizar el código y recibir sugerencias de mejora.
+- Integra RUFF en tu flujo de trabajo para mantener un código limpio y consistente.
+
 
 D104 = Modificaciones en el archivo __init__.py
 N999 = Por avances de proyecto se realiza el proceso de ignoración mientras se va mejorando la aplicación
 D203 = Por estilo de docstring se realiza remplazo de linea
 D212 = por estilo de docstring se omite esta regla dado que es duplicada
+
+---
 
 ## 🤝 Contribuciones
 
