@@ -135,7 +135,7 @@ def registro_persona_natural(request: HttpRequest) -> HttpResponse:
 
     nueva_persona.save()
     messages.success(request, "¡Registro exitoso! Por favor inicia sesión.")
-    return redirect("Inicio_Sesion")
+    return redirect("inicio_sesion")
 
 def home(request: HttpRequest) -> HttpResponse:
     """
@@ -280,7 +280,7 @@ def subir_documento(request: HttpRequest) -> HttpResponse:
                 archivo=archivo,
             )
             messages.success(request, "¡Documento subido con éxito!")
-            return redirect("subir_documento")
+            return redirect("caja_fuerte")
         except Exception:
             logger.exception("Error al subir documento")
             messages.error(request, "Error al subir el documento. Intente nuevamente.")
