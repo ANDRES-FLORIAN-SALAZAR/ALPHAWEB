@@ -74,6 +74,9 @@ Guardar contraseñas y documentos en texto plano o sin protección adecuada repr
 
 RUFF es una herramienta de análisis estático para código Python, enfocada en la detección rápida de errores y el cumplimiento de estilos.  
 
+![RUFF Logo](https://raw.githubusercontent.com/charliermarsh/ruff/main/docs/_static/logo-light.png#gh-light-mode-only)
+![RUFF Logo](https://raw.githubusercontent.com/charliermarsh/ruff/main/docs/_static/logo-dark.png#gh-dark-mode-only)
+
 - Ejecuta `ruff .` para analizar el código y recibir sugerencias de mejora.
 - Integra RUFF en tu flujo de trabajo para mantener un código limpio y consistente.
 
@@ -95,3 +98,4 @@ Las contribuciones son bienvenidas. Puedes:
 ---
 
 ## Innovando la Seguridad de Contraseñas en la Era Digital tiene licencia bajo CC POR 4.0 © 2 por DUVAN ANDRÉS FLORIAN SALAZAR [![CC BY 4.0](https://i.creativecommons.org/l/by/4.0/88x31.png)](https://creativecommons.org/licenses/by/4.0/)
+

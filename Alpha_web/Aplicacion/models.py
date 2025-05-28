@@ -1,4 +1,4 @@
-"""este módulo contiene los modelos de la aplicación."""
+"""Este módulo contiene los modelos de la aplicación."""
 from typing import ClassVar
 
 from django.contrib.auth.hashers import make_password
@@ -8,8 +8,6 @@ from django.core.validators import (
     MinValueValidator,
 )
 from django.db import models
-
-"""Este módulo contiene los modelos de la aplicación."""
 
 
 class Persona(models.Model):
@@ -65,7 +63,7 @@ class Persona(models.Model):
         verbose_name = "Usuario"
         verbose_name_plural = "Usuarios"
 
-    def __str__(self: str) -> str:
+    def __str__(self: "Persona") -> str:
         """
         Representa al usuario como una cadena.
 
@@ -75,15 +73,14 @@ class Persona(models.Model):
         """
         return f"{self.nombre} {self.apellido} - {self.email}"
 
-    def save(self, *args:list, **kwargs:dict) -> None:
+    def save(self, *args: list, **kwargs: dict) -> None:
         """Guarda el usuario en la base de datos."""
         if self.contrasena and not self.contrasena.startswith("pbkdf2_sha256$"):
             self.contrasena = make_password(self.contrasena)
         super().save(*args, **kwargs)
 
 
-
-def documento_path(instance:any, filename:str) -> str:
+def documento_path(instance: any, filename: str) -> str:
     """
     Genera la ruta para guardar un documento en la caja fuerte.
 
@@ -97,11 +94,11 @@ def documento_path(instance:any, filename:str) -> str:
     """
     return f"documentos/user_{instance.usuario.id}/{filename}"
 
+
 class DocumentoCajaFuerte(models.Model):
     """Modelo que representa un documento en la caja fuerte."""
 
     CATEGORIAS: ClassVar[list[tuple[str, str]]] = [
-
         ("Personal", "Personal"),
         ("Laboral", "Laboral"),
         ("Financiero", "Financiero"),
@@ -115,7 +112,6 @@ class DocumentoCajaFuerte(models.Model):
         on_delete=models.CASCADE,
         related_name="documentos",
     )
-
     nombre = models.CharField(max_length=200)
     archivo = models.FileField(
         upload_to=documento_path,
@@ -149,10 +145,8 @@ class DocumentoCajaFuerte(models.Model):
         """
         return f"Documento {self.id} de usuario {self.usuario}"
 
-
-
     def save(self, *args: list, **kwargs: dict) -> None:
         """Actualiza el tamaño del archivo antes de guardar el modelo."""
         if self.archivo:
-            self.tamano = self.archivo.size  # ← CORREGIDO
+            self.tamano = self.archivo.size
         super().save(*args, **kwargs)
