@@ -304,18 +304,24 @@ def ver_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
 
     """
     usuario = verificar_autenticacion(request)
+    if not usuario:
+        messages.error(request, "Debes iniciar sesión para acceder a esta página.")
+        return redirect("Inicio_Sesion")
     documento = get_object_or_404(DocumentoCajaFuerte, id=documento_id, usuario=usuario)
 
     try:
-        return FileResponse(
-            Path(documento.archivo.path).open("rb"),
+        file_handle = Path(documento.archivo.path).open("rb")
+        response = FileResponse(
+            file_handle,
             as_attachment=True,
-            filename=documento.archivo.name,
         )
+        response["Content-Disposition"] = f'attachment; filename="{documento.archivo.name}"'
     except Exception:
-        logger.exception("Error al acceder al documento: %s")
+        logger.exception("Error al acceder al documento")
         messages.error(request, "Error al acceder al documento.")
         return redirect("caja_fuerte")
+    else:
+        return response
 
 @requiere_autenticacion
 def eliminar_documento(request: HttpRequest, documento_id: int) -> HttpResponse:

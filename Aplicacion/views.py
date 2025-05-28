@@ -240,6 +240,7 @@ def caja_fuerte(request: HttpRequest) -> HttpResponse:
 
     Returns:
         HttpResponse: La respuesta HTTP con la caja fuerte del usuario.
+
     """
     usuario = verificar_autenticacion(request)
     documentos = DocumentoCajaFuerte.objects.filter(usuario=usuario).order_by("-fecha_subida")
@@ -247,7 +248,7 @@ def caja_fuerte(request: HttpRequest) -> HttpResponse:
         "usuario": usuario,
         "documentos": documentos,
     })
-    
+
 @requiere_autenticacion
 def subir_documento(request: HttpRequest) -> HttpResponse:
     """
@@ -258,6 +259,7 @@ def subir_documento(request: HttpRequest) -> HttpResponse:
 
     Returns:
         HttpResponse: La respuesta HTTP después de intentar subir el documento.
+
     """
     usuario = verificar_autenticacion(request)
 
@@ -296,6 +298,7 @@ def ver_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
 
     Returns:
         HttpResponse: La respuesta HTTP con el documento solicitado.
+
     """
     usuario = verificar_autenticacion(request)
     documento = get_object_or_404(DocumentoCajaFuerte, id=documento_id, usuario=usuario)
@@ -321,6 +324,7 @@ def descargar_documento(request: HttpRequest, documento_id: int) -> HttpResponse
 
     Returns:
         HttpResponse: La respuesta HTTP con el archivo descargable.
+
     """
     usuario = verificar_autenticacion(request)
     documento = get_object_or_404(DocumentoCajaFuerte, id=documento_id, usuario=usuario)
@@ -334,7 +338,7 @@ def descargar_documento(request: HttpRequest, documento_id: int) -> HttpResponse
         logger.exception(f"Error al descargar documento {documento_id}")
         messages.error(request, "Error al descargar el documento.")
         return redirect("caja_fuerte")
-    
+
 @requiere_autenticacion
 def eliminar_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
     """
@@ -346,6 +350,7 @@ def eliminar_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
 
     Returns:
         HttpResponse: La respuesta HTTP después de intentar eliminar el documento.
+
     """
     usuario = verificar_autenticacion(request)
     documento = get_object_or_404(DocumentoCajaFuerte, id=documento_id, usuario=usuario)

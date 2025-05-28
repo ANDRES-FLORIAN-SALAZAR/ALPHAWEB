@@ -1,3 +1,2 @@
-from django.test import TestCase
-
+"""Modulo para realizar pruebas unitarias de la aplicacion."""
 # Create your tests here.

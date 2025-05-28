@@ -5,9 +5,9 @@
 <div class="StyleInicio_Sesión">
     <form action="{% url 'inicio_sesion' %}" method="post">
         {% csrf_token %}
-        <fieldset><br>
+        <fieldset><br><br>
             <center><legend>INICIO DE SESIÓN</legend></center>
-            
+            <br>
             {% if messages %}
             <div class="messages">
                 {% for message in messages %}
