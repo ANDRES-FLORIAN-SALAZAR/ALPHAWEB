@@ -149,10 +149,8 @@ class DocumentoCajaFuerte(models.Model):
         """
         return f"Documento {self.id} de usuario {self.usuario}"
 
-
-
     def save(self, *args: list, **kwargs: dict) -> None:
         """Actualiza el tamaño del archivo antes de guardar el modelo."""
         if self.archivo:
-            self.tamano = self.archivo.size  # ← CORREGIDO
+            self.tamano = self.archivo.size
         super().save(*args, **kwargs)
