@@ -1,4 +1,3 @@
-
 # 🔐 Alpha Web: Innovando la Seguridad de Contraseñas en la Era Digital
 
 **Alpha Web** es una solución moderna y segura para la gestión de contraseñas y documentos sensibles, diseñada para proteger la información personal en un mundo digital cada vez más interconectado. Este gestor permite generar, almacenar y proteger contraseñas de forma segura mediante tecnologías de cifrado, además de ofrecer un entorno tipo "caja fuerte digital" para tus archivos importantes.
@@ -98,3 +97,4 @@ Las contribuciones son bienvenidas. Puedes:
 ---
 
 ## Innovando la Seguridad de Contraseñas en la Era Digital tiene licencia bajo CC POR 4.0 © 2 por DUVAN ANDRÉS FLORIAN SALAZAR [![CC BY 4.0](https://i.creativecommons.org/l/by/4.0/88x31.png)](https://creativecommons.org/licenses/by/4.0/)
+

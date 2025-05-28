@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>ALPHA WEB</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/Main.css' %}">
+        <link rel="stylesheet" href="{% static 'css/Main2.css' %}">
+        <link rel="stylesheet" href="{% static 'css/Main3.css' %}">
+        <link rel="stylesheet" href="{% static 'css/Main4.css' %}">
+        <link rel="stylesheet" href="{% static 'css/Main5.css' %}">
+        <link rel="stylesheet" href="{% static 'css/CajaFuerte.css' %}">
+        
+    </head>
+<body>
+
+    <div class="navbar">
+        <div class="nav-links">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'Planes' %}">Nuestros Planes</a>
+            
+            {% if request.session.usuario_id %}
+                <a href="{% url 'CajaFuerte' %}">Caja Fuerte</a>
+                <a href="{% url 'Contrasenas' %}">Contrasenas</a>
+                <a href="{% url 'Logout' %}">Cerrar Sesión</a>
+            
+            {% else %}
+                <a href="{% url 'registro' %}">Regístrate</a>
+                <a href="{% url 'Inicio_Sesion' %}">Iniciar Sesión</a>
+                <a href="{% url 'Contrasenas' %}">Contrasenas</a>
+            
+            {% endif %}
+        </div>
+        
+        <div class="search-container">
+            <form action="/search" method="get">
+                <input type="text" placeholder="Buscar..." name="search">
+                <button type="submit">Buscar</button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        {% block content %}{% endblock %}
+    </div>
+
+    <div class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h2>Enlaces Rápidos</h2>
+                <ul class="inf">
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'Planes' %}">Nuestros Planes</a></li>
+                    {% if request.session.usuario_id %}
+                        <li><a href="{% url 'CajaFuerte' %}">Caja Fuerte</a></li>
+                        <li><a href="{% url 'Contrasenas' %}">Contraseñas</a></li>
+                        <li><a href="{% url 'Logout' %}">Cerrar Sesión</a></li>
+                    {% else %}
+                        <li><a href="{% url 'registro' %}">Regístrate</a></li>
+                        <li><a href="{% url 'Inicio_Sesion' %}">Iniciar Sesión</a></li>
+                        <li><a href="{% url 'Contrasenas' %}">Contraseñas</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+    
+            <div class="footer-column">
+                <h2>Contacto</h2>
+                <div class="text">Email: info@alphaweb.com</div>
+                <div class="text">Teléfono: +57 3143757171</div>
+            </div>
+    
+            <div class="footer-column">
+                <h2>Redes Sociales</h2>
+                <div class="footer-social">
+                    <a href="https://www.facebook.com/tu_perfil" class="social-button">
+                        <img src="{% static 'Iconos/facebook.jpg' %}" alt="Facebook" />
+                    </a>
+                    <a href="https://www.twitter.com/tu_perfil" class="social-button">
+                        <img src="{% static 'Iconos/X.jpg' %}" alt="Twitter" />
+                    </a>
+                    <a href="https://www.instagram.com/tu_perfil" class="social-button">
+                        <img src="{% static 'Iconos/instagram.jpg' %}" alt="Instagram" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    
+        <hr />
+    
+        <div class="final">
+            <p>&copy; 2024 ALPHA WEB. Todos los derechos reservados.</p>
+        </div>
+    
+        <div class="footer-links">
+            <a href="#popup1">Política de privacidad</a> |
+            <a href="#popup2">Términos de servicio</a> |
+            <a href="#popup3">Aviso legal</a> |
+            <a href="#popup4">Preferencias de cookies</a> |
+            <a href="#popup5">Sus opciones de privacidad</a>
+        </div>
+    </div>
+
+<div id="popup1" class="overlay" onclick="closePopup(event)">
+    <div class="popup-card" onclick="event.stopPropagation()">
+        <h2>Política de Privacidad</h2>
+        <a class="close" href="#">&times;</a>
+        <div class="content">
+            <p>En nuestra empresa valoramos tu privacidad. Esta política explica:</p>
+            <ul>
+                <li>Qué información personal recopilamos</li>
+                <li>Cómo utilizamos tu información</li>
+                <li>Tus derechos sobre tus datos personales</li>
+                <li>Cómo protegemos tu información</li>
+            </ul>
+            <p>No compartimos tus datos con terceros sin tu consentimiento explícito.</p>
+        </div>
+    </div>
+</div>
+
+<div id="popup2" class="overlay" onclick="closePopup(event)">
+    <div class="popup-card" onclick="event.stopPropagation()">
+        <h2>Términos de Servicio</h2>
+        <a class="close" href="#">&times;</a>
+        <div class="content">
+            <p>Al utilizar nuestros servicios, aceptas los siguientes términos:</p>
+            <ul>
+                <li>Uso responsable del servicio</li>
+                <li>Prohibición de actividades ilegales o fraudulentas</li>
+                <li>Derechos de propiedad intelectual</li>
+                <li>Limitaciones de responsabilidad</li>
+            </ul>
+            <p>Nos reservamos el derecho de modificar estos términos en cualquier momento.</p>
+        </div>
+    </div>
+</div>
+
+<div id="popup3" class="overlay" onclick="closePopup(event)">
+    <div class="popup-card" onclick="event.stopPropagation()">
+        <h2>Aviso Legal</h2>
+        <a class="close" href="#">&times;</a>
+        <div class="content">
+            <p>Información legal importante sobre nuestro sitio web:</p>
+            <ul>
+                <li>Datos identificativos de la empresa</li>
+                <li>Condiciones de acceso y uso</li>
+                <li>Exención de responsabilidad por contenidos</li>
+                <li>Ley aplicable y jurisdicción</li>
+            </ul>
+            <p>Este sitio cumple con todas las regulaciones aplicables en materia de comercio electrónico.</p>
+        </div>
+    </div>
+</div>
+
+<div id="popup4" class="overlay" onclick="closePopup(event)">
+    <div class="popup-card" onclick="event.stopPropagation()">
+        <h2>Preferencias de Cookies</h2>
+        <a class="close" href="#">&times;</a>
+        <div class="content">
+            <p>Utilizamos cookies para mejorar tu experiencia:</p>
+            <ul>
+                <li><strong>Esenciales:</strong> Necesarias para el funcionamiento básico</li>
+                <li><strong>Analíticas:</strong> Nos ayudan a mejorar el sitio</li>
+                <li><strong>Publicitarias:</strong> Personalizan los anuncios</li>
+            </ul>
+            <div class="cookie-options">
+                <button class="btn-accept">Aceptar todas</button>
+                <button class="btn-custom">Personalizar</button>
+                <button class="btn-reject">Rechazar no esenciales</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="popup5" class="overlay">
+    <div class="popup-card">
+        <h2>Tus Opciones de Privacidad</h2>
+        <a class="close" href="#">&times;</a>
+        <div class="content">
+            <p>Tienes control sobre tu información personal:</p>
+            <ul>
+                <li>Acceder a tus datos personales</li>
+                <li>Solicitar corrección de información</li>
+                <li>Pedir eliminación de tus datos</li>
+                <li>Limitar el procesamiento</li>
+                <li>Oponerte al marketing directo</li>
+            </ul>
+            <p>Para ejercer tus derechos, contáctanos a través de nuestro formulario.</p>
+        </div>
+</div>
