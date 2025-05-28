@@ -23,31 +23,51 @@
                 <option value="natural">Persona Natural</option>
             </select>
         </fieldset>
-    
+
         <fieldset id="campos_natural" style="display:none;">
             <legend>INFORMACIÓN PERSONAL</legend>
-            <input type="text" name="nombre_completo" placeholder="Nombre Completo" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Contraseña" required>
-            <input type="number" name="edad" placeholder="Edad">
-            <input type="tel" name="celular" placeholder="Celular">
+
+            <input type="text" name="nombre" placeholder="Nombre" value="{{ form.nombre.value|default_if_none:'' }}" required>
+            {% if form.nombre.errors %}<div class="field-error">{{ form.nombre.errors }}</div>{% endif %}
+
+            <input type="text" name="apellido" placeholder="Apellido" value="{{ form.apellido.value|default_if_none:'' }}">
+            {% if form.apellido.errors %}<div class="field-error">{{ form.apellido.errors }}</div>{% endif %}
+
+            <input type="email" name="email" placeholder="Correo Electrónico" value="{{ form.email.value|default_if_none:'' }}" required pattern=".+@gmail\.com" title="Debe ser un correo @gmail.com">
+            {% if form.email.errors %}<div class="field-error">{{ form.email.errors }}</div>{% endif %}
+
+            <input type="password" name="contrasena" placeholder="Contraseña" required>
+            {% if form.contrasena.errors %}<div class="field-error">{{ form.contrasena.errors }}</div>{% endif %}
+
+            <input type="password" name="confirmar_contrasena" placeholder="Confirmar Contraseña" required>
+            {% if form.confirmar_contrasena.errors %}<div class="field-error">{{ form.confirmar_contrasena.errors }}</div>{% endif %}
+
+            <input type="number" name="edad" placeholder="Edad" value="{{ form.edad.value|default_if_none:'' }}">
+            {% if form.edad.errors %}<div class="field-error">{{ form.edad.errors }}</div>{% endif %}
+
+            <input type="tel" name="telefono" placeholder="Celular" value="{{ form.telefono.value|default_if_none:'' }}">
+            {% if form.telefono.errors %}<div class="field-error">{{ form.telefono.errors }}</div>{% endif %}
+
             <label for="genero">Género</label>
             <select id="genero" name="genero">
                 <option value="">Seleccione...</option>
-                <option value="Masculino">Masculino</option>
-                <option value="Femenino">Femenino</option>
+                <option value="Masculino" {% if form.genero.value == "Masculino" %}selected{% endif %}>Masculino</option>
+                <option value="Femenino" {% if form.genero.value == "Femenino" %}selected{% endif %}>Femenino</option>
+                <option value="Otro" {% if form.genero.value == "Otro" %}selected{% endif %}>Otro</option>
+                <option value="Prefiero no decir" {% if form.genero.value == "Prefiero no decir" %}selected{% endif %}>Prefiero no decirlo</option>
             </select>
+            {% if form.genero.errors %}<div class="field-error">{{ form.genero.errors }}</div>{% endif %}
         </fieldset>
-    
+
         <center><button type="submit">Registrarse</button></center>
-        <h1>¿Ya tienes una cuenta? <a href="{% url 'Inicio_Sesion' %}">Inicia sesión aquí</a></h1>
+        <h1>¿Ya tienes una cuenta? <a href="{% url 'inicio_sesion' %}">Inicia sesión aquí</a></h1>
     </form>
 
 <script>
     function mostrarCampos() {
         var tipoRegistro = document.getElementById("tipo_registro").value;
         document.getElementById("campos_natural").style.display = (tipoRegistro === "natural") ? "block" : "none";
-        }
+    }
 </script>
 
 {% endblock %}
