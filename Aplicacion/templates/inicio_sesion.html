@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="StyleInicio_Sesión">
-    <form action="{% url 'Inicio_Sesion' %}" method="post">
+    <form action="{% url 'inicio_sesion' %}" method="post">
         {% csrf_token %}
         <fieldset>
             <center><legend>INICIO DE SESIÓN</legend></center>

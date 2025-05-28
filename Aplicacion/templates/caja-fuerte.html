@@ -17,7 +17,7 @@
     </div>
     
     <div class="cajafuerte-actions">
-        <a href="{% url 'SubirDocumento' %}" class="btn-action">Subir nuevo documento</a>
+        <a href="/subir-documento/" class="btn-action">Subir nuevo documento</a>
     </div>
     
     <div class="cajafuerte-filters">
@@ -59,8 +59,16 @@
                             {% endif %}
                         </div>
                         <div class="documento-actions">
-                            <a href="{% url 'VerDocumento' documento.id %}" class="btn-ver">Descargar</a>
-                            <a href="{% url 'EliminarDocumento' documento.id %}" class="btn-eliminar">Eliminar</a>
+                            {% if documento.id %}
+                                <a href="{% url 'descargar_documento' documento.id %}" class="btn-ver">Descargar</a>
+                                <form action="{% url 'eliminar_documento' documento.id %}" method="post" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este documento?');">Eliminar</button>
+                                </form>
+                            {% else %}
+                                <span class="btn-ver disabled">Descargar</span>
+                                <span class="btn-eliminar disabled">Eliminar</span>
+                            {% endif %}
                         </div>
                     </div>
                 {% endfor %}

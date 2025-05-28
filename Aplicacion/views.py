@@ -198,7 +198,7 @@ def inicio_sesion(request: HttpRequest) -> HttpResponse:
         except Persona.DoesNotExist:
             messages.error(request, "No existe un usuario con ese email.")
 
-    return render(request, "Inicio_Sesion.html")
+    return render(request, "inicio_sesion.html")
 
 def contrasenas(request: HttpRequest) -> HttpResponse:
     """
@@ -212,7 +212,7 @@ def contrasenas(request: HttpRequest) -> HttpResponse:
 
     """
     usuario = verificar_autenticacion(request)
-    return render(request, "Contrasenas.html", {"usuario": usuario})
+    return render(request, "contrasenas.html", {"usuario": usuario})
 
 def cerrar_sesion(request: HttpRequest) -> HttpResponse:
     """
@@ -240,15 +240,14 @@ def caja_fuerte(request: HttpRequest) -> HttpResponse:
 
     Returns:
         HttpResponse: La respuesta HTTP con la caja fuerte del usuario.
-
     """
     usuario = verificar_autenticacion(request)
     documentos = DocumentoCajaFuerte.objects.filter(usuario=usuario).order_by("-fecha_subida")
-    return render(request, "caja_fuerte.html", {
+    return render(request, "caja-fuerte.html", {
         "usuario": usuario,
         "documentos": documentos,
     })
-
+    
 @requiere_autenticacion
 def subir_documento(request: HttpRequest) -> HttpResponse:
     """
@@ -259,7 +258,6 @@ def subir_documento(request: HttpRequest) -> HttpResponse:
 
     Returns:
         HttpResponse: La respuesta HTTP después de intentar subir el documento.
-
     """
     usuario = verificar_autenticacion(request)
 
@@ -284,7 +282,6 @@ def subir_documento(request: HttpRequest) -> HttpResponse:
         except Exception:
             logger.exception("Error al subir documento")
             messages.error(request, "Error al subir el documento. Intente nuevamente.")
-            return redirect("subir_documento")
 
     return render(request, "subir_documento.html", {"usuario": usuario})
 
@@ -299,22 +296,45 @@ def ver_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
 
     Returns:
         HttpResponse: La respuesta HTTP con el documento solicitado.
-
     """
     usuario = verificar_autenticacion(request)
     documento = get_object_or_404(DocumentoCajaFuerte, id=documento_id, usuario=usuario)
 
     try:
-        return FileResponse(
-            Path(documento.archivo.path).open("rb"),
-            as_attachment=True,
-            filename=documento.archivo.name,
-        )
+        file_handle = Path(documento.archivo.path).open("rb")
+        response = FileResponse(file_handle, as_attachment=True)
+        response["Content-Disposition"] = f'attachment; filename="{Path(documento.archivo.name).name}"'
+        return response
     except Exception:
-        logger.exception("Error al acceder al documento: %s")
+        logger.exception(f"Error al acceder al documento {documento_id}")
         messages.error(request, "Error al acceder al documento.")
         return redirect("caja_fuerte")
 
+@requiere_autenticacion
+def descargar_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
+    """
+    Descarga un documento de la caja fuerte.
+
+    Args:
+        request (HttpRequest): La solicitud HTTP.
+        documento_id (int): El ID del documento a descargar.
+
+    Returns:
+        HttpResponse: La respuesta HTTP con el archivo descargable.
+    """
+    usuario = verificar_autenticacion(request)
+    documento = get_object_or_404(DocumentoCajaFuerte, id=documento_id, usuario=usuario)
+
+    try:
+        file_handle = Path(documento.archivo.path).open("rb")
+        response = FileResponse(file_handle, as_attachment=True)
+        response["Content-Disposition"] = f'attachment; filename="{Path(documento.archivo.name).name}"'
+        return response
+    except Exception:
+        logger.exception(f"Error al descargar documento {documento_id}")
+        messages.error(request, "Error al descargar el documento.")
+        return redirect("caja_fuerte")
+    
 @requiere_autenticacion
 def eliminar_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
     """
@@ -326,7 +346,6 @@ def eliminar_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
 
     Returns:
         HttpResponse: La respuesta HTTP después de intentar eliminar el documento.
-
     """
     usuario = verificar_autenticacion(request)
     documento = get_object_or_404(DocumentoCajaFuerte, id=documento_id, usuario=usuario)
@@ -338,7 +357,7 @@ def eliminar_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
             documento.delete()
             messages.success(request, "Documento eliminado correctamente.")
         except Exception:
-            logger.exception("Error al eliminar documento")
+            logger.exception(f"Error al eliminar documento {documento_id}")
             messages.error(request, "Error al eliminar el documento.")
 
         return redirect("caja_fuerte")
