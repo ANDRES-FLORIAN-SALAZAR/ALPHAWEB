@@ -183,7 +183,7 @@ def inicio_sesion(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":
         email = request.POST.get("email")
         contrasena = request.POST.get("contrasena")
- 
+
         if not email or not contrasena:
             messages.error(request, "Por favor complete todos los campos.")
             return render(request, "Inicio_Sesion.html")
@@ -193,7 +193,7 @@ def inicio_sesion(request: HttpRequest) -> HttpResponse:
             if check_password(contrasena, usuario.contrasena):
                 request.session["usuario_id"] = usuario.id
                 request.session.set_expiry(1209600)
-                
+
                 messages.success(request, f"¡Bienvenido, {usuario.nombre}!")
                 return redirect("planes")
             messages.error(request, "Contraseña incorrecta.")
@@ -211,6 +211,7 @@ def contrasenas(request: HttpRequest) -> HttpResponse:
 
     Returns:
         HttpResponse: La respuesta HTTP después de intentar cambiar la contraseña.
+
     """
     usuario = verificar_autenticacion(request)
     return render(request, "Contrasenas.html", {"usuario": usuario})
