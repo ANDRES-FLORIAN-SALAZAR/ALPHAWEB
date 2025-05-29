@@ -177,6 +177,7 @@ def inicio_sesion(request: HttpRequest) -> HttpResponse:
 
     """
     if verificar_autenticacion(request):
+
         return redirect("planes")
 
     if request.method == "POST":
@@ -192,6 +193,7 @@ def inicio_sesion(request: HttpRequest) -> HttpResponse:
             if check_password(contrasena, usuario.contrasena):
                 request.session["usuario_id"] = usuario.id
                 request.session.set_expiry(1209600)
+
                 messages.success(request, f"¡Bienvenido, {usuario.nombre}!")
                 return redirect("planes")
             messages.error(request, "Contraseña incorrecta.")
@@ -282,7 +284,7 @@ def subir_documento(request: HttpRequest) -> HttpResponse:
             messages.success(request, "¡Documento subido con éxito!")
             return redirect("caja_fuerte")
         except Exception:
-            logger.exception("Error al subir documento")
+            logger.exception("Error al subir documento", extra={"user_id": usuario.nombre})
             messages.error(request, "Error al subir el documento. Intente nuevamente.")
             return redirect("subir_documento")
 
@@ -302,18 +304,24 @@ def ver_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
 
     """
     usuario = verificar_autenticacion(request)
+    if not usuario:
+        messages.error(request, "Debes iniciar sesión para acceder a esta página.")
+        return redirect("Inicio_Sesion")
     documento = get_object_or_404(DocumentoCajaFuerte, id=documento_id, usuario=usuario)
 
     try:
-        return FileResponse(
-            Path(documento.archivo.path).open("rb"),
-            as_attachment=True,
-            filename=documento.archivo.name,
-        )
+        with Path.open(documento.archivo.path, "rb") as file_handle:
+            response = FileResponse(
+                file_handle,
+                as_attachment=True,
+            )
+            response["Content-Disposition"] = f'attachment; filename="{documento.archivo.name}"'
+            return response
     except Exception:
-        logger.exception("Error al acceder al documento: %s")
+        logger.exception("Error al acceder al documento: %s", documento.id)
         messages.error(request, "Error al acceder al documento.")
-        return redirect("caja_fuerte")
+    return redirect("caja_fuerte")
+
 
 @requiere_autenticacion
 def eliminar_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
@@ -338,7 +346,7 @@ def eliminar_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
             documento.delete()
             messages.success(request, "Documento eliminado correctamente.")
         except Exception:
-            logger.exception("Error al eliminar documento")
+            logger.exception("Error al eliminar el documento: %s", documento.id)
             messages.error(request, "Error al eliminar el documento.")
 
         return redirect("caja_fuerte")

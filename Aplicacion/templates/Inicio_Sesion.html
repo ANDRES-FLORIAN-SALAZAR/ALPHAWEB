@@ -3,11 +3,11 @@
 {% block content %}
 
 <div class="StyleInicio_Sesión">
-    <form action="{% url 'Inicio_Sesion' %}" method="post">
+    <form action="{% url 'inicio_sesion' %}" method="post">
         {% csrf_token %}
-        <fieldset>
+        <fieldset><br><br>
             <center><legend>INICIO DE SESIÓN</legend></center>
-            
+            <br>
             {% if messages %}
             <div class="messages">
                 {% for message in messages %}
@@ -19,13 +19,13 @@
             {% endif %}
             
             <div class="imagen-container">
-                <img src="{% static 'Iconos/login.jpg' %}" alt="login" class="imagen">
+                <img src="{% static 'Iconos/usuario.jpg' %}" alt="Login" class="imagen-login" />
             </div>
             <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="contrasena" placeholder="Contrasena" required>
             <input type="submit" value="Iniciar Sesión">
             <a href="{% url 'registro' %}" class="btn-registro">
-                <input type="button" value="Registrarse">
+                Registrarse
             </a>
         </fieldset>
     </form>

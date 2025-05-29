@@ -16,6 +16,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,9 +28,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", "True") == "True"
+DEBUG = True
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -59,7 +60,7 @@ ROOT_URLCONF = "Alpha_web.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [Path(BASE_DIR) / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -112,9 +113,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "es-CO"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "America/Bogota"
 
 USE_I18N = True
 
@@ -124,30 +125,29 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 # Ruta base del proyecto
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # URL para archivos estáticos
 STATIC_URL = "/static/"
 
 # Directorios donde Django buscará archivos estáticos adicionales
 STATICFILES_DIRS = [
-    BASE_DIR / "Aplicacion/static",
+    Path(BASE_DIR) / "Aplicacion/static",
 ]
 
 # Ruta donde se recopilarán los archivos estáticos en producción
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = Path(BASE_DIR) / "staticfiles"
 
 # Media files (Uploads)
 MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = Path(BASE_DIR) / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [
-    BASE_DIR / "Aplicacion/static",
-]
+STATICFILES_DIRS = [Path(BASE_DIR) / "Aplicacion/static"]
 
 # Configuración para limitar el tamaño de los archivos (por ejemplo, 5MB)
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB en bytes
 FILE_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB en bytes
+
