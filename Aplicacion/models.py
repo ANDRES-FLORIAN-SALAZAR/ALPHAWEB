@@ -80,7 +80,7 @@ class Persona(models.Model):
         super().save(*args, **kwargs)
 
 
-def documento_path(instance: "DocumentoCajaFuerte", filename: str) -> str:
+def documento_path(instance: any, filename: str) -> str:
     """
     Genera la ruta para guardar un documento en la caja fuerte.
 
