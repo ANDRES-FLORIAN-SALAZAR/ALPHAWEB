@@ -117,7 +117,6 @@
     background-color: transparent;
 }
 
-
 .documento-info {
     flex: 1;
 }
@@ -153,22 +152,68 @@
     margin-top: 15px;
 }
 
-.btn-ver, .btn-eliminar {
-    padding: 8px 12px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-size: 14px;
+/* BOTONES ACTUALIZADOS */
+.btn-ver,
+.btn-eliminar,
+.btn-submit,
+.btn-cancel,
+.btn-delete {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
     text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
 }
 
+/* VER/DESCARGAR */
 .btn-ver {
-    background-color: #007BFF;
+    background-color: #0d6efd;
     color: #ffffff;
 }
 
-.btn-eliminar {
+.btn-ver:hover {
+    background-color: #0a58ca;
+    transform: translateY(-2px);
+}
+
+/* ELIMINAR */
+.btn-eliminar,
+.btn-delete {
     background-color: #dc3545;
     color: #ffffff;
+}
+
+.btn-eliminar:hover,
+.btn-delete:hover {
+    background-color: #bb2d3b;
+    transform: translateY(-2px);
+}
+
+/* CANCELAR */
+.btn-cancel {
+    background-color: #6c757d;
+    color: #ffffff;
+}
+
+.btn-cancel:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+/* ENVIAR */
+.btn-submit {
+    background-color: #198754;
+    color: #ffffff;
+}
+
+.btn-submit:hover {
+    background-color: #146c43;
+    transform: translateY(-2px);
 }
 
 .cajafuerte-empty {
@@ -217,26 +262,6 @@
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
-}
-
-.btn-submit, .btn-cancel {
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    text-align: center;
-    cursor: pointer;
-}
-
-.btn-submit {
-    background-color: #007BFF;
-    color: #ffffff;
-    border: none;
-}
-
-.btn-cancel {
-    background-color: #0de91f;
-    color: #000000;
-    text-decoration: none;
 }
 
 .delete-confirmation {
@@ -291,26 +316,6 @@
     margin-top: 20px;
 }
 
-.btn-delete {
-    background-color: #dc3545;
-    color: #0a0a0a;
-    padding: 10px 20px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.btn-cancel {
-    background-color: #0de91f;
-    color: #050505;
-    padding: 4px 10px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-}
-
 option {
     background-color: #ffffff;
     color: #070707;
@@ -320,13 +325,16 @@ option {
     .documentos-grid {
         grid-template-columns: 1fr;
     }
-    
-    .form-actions, .delete-actions {
+
+    .form-actions,
+    .delete-actions {
         flex-direction: column;
         gap: 10px;
     }
-    
-    .btn-cancel, .btn-submit, .btn-delete {
+
+    .btn-cancel,
+    .btn-submit,
+    .btn-delete {
         width: 100%;
     }
 }

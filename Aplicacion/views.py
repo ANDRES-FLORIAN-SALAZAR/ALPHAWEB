@@ -322,7 +322,36 @@ def ver_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
         messages.error(request, "Error al acceder al documento.")
     return redirect("caja_fuerte")
 
+@requiere_autenticacion
 
+def descargar_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
+    """
+    Descarga un documento de la caja fuerte.
+
+    Args:
+        request (HttpRequest): La solicitud HTTP.
+        documento_id (int): El ID del documento a descargar.
+
+    Returns:
+        HttpResponse: La respuesta HTTP con el archivo descargado.
+
+    """
+    usuario = verificar_autenticacion(request)
+    documento = get_object_or_404(DocumentoCajaFuerte, id=documento_id, usuario=usuario)
+
+    try:
+        with Path.open(documento.archivo.path, "rb") as file_handle:
+            response = FileResponse(
+                file_handle,
+                as_attachment=True,
+            )
+            response["Content-Disposition"] = f'attachment; filename="{documento.archivo.name}"'
+            return response
+    except Exception:
+        logger.exception("Error al descargar el documento: %s", documento.id)
+        messages.error(request, "Error al descargar el documento.")
+        return redirect("caja_fuerte")
+    
 @requiere_autenticacion
 def eliminar_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
     """
