@@ -63,7 +63,7 @@ class Persona(models.Model):
         verbose_name = "Usuario"
         verbose_name_plural = "Usuarios"
 
-    def __str__(self: "Persona") -> str:
+    def __str__(self) -> str:
         """
         Representa al usuario como una cadena.
 
@@ -73,7 +73,7 @@ class Persona(models.Model):
         """
         return f"{self.nombre} {self.apellido} - {self.email}"
 
-    def save(self, *args: list, **kwargs: dict) -> None:
+    def save(self, *args, **kwargs) -> None:
         """Guarda el usuario en la base de datos."""
         if self.contrasena and not self.contrasena.startswith("pbkdf2_sha256$"):
             self.contrasena = make_password(self.contrasena)
