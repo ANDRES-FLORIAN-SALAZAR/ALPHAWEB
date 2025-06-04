@@ -16,13 +16,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 
 """
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
-from django.conf.urls import handler404
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("",include("Aplicacion.urls")),
+    path("", include("Aplicacion.urls")),
 ]
 
-handler404 = 'Aplicacion.views.custom_404_view'
+# Agregar soporte para archivos estáticos y media en desarrollo
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
