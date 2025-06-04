@@ -34,6 +34,7 @@ dill==0.3.8
 distlib==0.3.8
 distro==1.9.0
 Django==4.2.11
+psycopg2-binary==2.9.10
 et-xmlfile==1.0.1
 eyed3==0.9.7
 fastjsonschema==2.19.0
