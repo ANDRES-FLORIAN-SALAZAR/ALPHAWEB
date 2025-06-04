@@ -33,7 +33,7 @@
             <input type="text" name="apellido" placeholder="Apellido" value="{{ form.apellido.value|default_if_none:'' }}">
             {% if form.apellido.errors %}<div class="field-error">{{ form.apellido.errors }}</div>{% endif %}
 
-            <input type="email" name="email" placeholder="Correo Electrónico" value="{{ form.email.value|default_if_none:'' }}" required pattern=".+@gmail\.com" title="Debe ser un correo @gmail.com">
+            <input type="email" name="email" placeholder="Correo Electrónico" value="{{ form.email.value|default_if_none:'' }}" required pattern=".+@(gmail\.com|outlook\.com|gmail\.co|outlook\.co)" title="Debe ser un correo @gmail.com, @outlook.com, @gmail.co o @outlook.co">
             {% if form.email.errors %}<div class="field-error">{{ form.email.errors }}</div>{% endif %}
 
             <input type="password" name="contrasena" placeholder="Contraseña" required>
