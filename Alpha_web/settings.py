@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -129,23 +129,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # URL para archivos estáticos
 STATIC_URL = "/static/"
-
-# Directorios donde Django buscará archivos estáticos adicionales
 STATICFILES_DIRS = [
     Path(BASE_DIR) / "Aplicacion/static",
 ]
-
-# Ruta donde se recopilarán los archivos estáticos en producción
 STATIC_ROOT = Path(BASE_DIR) / "staticfiles"
 
-# Media files (Uploads)
 MEDIA_URL = "/media/"
 MEDIA_ROOT = Path(BASE_DIR) / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-STATIC_URL = "/static/"
-STATICFILES_DIRS = [Path(BASE_DIR) / "Aplicacion/static"]
+# Configuración para archivos estáticos en producción
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
+# Configuración para archivos media en producción
+MEDIAFILES_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 # Configuración para limitar el tamaño de los archivos (por ejemplo, 5MB)
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB en bytes
