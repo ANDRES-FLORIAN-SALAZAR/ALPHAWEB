@@ -28,9 +28,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -150,4 +150,3 @@ STATICFILES_DIRS = [Path(BASE_DIR) / "Aplicacion/static"]
 # Configuración para limitar el tamaño de los archivos (por ejemplo, 5MB)
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB en bytes
 FILE_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB en bytes
-

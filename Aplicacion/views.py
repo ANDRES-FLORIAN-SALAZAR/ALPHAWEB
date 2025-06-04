@@ -94,13 +94,28 @@ def registro_persona_natural(request: HttpRequest) -> HttpResponse:
         HttpResponse: La respuesta HTTP después de intentar registrar a la persona.
 
     """
-    nombre_completo = request.POST.get("nombre_completo", "").strip()
+    nombre = request.POST.get("nombre", "").strip()
+    apellido = request.POST.get("apellido", "").strip()
     email = request.POST.get("email", "").strip()
-    contrasena = request.POST.get("password", "").strip()
+    contrasena = request.POST.get("contrasena", "").strip()
+    confirmar_contrasena = request.POST.get("confirmar_contrasena", "").strip()
 
-    if not nombre_completo:
-        messages.error(request, "El nombre completo es obligatorio.")
+    if not nombre:
+        messages.error(request, "El nombre es obligatorio.")
         return redirect("registro")
+    # El apellido puede ser opcional. Si es obligatorio, descomenta las siguientes líneas:
+    # if not apellido:
+    #     messages.error(request, "El apellido es obligatorio.")
+    #     return redirect("registro")
+
+    if not contrasena:
+        messages.error(request, "La contraseña es obligatoria.")
+        return redirect("registro")
+
+    if contrasena != confirmar_contrasena:
+        messages.error(request, "Las contraseñas no coinciden.")
+        return redirect("registro")
+
     if not email:
         messages.error(request, "El email es obligatorio.")
         return redirect("registro")
@@ -112,13 +127,11 @@ def registro_persona_natural(request: HttpRequest) -> HttpResponse:
         messages.error(request, "El email ya está registrado.")
         return redirect("registro")
 
-    partes_nombre = nombre_completo.split(" ", 1)
-    nombre = partes_nombre[0]
-    apellido = partes_nombre[1] if len(partes_nombre) > 1 else ""
+    # Ya no se divide nombre_completo, se usan nombre y apellido directamente del formulario.
 
     nueva_persona = Persona(
-        nombre=nombre,
-        apellido=apellido,
+        nombre=nombre, # Directo del formulario
+        apellido=apellido, # Directo del formulario
         email=email,
         contrasena=make_password(contrasena),
         telefono=request.POST.get("celular", "").strip(),
@@ -322,6 +335,15 @@ def ver_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
         messages.error(request, "Error al acceder al documento.")
     return redirect("caja_fuerte")
 
+
+def custom_404_view(request: HttpRequest, exception) -> HttpResponse:
+    """
+    Vista personalizada para errores 404.
+    Renderiza la plantilla 404.html.
+    """
+    return render(request, "404.html", status=404)
+
+
 @requiere_autenticacion
 
 def descargar_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
@@ -347,10 +369,11 @@ def descargar_documento(request: HttpRequest, documento_id: int) -> HttpResponse
             )
             response["Content-Disposition"] = f'attachment; filename="{documento.archivo.name}"'
             return response
-    except Exception:
-        logger.exception("Error al descargar el documento: %s", documento.id)
-        messages.error(request, "Error al descargar el documento.")
-        return redirect("caja_fuerte")
+    except Exception as e:
+        logger.exception("Error detallado al intentar descargar el documento ID %s:", documento.id)
+        # messages.error(request, "Error al descargar el documento.") # Mensaje genérico temporalmente desactivado
+        # return redirect("caja_fuerte") # Redirección temporalmente desactivada
+        raise e # Re-lanzar la excepción para ver el error completo en el navegador
     
 @requiere_autenticacion
 def eliminar_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
