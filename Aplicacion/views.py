@@ -361,12 +361,7 @@ def ver_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
         messages.error(request, "Error al acceder al documento.")
     return redirect("caja_fuerte")
 
-
-
-
-
 @requiere_autenticacion
-
 def descargar_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
     """
     Descarga un documento de la caja fuerte.
