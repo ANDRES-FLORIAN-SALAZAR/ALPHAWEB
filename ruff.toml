@@ -29,6 +29,7 @@ exclude = [
    "migrations",
    "virtual",
    "Alpha_web/manage.py", # se ignora por defecto inicial de django
+   "Selenium",
 ]
 
 # Same as Black.
