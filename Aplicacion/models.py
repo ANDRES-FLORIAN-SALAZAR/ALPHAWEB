@@ -63,7 +63,7 @@ class Persona(models.Model):
         verbose_name = "Usuario"
         verbose_name_plural = "Usuarios"
 
-    def __str__(self: "Persona") -> str:
+    def __str__(self) -> str:
         """
         Representa al usuario como una cadena.
 

@@ -1,0 +1,90 @@
+/* Personalización de los colores del administrador */
+
+/* Cambiar el color del header */
+.app-header {
+    background-color: #2c3e50 !important;
+}
+
+/* Cambiar el color del sidebar */
+.app-sidebar {
+    background-color: #34495e !important;
+}
+
+/* Cambiar el color de los enlaces */
+.app-sidebar a,
+.app-header a {
+    color: #ecf0f1 !important;
+}
+
+/* Cambiar el color de los enlaces al pasar el mouse */
+.app-sidebar a:hover,
+.app-header a:hover {
+    color: #3498db !important;
+}
+
+/* Cambiar el color de los botones */
+.button {
+    background-color: #3498db !important;
+    border-color: #2980b9 !important;
+}
+
+.button:hover {
+    background-color: #2980b9 !important;
+}
+
+/* Cambiar el color de los botones de acción */
+.button.default {
+    background-color: #2ecc71 !important;
+    border-color: #27ae60 !important;
+}
+
+.button.default:hover {
+    background-color: #27ae60 !important;
+}
+
+/* Cambiar el color de los botones de eliminar */
+.button.deletelink {
+    background-color: #e74c3c !important;
+    border-color: #c0392b !important;
+}
+
+.button.deletelink:hover {
+    background-color: #c0392b !important;
+}
+
+/* Cambiar el color del texto */
+.app-content {
+    color: #2c3e50 !important;
+}
+
+/* Cambiar el color de los encabezados */
+h1, h2, h3, h4, h5, h6 {
+    color: #2c3e50 !important;
+}
+
+/* Cambiar el color de los campos de formulario */
+.field-box {
+    background-color: #ecf0f1 !important;
+    border-color: #bdc3c7 !important;
+}
+
+/* Cambiar el color de los mensajes */
+.success {
+    background-color: #2ecc71 !important;
+    border-color: #27ae60 !important;
+}
+
+.error {
+    background-color: #e74c3c !important;
+    border-color: #c0392b !important;
+}
+
+.warning {
+    background-color: #f1c40f !important;
+    border-color: #f39c12 !important;
+}
+
+.info {
+    background-color: #3498db !important;
+    border-color: #2980b9 !important;
+}

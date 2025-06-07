@@ -1,8 +1,9 @@
 """
-"este archivo contiene las vistas de la aplicacion.
+este archivo contiene las vistas de la aplicacion.
 
 las cuales son funciones que manejan las peticiones HTTP y devuelven respuestas HTTP.
 """
+
 import logging
 from functools import wraps
 from pathlib import Path
@@ -83,6 +84,75 @@ def registro(request: HttpRequest) -> HttpResponse:
 
     return render(request, "registro.html")
 
+def validar_datos_registro(request: HttpRequest) -> tuple[list[str], dict[str, str]]:
+    """
+    Valida los datos del formulario de registro.
+
+    Args:
+        request (HttpRequest): La solicitud HTTP del usuario.
+
+    Returns:
+        tuple[list[str], dict[str, str]]: Una tupla con la lista de errores y los datos validados.
+
+    """
+    datos = {
+        "nombre": request.POST.get("nombre", "").strip(),
+        "apellido": request.POST.get("apellido", "").strip(),
+        "email": request.POST.get("email", "").strip(),
+        "contrasena": request.POST.get("contrasena", "").strip(),
+        "confirmar_contrasena": request.POST.get("confirmar_contrasena", "").strip(),
+        "edad": request.POST.get("edad", "").strip(),
+        "telefono": request.POST.get("celular", "").strip(),
+        "genero": request.POST.get("genero", "").strip(),
+    }
+
+    errores = []
+
+    if not datos["nombre"]:
+        errores.append("El nombre es obligatorio.")
+    if not datos["contrasena"]:
+        errores.append("La contraseña es obligatoria.")
+    if datos["contrasena"] != datos["confirmar_contrasena"]:
+        errores.append("Las contraseñas no coinciden.")
+    if not datos["email"]:
+        errores.append("El email es obligatorio.")
+    if Persona.objects.filter(email=datos["email"]).exists():
+        errores.append("El email ya está registrado.")
+
+    edad_valida = None
+    if datos["edad"]:
+        try:
+            edad_valida = int(datos["edad"])
+        except ValueError:
+            errores.append("La edad debe ser un número válido.")
+
+    return errores, datos, edad_valida
+
+def crear_persona(datos: dict[str, str], edad_valida: int | None) -> Persona:
+    """
+    Crea una nueva instancia de Persona con los datos proporcionados.
+
+    Args:
+        datos (dict[str, str]): Diccionario con los datos del formulario.
+        edad_valida (int | None): Edad válida del usuario.
+
+    Returns:
+        Persona: La nueva instancia de Persona.
+
+    """
+    nueva_persona = Persona(
+        nombre=datos["nombre"],
+        apellido=datos["apellido"],
+        email=datos["email"],
+        contrasena=make_password(datos["contrasena"]),
+        telefono=datos["telefono"],
+        genero=datos["genero"],
+        rol="Usuario",
+    )
+    if edad_valida is not None:
+        nueva_persona.edad = edad_valida
+    return nueva_persona
+
 def registro_persona_natural(request: HttpRequest) -> HttpResponse:
     """
     Registra una nueva persona natural.
@@ -94,45 +164,14 @@ def registro_persona_natural(request: HttpRequest) -> HttpResponse:
         HttpResponse: La respuesta HTTP después de intentar registrar a la persona.
 
     """
-    nombre_completo = request.POST.get("nombre_completo", "").strip()
-    email = request.POST.get("email", "").strip()
-    contrasena = request.POST.get("password", "").strip()
+    errores, datos, edad_valida = validar_datos_registro(request)
 
-    if not nombre_completo:
-        messages.error(request, "El nombre completo es obligatorio.")
-        return redirect("registro")
-    if not email:
-        messages.error(request, "El email es obligatorio.")
-        return redirect("registro")
-    if not contrasena:
-        messages.error(request, "La contrasena es obligatoria.")
+    if errores:
+        for error in errores:
+            messages.error(request, error)
         return redirect("registro")
 
-    if Persona.objects.filter(email=email).exists():
-        messages.error(request, "El email ya está registrado.")
-        return redirect("registro")
-
-    partes_nombre = nombre_completo.split(" ", 1)
-    nombre = partes_nombre[0]
-    apellido = partes_nombre[1] if len(partes_nombre) > 1 else ""
-
-    nueva_persona = Persona(
-        nombre=nombre,
-        apellido=apellido,
-        email=email,
-        contrasena=make_password(contrasena),
-        telefono=request.POST.get("celular", "").strip(),
-        genero=request.POST.get("genero", "").strip(),
-        rol="Usuario",
-    )
-
-    if edad := request.POST.get("edad", "").strip():
-        try:
-            nueva_persona.edad = int(edad)
-        except ValueError:
-            messages.error(request, "La edad debe ser un número válido.")
-            return redirect("registro")
-
+    nueva_persona = crear_persona(datos, edad_valida)
     nueva_persona.save()
     messages.success(request, "¡Registro exitoso! Por favor inicia sesión.")
     return redirect("inicio_sesion")
@@ -322,6 +361,34 @@ def ver_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
         messages.error(request, "Error al acceder al documento.")
     return redirect("caja_fuerte")
 
+@requiere_autenticacion
+def descargar_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
+    """
+    Descarga un documento de la caja fuerte.
+
+    Args:
+        request (HttpRequest): La solicitud HTTP.
+        documento_id (int): El ID del documento a descargar.
+
+    Returns:
+        HttpResponse: La respuesta HTTP con el archivo descargado.
+
+    """
+    usuario = verificar_autenticacion(request)
+    documento = get_object_or_404(DocumentoCajaFuerte, id=documento_id, usuario=usuario)
+
+    try:
+        with Path.open(documento.archivo.path, "rb") as file_handle:
+            response = FileResponse(
+                file_handle,
+                as_attachment=True,
+            )
+            response["Content-Disposition"] = f'attachment; filename="{documento.archivo.name}"'
+            return response
+    except Exception:
+        logger.exception("Error detallado al intentar descargar el documento ID %s:", documento.id)
+        messages.error(request, "Error al descargar el documento.")
+        return redirect("caja_fuerte")
 
 @requiere_autenticacion
 def eliminar_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
