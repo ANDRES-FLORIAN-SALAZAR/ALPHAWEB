@@ -127,7 +127,7 @@ D212 = Por estilo de docstring se omite esta regla dado que es duplicada  Verifi
 
 RUFF es una herramienta de análisis estático para código Python, enfocada en la detección rápida de errores y el cumplimiento de estilos.  
 
-![RUFF Logo](https://raw.githubusercontent.com/charliermarsh/ruff/main/docs/_static/logo-light.png#gh-light-mode-only)
+![RUFF Logo](https://raw.githubusercontent.com/charliermarsh/ruff/main/docs/_static/logo-light.svg#gh-light-mode-only)
 ![RUFF Logo](https://raw.githubusercontent.com/charliermarsh/ruff/main/docs/_static/logo-dark.png#gh-dark-mode-only)
 
 - Ejecuta `ruff .` para analizar el código y recibir sugerencias de mejora.
