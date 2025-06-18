@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "Aplicacion",
+    "empresa",
 ]
 
 MIDDLEWARE = [
@@ -95,6 +96,8 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
+AUTH_USER_MODEL = "Aplicacion.Persona"
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -142,3 +145,30 @@ MEDIAFILES_STORAGE = "django.core.files.storage.FileSystemStorage"
 # Configuración para limitar el tamaño de los archivos (por ejemplo, 5MB)
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB en bytes
 FILE_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB en bytes
+
+# Logging configuration
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "INFO",
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": True,
+        },
+        "Aplicacion": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+            "propagate": True,
+        },
+    },
+}

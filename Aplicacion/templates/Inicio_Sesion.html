@@ -3,30 +3,24 @@
 {% block content %}
 
 <div class="StyleInicio_Sesión">
-    <form action="{% url 'inicio_sesion' %}" method="post">
+    <form action="{% url 'Aplicacion:inicio_sesion' %}" method="post">
         {% csrf_token %}
         <fieldset><br><br>
             <center><legend>INICIO DE SESIÓN</legend></center>
             <br>
-            {% if messages %}
-            <div class="messages">
-                {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            </div>
-            {% endif %}
+
             
             <div class="imagen-container">
                 <img src="{% static 'Iconos/usuario2.gif' %}" alt="Login" class="imagen-login" />
             </div>
             <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="contrasena" placeholder="Contrasena" required>
-            <input type="submit" value="Iniciar Sesión">
-            <a href="{% url 'registro' %}" class="btn-registro">
-                Registrarse
-            </a>
+            <input type="password" name="password" id="password" placeholder="Contraseña" required>
+            <div class="botones-sesion">
+                <button type="submit" class="btn-registro">Iniciar Sesión</button>
+                <a href="{% url 'Aplicacion:registro' %}" class="btn-registro">
+                    Registrarse
+                </a>
+            </div>
         </fieldset>
     </form>
 </div>

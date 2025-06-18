@@ -44,13 +44,53 @@ Guardar contraseñas y documentos en texto plano o sin protección adecuada repr
 
 ## 🛠️ Instalación
 
-1. Clona el repositorio:
-   ```bash
-   git clone https://github.com/ANDRES-FLORIAN-SALAZAR/ALPHAWEB
-   cd ALPHAWEB
-   ```
+### 1. Descarga del Proyecto
 
-2. Sigue las instrucciones del archivo `INSTALL.md` para completar la configuración.
+Puedes descargar el proyecto de dos formas:
+
+- **Clonando el repositorio con Git:**
+  ```bash
+  git clone https://github.com/ANDRES-FLORIAN-SALAZAR/ALPHAWEB
+  cd ALPHAWEB
+  ```
+- **Descargando el archivo ZIP:**
+  1. Ve a [https://github.com/ANDRES-FLORIAN-SALAZAR/ALPHAWEB](https://github.com/ANDRES-FLORIAN-SALAZAR/ALPHAWEB)
+  2. Haz clic en "Code" > "Download ZIP"
+  3. Extrae el archivo y accede a la carpeta `ALPHAWEB`
+
+### 2. Requisitos Previos
+
+Asegúrate de tener instalado:
+
+- **Python 3.8 o superior**
+- **pip** (gestor de paquetes de Python)
+- **Git** (si clonas el repositorio)
+
+### 3. Instalación de Dependencias
+
+Instala las dependencias necesarias ejecutando:
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Configuración Inicial
+
+Sigue las instrucciones del archivo `INSTALL.md` para completar la configuración personalizada del entorno.
+
+### 5. Ejecución de la Aplicación
+
+Inicia la aplicación ejecutando:
+
+```bash
+python main.py
+```
+
+o según las instrucciones específicas de `INSTALL.md`.
+
+---
+
+¿Tienes problemas? Consulta la documentación o abre un *issue* en el repositorio.
 
 ---
 
@@ -70,7 +110,20 @@ Guardar contraseñas y documentos en texto plano o sin protección adecuada repr
 
 ---
 
-## 🐕 Verificaciones con RUFF
+## Verificaciones con RUFF
+
+RUFF es una herramienta de análisis estático para código Python, enfocada en la detección rápida de errores y el cumplimiento de estilos.  
+
+![RUFF Logo](https://raw.githubusercontent.com/charliermarsh/ruff/main/docs/_static/logo-light.png#gh-light-mode-only)
+![RUFF Logo](https://raw.githubusercontent.com/charliermarsh/ruff/main/docs/_static/logo-dark.png#gh-dark-mode-only)
+
+- Ejecuta `ruff .` para analizar el código y recibir sugerencias de mejora.
+- Integra RUFF en tu flujo de trabajo para mantener un código limpio y consistente.
+
+D104 = Modificaciones en el archivo __init__.py  
+N999 = Por avances de proyecto se realiza el proceso de ignoración mientras se va mejorando la aplicación  
+D203 = Por estilo de docstring se realiza remplazo de linea  
+D212 = Por estilo de docstring se omite esta regla dado que es duplicada  Verificaciones con RUFF
 
 RUFF es una herramienta de análisis estático para código Python, enfocada en la detección rápida de errores y el cumplimiento de estilos.  
 

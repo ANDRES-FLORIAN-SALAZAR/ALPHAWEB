@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="StyleRegistro">
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <form action="{% url 'registro' %}" method="POST">
+        {% csrf_token %}
+        <fieldset>
+            <legend>TIPO DE REGISTRO</legend>
+            <label for="tipo_registro">Seleccione el tipo de registro:</label>
+            <select id="tipo_registro" name="tipo_registro" required onchange="mostrarCampos()">
+                <option value="">Seleccione...</option>
+                <option value="natural" {% if request.POST.tipo_registro == 'natural' %}selected{% endif %}>Persona Natural</option>
+                <option value="empresa" {% if request.POST.tipo_registro == 'empresa' %}selected{% endif %}>Empresa</option>
+            </select>
+        </fieldset>
+
+        <!-- Campos para Persona Natural -->
+        <fieldset id="campos_natural" style="display:none;">
+            <legend>INFORMACIÓN PERSONAL</legend>
+
+            <input type="text" name="nombre" placeholder="Nombre" value="{{ request.POST.nombre|default_if_none:'' }}" required>
+            <input type="text" name="apellido" placeholder="Apellido" value="{{ request.POST.apellido|default_if_none:'' }}">
+            <input type="email" name="email" placeholder="Correo Electrónico" value="{{ request.POST.email|default_if_none:'' }}" required pattern=".+@gmail\.com" title="Debe ser un correo @gmail.com">
+            <input type="password" name="contrasena" placeholder="Contraseña" required>
+            <input type="password" name="confirmar_contrasena" placeholder="Confirmar Contraseña" required>
+            <input type="number" name="edad" placeholder="Edad" value="{{ request.POST.edad|default_if_none:'' }}">
+            <input type="tel" name="telefono" placeholder="Celular" value="{{ request.POST.telefono|default_if_none:'' }}">
+
+            <label for="genero">Género</label>
+            <select id="genero" name="genero">
+                <option value="">Seleccione...</option>
+                <option value="Masculino" {% if request.POST.genero == "Masculino" %}selected{% endif %}>Masculino</option>
+                <option value="Femenino" {% if request.POST.genero == "Femenino" %}selected{% endif %}>Femenino</option>
+                <option value="Otro" {% if request.POST.genero == "Otro" %}selected{% endif %}>Otro</option>
+                <option value="Prefiero no decir" {% if request.POST.genero == "Prefiero no decir" %}selected{% endif %}>Prefiero no decirlo</option>
+            </select>
+        </fieldset>
+
+        <!-- Campos para Empresa -->
+        <fieldset id="campos_empresa" style="display:none;">
+            <legend>INFORMACIÓN EMPRESARIAL</legend>
+
+            <input type="text" name="empresa_nombre" placeholder="Nombre de la Empresa" value="{{ request.POST.empresa_nombre|default_if_none:'' }}">
+            <input type="text" name="empresa_nit" placeholder="NIT" value="{{ request.POST.empresa_nit|default_if_none:'' }}">
+            <input type="text" name="empresa_razon_social" placeholder="Razón Social" value="{{ request.POST.empresa_razon_social|default_if_none:'' }}">
+
+            <label for="empresa_tipo">Tipo de Empresa:</label>
+            <select id="empresa_tipo" name="empresa_tipo">
+                <option value="">Seleccione...</option>
+                <option value="1" {% if request.POST.empresa_tipo == "1" %}selected{% endif %}>Pública</option>
+                <option value="2" {% if request.POST.empresa_tipo == "2" %}selected{% endif %}>Privada</option>
+            </select>
+
+            <label for="empresa_segmento">Segmento:</label>
+            <select id="empresa_segmento" name="empresa_segmento">
+                <option value="">Seleccione...</option>
+                <option value="1" {% if request.POST.empresa_segmento == "1" %}selected{% endif %}>Tecnología</option>
+                <option value="2" {% if request.POST.empresa_segmento == "2" %}selected{% endif %}>Salud</option>
+            </select>
+
+            <input type="text" name="empresa_tamaño" placeholder="Tamaño de la Empresa" value="{{ request.POST.empresa_tamaño|default_if_none:'' }}">
+            <input type="email" name="empresa_email" placeholder="Correo Empresarial" value="{{ request.POST.empresa_email|default_if_none:'' }}">
+            <input type="tel" name="empresa_telefono" placeholder="Teléfono Empresarial" value="{{ request.POST.empresa_telefono|default_if_none:'' }}">
+            <input type="text" name="empresa_direccion" placeholder="Dirección" value="{{ request.POST.empresa_direccion|default_if_none:'' }}">
+            <input type="text" name="empresa_ciudad" placeholder="Ciudad" value="{{ request.POST.empresa_ciudad|default_if_none:'' }}">
+            <input type="text" name="empresa_pais" placeholder="País" value="{{ request.POST.empresa_pais|default_if_none:'Colombia' }}">
+            <input type="url" name="empresa_sitio_web" placeholder="Sitio Web" value="{{ request.POST.empresa_sitio_web|default_if_none:'' }}">
+            <textarea name="empresa_descripcion" placeholder="Descripción de la Empresa">{{ request.POST.empresa_descripcion|default_if_none:'' }}</textarea>
+            <input type="number" name="empresa_numero_empleados" placeholder="Número de Empleados" value="{{ request.POST.empresa_numero_empleados|default_if_none:'' }}">
+
+            <label><input type="checkbox" name="empresa_requiere_2fa" {% if request.POST.empresa_requiere_2fa %}checked{% endif %}> Requiere autenticación 2FA</label>
+            <label><input type="checkbox" name="empresa_politica_estricta" {% if request.POST.empresa_politica_estricta %}checked{% endif %}> Política de contraseñas estricta</label>
+        </fieldset>
+
+        <center><button type="submit">Registrarse</button></center>
+        <h1>¿Ya tienes una cuenta? <a href="{% url 'inicio_sesion' %}">Inicia sesión aquí</a></h1>
+    </form>
+</div>
+
+<!-- JavaScript externo -->
+<script src="{% static 'js/registro.js' %}"></script>
+
+{% endblock %}

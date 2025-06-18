@@ -14,27 +14,37 @@
         <link rel="stylesheet" href="{% static 'css/Main4.css' %}">
         <link rel="stylesheet" href="{% static 'css/Main5.css' %}">
         <link rel="stylesheet" href="{% static 'css/CajaFuerte.css' %}">
+        <link rel="stylesheet" href="{% static 'css/logout.css' %}">
         
     </head>
 <body>
 
     <div class="navbar">
         <div class="nav-links">
-            <a href="{% url 'home' %}">Home</a>
-            <a href="{% url 'planes' %}">Nuestros Planes</a>
+            <a href="{% url 'Aplicacion:home' %}">Home</a>
+            <a href="{% url 'Aplicacion:planes' %}">Nuestros Planes</a>
             
             {% if request.session.usuario_id %}
-                <a href="{% url 'caja_fuerte' %}">Caja Fuerte</a>
-                <a href="{% url 'contrasenas' %}">Contrasenas</a>
-                <a href="{% url 'cerrar_sesion' %}">Cerrar Sesión</a>
-
+                <a href="{% url 'Aplicacion:caja_fuerte' %}">Caja Fuerte</a>
+                <a href="{% url 'Aplicacion:contrasenas' %}">Contrasenas</a>
+                <div class="nav-right">
+                    <div class="logout-container">
+                        <form action="{% url 'Aplicacion:cerrar_sesion' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="logout-button">
+                                <span>ON</span>
+                                <span>OFF</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
             {% else %}
-                <a href="{% url 'registro' %}">Regístrate</a>
-                <a href="{% url 'inicio_sesion' %}">Iniciar Sesión</a>
-                <a href="{% url 'contrasenas' %}">Contrasenas</a>
-
+                <a href="{% url 'Aplicacion:registro' %}">Regístrate</a>
+                <a href="{% url 'Aplicacion:inicio_sesion' %}">Iniciar Sesión</a>
+                <a href="{% url 'Aplicacion:contrasenas' %}">Contrasenas</a>
             {% endif %}
         </div>
+    </div>
         
         <div class="search-container">
             <form action="/search" method="get">
@@ -45,16 +55,6 @@
     </div>
     
     <div class="main-content">
-        {% if messages %}
-        <div class="messages">
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        </div>
-        {% endif %}
-        
         {% block content %}{% endblock %}
     </div>
 
@@ -63,16 +63,16 @@
             <div class="footer-column">
                 <h2>Enlaces Rápidos</h2>
                 <ul class="inf">
-                    <li><a href="{% url 'home' %}">Home</a></li>
-                    <li><a href="{% url 'planes' %}">Nuestros Planes</a></li>
+                    <li><a href="{% url 'Aplicacion:home' %}">Home</a></li>
+                    <li><a href="{% url 'Aplicacion:planes' %}">Nuestros Planes</a></li>
                     {% if request.session.usuario_id %}
-                        <li><a href="{% url 'caja_fuerte' %}">Caja Fuerte</a></li>
-                        <li><a href="{% url 'contrasenas' %}">Contraseñas</a></li>
-                        <li><a href="{% url 'cerrar_sesion' %}">Cerrar Sesión</a></li>
+                        <li><a href="{% url 'Aplicacion:caja_fuerte' %}">Caja Fuerte</a></li>
+                        <li><a href="{% url 'Aplicacion:contrasenas' %}">Contraseñas</a></li>
+                        <li><a href="{% url 'Aplicacion:cerrar_sesion' %}">Cerrar Sesión</a></li>
                     {% else %}
-                        <li><a href="{% url 'registro' %}">Regístrate</a></li>
-                        <li><a href="{% url 'inicio_sesion' %}">Iniciar Sesión</a></li>
-                        <li><a href="{% url 'contrasenas' %}">Contraseñas</a></li>
+                        <li><a href="{% url 'Aplicacion:registro' %}">Regístrate</a></li>
+                        <li><a href="{% url 'Aplicacion:inicio_sesion' %}">Iniciar Sesión</a></li>
+                        <li><a href="{% url 'Aplicacion:contrasenas' %}">Contraseñas</a></li>
                     {% endif %}
                 </ul>
             </div>

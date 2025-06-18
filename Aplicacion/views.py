@@ -1,7 +1,8 @@
 """
-este archivo contiene las vistas de la aplicacion.
+Este archivo contiene las funciones que manejan las peticiones HTTP y devuelven respuestas HTTP.
 
-las cuales son funciones que manejan las peticiones HTTP y devuelven respuestas HTTP.
+Las vistas son responsables de la lógica de negocio y de interactuar con los modelos y plantillas
+para generar la respuesta adecuada.
 """
 
 import logging
@@ -9,21 +10,25 @@ from functools import wraps
 from pathlib import Path
 
 from django.contrib import messages
-from django.contrib.auth.hashers import check_password, make_password
-from django.http import FileResponse, HttpRequest, HttpResponse
+from django.contrib.auth import authenticate, login
+from django.http import FileResponse, HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.views.decorators.http import require_http_methods
 
-from .models import DocumentoCajaFuerte, Persona
-
-""" en este archivo se encuentran las vistas de la aplicacion
-
-las cuales son funciones que manejan las peticiones HTTP y devuelven respuestas HTTP.
-
-Las vistas son responsables de la logica de negocio
-
-y de interactuar con los modelos y plantillas para generar la respuesta adecuada. """
+from .models import (
+    DocumentoCajaFuerte,
+    Empresa,
+    PerfilUsuario,
+    Persona,
+    SegmentoEmpresa,
+    TipoEmpresa,
+)
 
 logger = logging.getLogger(__name__)
+
+# ============================================================================
+# DECORADORES Y UTILIDADES DE AUTENTICACIÓN
+# ============================================================================
 
 def verificar_autenticacion(request: HttpRequest) -> Persona | None:
     """
@@ -45,7 +50,7 @@ def verificar_autenticacion(request: HttpRequest) -> Persona | None:
 
 def requiere_autenticacion(view_func: callable) -> callable:
     """
-    Requiere autenticación para vistas específicas.
+    Decorador que requiere autenticación para vistas específicas.
 
     Args:
         view_func (callable): La función de vista a decorar.
@@ -54,127 +59,17 @@ def requiere_autenticacion(view_func: callable) -> callable:
         callable: La función de vista decorada.
 
     """
-
     @wraps(view_func)
-    def _wrapped_view(request: HttpRequest, *args: int, **kwargs: int) -> HttpResponse:
+    def _wrapped_view(request: HttpRequest, *args: object, **kwargs: object) -> HttpResponse:
         usuario = verificar_autenticacion(request)
         if not usuario:
             messages.error(request, "Debes iniciar sesión para acceder a esta página.")
             return redirect("Inicio_Sesion")
         return view_func(request, *args, **kwargs)
     return _wrapped_view
-
-def registro(request: HttpRequest) -> HttpResponse:
-    """
-    Módulo de vistas de la aplicación.
-
-    Contiene las funciones que manejan las solicitudes HTTP y la lógica de negocio
-
-    relacionada con la autenticación, registro, y otras funcionalidades.
-    """
-    if verificar_autenticacion(request):
-        return redirect("Planes")
-
-    if request.method == "POST":
-        try:
-            return registro_persona_natural(request)
-        except Exception:
-            logger.exception("Error en registro: %s")
-            raise
-
-    return render(request, "registro.html")
-
-def validar_datos_registro(request: HttpRequest) -> tuple[list[str], dict[str, str]]:
-    """
-    Valida los datos del formulario de registro.
-
-    Args:
-        request (HttpRequest): La solicitud HTTP del usuario.
-
-    Returns:
-        tuple[list[str], dict[str, str]]: Una tupla con la lista de errores y los datos validados.
-
-    """
-    datos = {
-        "nombre": request.POST.get("nombre", "").strip(),
-        "apellido": request.POST.get("apellido", "").strip(),
-        "email": request.POST.get("email", "").strip(),
-        "contrasena": request.POST.get("contrasena", "").strip(),
-        "confirmar_contrasena": request.POST.get("confirmar_contrasena", "").strip(),
-        "edad": request.POST.get("edad", "").strip(),
-        "telefono": request.POST.get("celular", "").strip(),
-        "genero": request.POST.get("genero", "").strip(),
-    }
-
-    errores = []
-
-    if not datos["nombre"]:
-        errores.append("El nombre es obligatorio.")
-    if not datos["contrasena"]:
-        errores.append("La contraseña es obligatoria.")
-    if datos["contrasena"] != datos["confirmar_contrasena"]:
-        errores.append("Las contraseñas no coinciden.")
-    if not datos["email"]:
-        errores.append("El email es obligatorio.")
-    if Persona.objects.filter(email=datos["email"]).exists():
-        errores.append("El email ya está registrado.")
-
-    edad_valida = None
-    if datos["edad"]:
-        try:
-            edad_valida = int(datos["edad"])
-        except ValueError:
-            errores.append("La edad debe ser un número válido.")
-
-    return errores, datos, edad_valida
-
-def crear_persona(datos: dict[str, str], edad_valida: int | None) -> Persona:
-    """
-    Crea una nueva instancia de Persona con los datos proporcionados.
-
-    Args:
-        datos (dict[str, str]): Diccionario con los datos del formulario.
-        edad_valida (int | None): Edad válida del usuario.
-
-    Returns:
-        Persona: La nueva instancia de Persona.
-
-    """
-    nueva_persona = Persona(
-        nombre=datos["nombre"],
-        apellido=datos["apellido"],
-        email=datos["email"],
-        contrasena=make_password(datos["contrasena"]),
-        telefono=datos["telefono"],
-        genero=datos["genero"],
-        rol="Usuario",
-    )
-    if edad_valida is not None:
-        nueva_persona.edad = edad_valida
-    return nueva_persona
-
-def registro_persona_natural(request: HttpRequest) -> HttpResponse:
-    """
-    Registra una nueva persona natural.
-
-    Args:
-        request (HttpRequest): La solicitud HTTP del usuario.
-
-    Returns:
-        HttpResponse: La respuesta HTTP después de intentar registrar a la persona.
-
-    """
-    errores, datos, edad_valida = validar_datos_registro(request)
-
-    if errores:
-        for error in errores:
-            messages.error(request, error)
-        return redirect("registro")
-
-    nueva_persona = crear_persona(datos, edad_valida)
-    nueva_persona.save()
-    messages.success(request, "¡Registro exitoso! Por favor inicia sesión.")
-    return redirect("inicio_sesion")
+# ============================================================================
+# VISTAS DE PÁGINAS PRINCIPALES
+# ============================================================================
 
 def home(request: HttpRequest) -> HttpResponse:
     """
@@ -204,56 +99,194 @@ def planes(request: HttpRequest) -> HttpResponse:
     usuario = verificar_autenticacion(request)
     return render(request, "planes.html", {"usuario": usuario})
 
+# ============================================================================
+# VISTAS DE AUTENTICACIÓN Y REGISTRO
+# ============================================================================
+
 def inicio_sesion(request: HttpRequest) -> HttpResponse:
     """
-    Vista para el inicio de sesión.
+    Vista para el inicio de sesión de usuarios.
 
     Args:
-        request (HttpRequest): La solicitud HTTP.
+        request (HttpRequest): La solicitud HTTP recibida.
 
     Returns:
-        HttpResponse: La respuesta HTTP con el formulario de inicio de sesión.
+        HttpResponse: La respuesta HTTP con la página de inicio de sesión o redirección.
 
     """
-    if verificar_autenticacion(request):
-
-        return redirect("planes")
-
     if request.method == "POST":
-        email = request.POST.get("email")
-        contrasena = request.POST.get("contrasena")
+        email = request.POST.get("email", "").strip()
+        password = request.POST.get("password", "").strip()
 
-        if not email or not contrasena:
-            messages.error(request, "Por favor complete todos los campos.")
+        # Validar campos requeridos
+        if not email:
+            messages.error(request, "El email es requerido.")
+            return render(request, "Inicio_Sesion.html")
+        if not password:
+            messages.error(request, "La contraseña es requerida.")
             return render(request, "Inicio_Sesion.html")
 
         try:
-            usuario = Persona.objects.get(email=email)
-            if check_password(contrasena, usuario.contrasena):
-                request.session["usuario_id"] = usuario.id
-                request.session.set_expiry(1209600)
-
-                messages.success(request, f"¡Bienvenido, {usuario.nombre}!")
-                return redirect("planes")
-            messages.error(request, "Contraseña incorrecta.")
-        except Persona.DoesNotExist:
-            messages.error(request, "No existe un usuario con ese email.")
+            # Intentar autenticar al usuario usando el backend de autenticación
+            user = authenticate(request, email=email, password=password)
+            if user is not None:
+                login(request, user)
+                request.session["usuario_id"] = user.id
+                messages.success(request, "¡Inicio de sesión exitoso!")
+                return redirect("home")
+            messages.error(request, "Email o contraseña incorrectos.")
+            return render(request, "Inicio_Sesion.html")
+        except Exception:
+            logger.exception("Error inesperado en inicio de sesión")
+            messages.error(request, "Error inesperado. Por favor, intenta nuevamente.")
+            return render(request, "Inicio_Sesion.html")
 
     return render(request, "Inicio_Sesion.html")
 
-def contrasenas(request: HttpRequest) -> HttpResponse:
+def registro(request: HttpRequest) -> HttpResponse:
     """
-    Vista para cambiar la contraseña del usuario.
+    Vista de registro que maneja tanto personas naturales como usuarios con empresa.
 
     Args:
-        request (HttpRequest): La solicitud HTTP.
+        request (HttpRequest): La solicitud HTTP del usuario.
 
     Returns:
-        HttpResponse: La respuesta HTTP después de intentar cambiar la contraseña.
+        HttpResponse: La respuesta HTTP con el formulario de registro.
 
     """
-    usuario = verificar_autenticacion(request)
-    return render(request, "Contrasenas.html", {"usuario": usuario})
+    if verificar_autenticacion(request):
+        return redirect("Planes")
+
+    if request.method == "POST":
+        tipo_usuario = request.POST.get("tipo_usuario")
+        def raise_value_error(msg: str) -> None:
+            raise ValueError(msg)
+        try:
+            if tipo_usuario == "natural":
+                # Validaciones para persona natural
+                nombre_completo = request.POST.get("nombre_completo", "").strip()
+                email = request.POST.get("email", "").strip()
+                password1 = request.POST.get("password1", "").strip()
+                password2 = request.POST.get("password2", "").strip()
+                edad = request.POST.get("edad", "").strip()
+                telefono = request.POST.get("telefono", "").strip()
+                genero = request.POST.get("genero", "").strip()
+
+                if not nombre_completo or not email or not password1 or not password2:
+                    raise_value_error("Todos los campos son obligatorios")
+
+                if password1 != password2:
+                    raise_value_error("Las contraseñas no coinciden")
+
+                if Persona.objects.filter(email=email).exists():
+                    raise_value_error("El correo electrónico ya está registrado")
+
+                nueva_persona = Persona.objects.create_user(
+                    email=email,
+                    password=password1,
+                    first_name=nombre_completo,
+                    edad=edad,
+                    telefono=telefono,
+                    genero=genero,
+                )
+
+                user = authenticate(request, email=email, password=password1)
+                if user is not None:
+                    login(request, user)
+                    request.session["usuario_id"] = nueva_persona.id
+                    messages.success(request, "¡Registro exitoso! Has iniciado sesión.")
+                    return redirect("Planes")
+
+            elif tipo_usuario == "empresa":
+                # Validaciones para empresa
+                empresa_nombre = request.POST.get("empresa_nombre", "").strip()
+                empresa_nit = request.POST.get("empresa_nit", "").strip()
+                empresa_razon_social = request.POST.get("empresa_razon_social", "").strip()
+                email = request.POST.get("email", "").strip()
+                telefono = request.POST.get("telefono", "").strip()
+                empresa_pais = request.POST.get("empresa_pais", "").strip()
+                empresa_ciudad = request.POST.get("empresa_ciudad", "").strip()
+                empresa_direccion = request.POST.get("empresa_direccion", "").strip()
+                empresa_sitio_web = request.POST.get("empresa_sitio_web", "").strip()
+                empresa_descripcion = request.POST.get("empresa_descripcion", "").strip()
+                empresa_numero_empleados = request.POST.get("empresa_numero_empleados", "").strip()
+                empresa_requiere_2fa = request.POST.get("empresa_requiere_2fa") == "on"
+                empresa_politica_estricta = request.POST.get("empresa_politica_estricta") == "on"
+
+                if not empresa_nombre or not empresa_nit or not empresa_razon_social or not email:
+                    raise_value_error("Todos los campos obligatorios deben ser completados")
+
+                if Persona.objects.filter(email=email).exists():
+                    raise_value_error("El correo electrónico ya está registrado")
+
+                nueva_persona = Persona.objects.create_user(
+                    email=email,
+                    password=request.POST.get("password1", ""),
+                    first_name=empresa_nombre,
+                )
+
+                PerfilUsuario.objects.create(
+                    usuario=nueva_persona,
+                    empresa_nombre=empresa_nombre,
+                    empresa_nit=empresa_nit,
+                    empresa_razon_social=empresa_razon_social,
+                    empresa_pais=empresa_pais,
+                    empresa_ciudad=empresa_ciudad,
+                    empresa_direccion=empresa_direccion,
+                    empresa_sitio_web=empresa_sitio_web,
+                    empresa_descripcion=empresa_descripcion,
+                    empresa_numero_empleados=empresa_numero_empleados,
+                    empresa_requiere_2fa=empresa_requiere_2fa,
+                    empresa_politica_estricta=empresa_politica_estricta,
+                )
+
+                user = authenticate(request, email=email, password=request.POST.get("password1", ""))
+                if user is not None:
+                    login(request, user)
+                    request.session["usuario_id"] = nueva_persona.id
+                    messages.success(request, "¡Registro exitoso! Has iniciado sesión.")
+                    return redirect("Planes")
+
+            else:
+                raise_value_error("Tipo de usuario no válido")
+
+        except ValueError as e:
+            messages.error(request, str(e))
+            return render(request, "registro.html", {
+                **get_context_data(),
+                "tipo_usuario": tipo_usuario,
+                **request.POST.dict(),
+            })
+    # Si no es POST o hay error, renderizar el formulario vacío
+    return render(request, "registro.html", get_context_data())
+def get_context_data() -> dict:
+    """
+    Obtiene el contexto común para las vistas de registro.
+
+    Returns:
+        dict: Un diccionario con los datos del contexto.
+
+    """
+    return {
+        "segmentos": SegmentoEmpresa.objects.all(),
+        "tipos_empresa": TipoEmpresa.objects.all(),
+        "paises": [
+            ("AR", "Argentina"),
+            ("BO", "Bolivia"),
+            ("BR", "Brasil"),
+            ("CL", "Chile"),
+            ("CO", "Colombia"),
+            ("EC", "Ecuador"),
+            ("MX", "México"),
+            ("PE", "Perú"),
+            ("PY", "Paraguay"),
+            ("UY", "Uruguay"),
+            ("US", "Estados Unidos"),
+            ("VE", "Venezuela"),
+        ],
+    }
+
+# Esta función no es necesaria porque la lógica ya está en la vista 'registro'
 
 def cerrar_sesion(request: HttpRequest) -> HttpResponse:
     """
@@ -269,7 +302,40 @@ def cerrar_sesion(request: HttpRequest) -> HttpResponse:
     if "usuario_id" in request.session:
         request.session.flush()
     messages.success(request, "¡Has cerrado sesión correctamente!")
-    return redirect("home")
+    return redirect("Aplicacion:home")
+
+def contrasenas(request: HttpRequest) -> HttpResponse:
+    """
+    Vista para cambiar la contraseña del usuario.
+
+    Args:
+        request (HttpRequest): La solicitud HTTP.
+
+    Returns:
+        HttpResponse: La respuesta HTTP después de intentar cambiar la contraseña.
+
+    """
+    usuario = verificar_autenticacion(request)
+    return render(request, "Contrasenas.html", {"usuario": usuario})
+
+# ============================================================================
+# VISTAS DE EMPRESAS
+# ============================================================================
+
+def listar_empresas(request: HttpRequest) -> HttpResponse:
+    """Vista para listar empresas activas."""
+    empresas = Empresa.objects.filter(activa=True).select_related(
+        "tipo_empresa", "segmento",
+    ).prefetch_related("perfilusuario_set")
+
+    context = {
+        "empresas": empresas,
+    }
+    return render(request, "listar_empresas.html", context)
+
+# ============================================================================
+# VISTAS DE CAJA FUERTE
+# ============================================================================
 
 @requiere_autenticacion
 def caja_fuerte(request: HttpRequest) -> HttpResponse:
@@ -304,28 +370,54 @@ def subir_documento(request: HttpRequest) -> HttpResponse:
     """
     usuario = verificar_autenticacion(request)
 
+    if not usuario:
+        messages.error(request, "Debes iniciar sesión para subir documentos.")
+        return redirect("Inicio_Sesion")
+
     if request.method == "POST":
-        nombre = request.POST.get("nombre")
-        archivo = request.FILES.get("archivo")
-
-        if not nombre or not archivo:
-            messages.error(request, "Nombre y archivo son campos requeridos.")
-            return redirect("subir_documento")
-
         try:
-            DocumentoCajaFuerte.objects.create(
+            nombre = request.POST.get("nombre", "").strip()
+            archivo = request.FILES.get("archivo")
+            max_file_size = 5242880  # 5MB
+
+            if not nombre or not archivo:
+                messages.error(request, "Debe proporcionar un nombre y seleccionar un archivo.")
+                return redirect("Aplicacion:subir_documento")
+
+            if archivo.size > max_file_size:
+                messages.error(request, "El archivo es demasiado grande. El tamaño máximo permitido es 5MB.")
+                return redirect("Aplicacion:subir_documento")
+
+            # Crear el documento
+            documento = DocumentoCajaFuerte(
                 usuario=usuario,
                 nombre=nombre,
                 descripcion=request.POST.get("descripcion", ""),
                 categoria=request.POST.get("categoria", "Otros"),
                 archivo=archivo,
             )
+            documento.save()
+
+            # Verificar si el archivo se guardó correctamente
+            class UploadError(Exception):
+                def __init__(self) -> None:
+                    super().__init__("El archivo no se guardó correctamente en el servidor")
+
+            def raise_upload_error() -> None:
+                """Lanza un error si el archivo no se guardó correctamente."""
+                raise UploadError  # noqa: TRY301
+
+            if not documento.archivo.storage.exists(documento.archivo.name):
+                raise_upload_error()
+
             messages.success(request, "¡Documento subido con éxito!")
-            return redirect("caja_fuerte")
-        except Exception:
-            logger.exception("Error al subir documento", extra={"user_id": usuario.nombre})
-            messages.error(request, "Error al subir el documento. Intente nuevamente.")
-            return redirect("subir_documento")
+            logger.info("Documento subido exitosamente: %s - %s", documento.id, documento.nombre)
+            return redirect("Aplicacion:caja_fuerte")
+
+        except Exception as e:
+            logger.exception("Error al subir documento", extra={"user_id": getattr(usuario, "id", None)})
+            messages.error(request, f"Error al subir el documento: {e!s}")
+            return redirect("Aplicacion:subir_documento")
 
     return render(request, "subir_documento.html", {"usuario": usuario})
 
@@ -339,57 +431,48 @@ def ver_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
         documento_id (int): El ID del documento a ver.
 
     Returns:
-        HttpResponse: La respuesta HTTP con el documento solicitado.
+        HttpResponse: El archivo solicitado o redirección en caso de error.
 
     """
-    usuario = verificar_autenticacion(request)
-    if not usuario:
-        messages.error(request, "Debes iniciar sesión para acceder a esta página.")
-        return redirect("Inicio_Sesion")
-    documento = get_object_or_404(DocumentoCajaFuerte, id=documento_id, usuario=usuario)
-
     try:
-        with Path.open(documento.archivo.path, "rb") as file_handle:
-            response = FileResponse(
-                file_handle,
-                as_attachment=True,
-            )
-            response["Content-Disposition"] = f'attachment; filename="{documento.archivo.name}"'
-            return response
+        usuario = verificar_autenticacion(request)
+        documento = get_object_or_404(DocumentoCajaFuerte, id=documento_id, usuario=usuario)
+        archivo = documento.archivo
+
+        # Verificar si el archivo existe
+        if not archivo.storage.exists(archivo.name):
+            logger.error("Archivo no encontrado: %s", archivo.name)
+            messages.error(request, "El archivo solicitado no existe en el servidor.")
+            return redirect("Aplicacion:caja_fuerte")
+
+        # Obtener el nombre del archivo
+        nombre_archivo = archivo.name.split("/")[-1]
+
+        # Determinar el tipo de contenido basado en la extensión
+        extension = nombre_archivo.split(".")[-1].lower()
+        content_type = {
+            "pdf": "application/pdf",
+            "doc": "application/msword",
+            "docx": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "xls": "application/vnd.ms-excel",
+            "xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "jpg": "image/jpeg",
+            "jpeg": "image/jpeg",
+            "png": "image/png",
+            "txt": "text/plain",
+        }.get(extension, "application/octet-stream")
+
+        # Crear la respuesta
+        response = FileResponse(archivo, as_attachment=True)
+        response["Content-Disposition"] = f'attachment; filename="{nombre_archivo}"'
+        response["Content-Type"] = content_type
+
+        return response
+
     except Exception:
-        logger.exception("Error al acceder al documento: %s", documento.id)
-        messages.error(request, "Error al acceder al documento.")
-    return redirect("caja_fuerte")
-
-@requiere_autenticacion
-def descargar_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
-    """
-    Descarga un documento de la caja fuerte.
-
-    Args:
-        request (HttpRequest): La solicitud HTTP.
-        documento_id (int): El ID del documento a descargar.
-
-    Returns:
-        HttpResponse: La respuesta HTTP con el archivo descargado.
-
-    """
-    usuario = verificar_autenticacion(request)
-    documento = get_object_or_404(DocumentoCajaFuerte, id=documento_id, usuario=usuario)
-
-    try:
-        with Path.open(documento.archivo.path, "rb") as file_handle:
-            response = FileResponse(
-                file_handle,
-                as_attachment=True,
-            )
-            response["Content-Disposition"] = f'attachment; filename="{documento.archivo.name}"'
-            return response
-    except Exception:
-        logger.exception("Error detallado al intentar descargar el documento ID %s:", documento.id)
-        messages.error(request, "Error al descargar el documento.")
-        return redirect("caja_fuerte")
-
+        logger.exception("Error al acceder al documento %d", documento_id)
+        messages.error(request, "Error al acceder al documento. Por favor, inténtalo de nuevo.")
+        return redirect("Aplicacion:caja_fuerte")
 @requiere_autenticacion
 def eliminar_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
     """
@@ -400,7 +483,7 @@ def eliminar_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
         documento_id (int): El ID del documento a eliminar.
 
     Returns:
-        HttpResponse: La respuesta HTTP después de intentar eliminar el documento.
+        HttpResponse: Redirección después de eliminar o mostrar confirmación.
 
     """
     usuario = verificar_autenticacion(request)
@@ -412,12 +495,110 @@ def eliminar_documento(request: HttpRequest, documento_id: int) -> HttpResponse:
                 Path(documento.archivo.path).unlink()
             documento.delete()
             messages.success(request, "Documento eliminado correctamente.")
+            return redirect("Aplicacion:caja_fuerte")
         except Exception:
             logger.exception("Error al eliminar el documento: %s", documento.id)
             messages.error(request, "Error al eliminar el documento.")
-
-        return redirect("caja_fuerte")
+            return redirect("Aplicacion:caja_fuerte")
 
     return render(request, "eliminar_documento.html", {
         "documento": documento,
     })
+
+@require_http_methods(["GET"])
+def api_tipos_empresa(request: HttpRequest) -> JsonResponse:
+    """
+    Devuelve tipos de empresa.
+
+    Args:
+        request (HttpRequest): La solicitud HTTP.
+
+    Returns:
+        JsonResponse: Lista de tipos de empresa en formato JSON.
+
+    """
+    # Referenciar explícitamente el argumento request para evitar advertencias de argumento no utilizado
+    _ = request
+    tipos = TipoEmpresa.objects.filter(
+        activo=True,
+    ).values("id", "nombre", "descripcion")
+
+    return JsonResponse(list(tipos), safe=False)
+
+@require_http_methods(["GET"])
+def api_empresa_detalle(request: HttpRequest, empresa_id: int) -> JsonResponse:
+    """
+    Devuelve detalles de una empresa.
+
+    Args:
+        request (HttpRequest): La solicitud HTTP.
+        empresa_id (int): ID de la empresa.
+
+    Returns:
+        JsonResponse: Detalles de la empresa en formato JSON.
+
+    """
+    # Usar el argumento request para evitar advertencias de argumento no utilizado
+    logger.debug("Solicitud recibida para detalles de empresa. Método: %s, Usuario: %s", request.method, getattr(request, "user", None))
+    try:
+        empresa = Empresa.objects.select_related("tipo_empresa", "segmento").get(
+            id=empresa_id, activa=True,
+        )
+        data = {
+            "id": empresa.id,
+            "nombre": empresa.nombre,
+            "nit": empresa.nit,
+            "razon_social": empresa.razon_social,
+            "tipo_empresa": empresa.tipo_empresa.nombre,
+            "segmento": empresa.segmento.nombre,
+            "tamaño": empresa.get_tamaño_display(),
+            "email": empresa.email,
+            "telefono": empresa.telefono,
+            "ciudad": empresa.ciudad,
+            "pais": empresa.pais,
+            "numero_empleados": empresa.numero_empleados,
+            "requiere_2fa": empresa.requiere_autenticacion_2fa,
+            "politica_estricta": empresa.politica_contraseñas_estricta,
+        }
+        return JsonResponse(data)
+    except Empresa.DoesNotExist:
+        return JsonResponse({"error": "Empresa no encontrada"}, status=404)
+
+def crear_datos_iniciales_empresa() -> None:
+    """Crea datos iniciales de tipos y segmentos de empresa."""
+    # Crear tipos de empresa si no existen
+    tipos_empresa = [
+        {"nombre": "Sociedad de Responsabilidad Limitada", "descripcion": "Empresa constituida como SRL"},
+        {"nombre": "Empresa Unipersonal", "descripcion": "Empresa constituida por una sola persona"},
+        {"nombre": "Sociedad por Acciones Simplificada", "descripcion": "Empresa constituida como SAS"},
+        {"nombre": "Cooperativa", "descripcion": "Organización cooperativa"},
+        {"nombre": "Fundación", "descripcion": "Organización sin ánimo de lucro"},
+    ]
+
+    for tipo_data in tipos_empresa:
+        TipoEmpresa.objects.get_or_create(
+            nombre=tipo_data["nombre"],
+            defaults={"descripcion": tipo_data["descripcion"]},
+        )
+
+    # Crear segmentos de empresa si no existen
+    segmentos_empresa = [
+        {"nombre": "Tecnología", "descripcion": "Empresas del sector tecnológico y software"},
+        {"nombre": "Financiero", "descripcion": "Bancos, seguros y servicios financieros"},
+        {"nombre": "Salud", "descripcion": "Hospitales, clínicas y servicios de salud"},
+        {"nombre": "Educación", "descripcion": "Instituciones educativas y centros de formación"},
+        {"nombre": "Manufactura", "descripcion": "Empresas de producción y manufactura"},
+        {"nombre": "Comercio", "descripcion": "Empresas de comercio y retail"},
+        {"nombre": "Servicios", "descripcion": "Empresas de servicios profesionales"},
+        {"nombre": "Construcción", "descripcion": "Empresas del sector construcción y arquitectura"},
+        {"nombre": "Alimentario", "descripcion": "Empresas del sector alimentario y bebidas"},
+        {"nombre": "Transporte", "descripcion": "Empresas de transporte y logística"},
+        {"nombre": "Energía", "descripcion": "Empresas del sector energético"},
+        {"nombre": "Telecomunicaciones", "descripcion": "Empresas de telecomunicaciones y comunicaciones"},
+    ]
+
+    for segmento_data in segmentos_empresa:
+        SegmentoEmpresa.objects.get_or_create(
+            nombre=segmento_data["nombre"],
+            defaults={"descripcion": segmento_data["descripcion"]},
+        )
