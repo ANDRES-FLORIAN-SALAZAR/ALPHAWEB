@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Perfil de Empresa</h3>
+                </div>
+                <div class="card-body">
+                    <h4>Información del Usuario</h4>
+                    <p><strong>Usuario:</strong> {{ perfil.usuario.username }}</p>
+                    <p><strong>Email:</strong> {{ perfil.usuario.email }}</p>
+                    
+                    <h4>Información de Empresa</h4>
+                    {% if perfil.tipo_empresa %}
+                        <p><strong>Tipo de Empresa:</strong> {{ perfil.tipo_empresa.nombre }}</p>
+                    {% else %}
+                        <p><strong>Tipo de Empresa:</strong> No especificado</p>
+                    {% endif %}
+                    
+                    <p><strong>Teléfono:</strong> {{ perfil.telefono }}</p>
+                    <p><strong>Dirección:</strong> {{ perfil.direccion }}</p>
+                    
+                    <a href="{% url 'empresa:editar_perfil' %}" class="btn btn-primary mt-3">
+                        Editar Perfil
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

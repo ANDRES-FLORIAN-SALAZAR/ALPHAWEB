@@ -1,5 +1,5 @@
 .StyleRegistro {
-    background-image: url("{% static 'img/Aleatorio.jpg' %}");
+    background-image: url("../img/Aleatorio.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -79,39 +79,73 @@ input:focus, textarea:focus, select:focus {
     box-shadow: 0px 0px 15px rgba(13, 233, 31, 0.3);
 }
 
+.botones-registro,
+.botones-sesion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+    gap: 15px;
+}
+
 .btn-registro {
     background-color: #2e9952;
-    color: white;
-    padding: 12px 24px;
+    color: #ffffff;
+    padding: 7px 10px;
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 12px;
+    font-weight: bold;
     transition: all 0.3s ease;
     width: 100%;
-    max-width: 300px;
-    margin: 20px 0;
+    max-width: 100px;
+    margin: 4px 0;
+    text-align: center;
+    text-decoration: none;
+    transform: translateY(-3px);
+}
+
+.btn-registro {
+    background-color: #2e9952;
+    color: #ffffff;
+    padding: 15px 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 400px;
+    margin: 15px 0;
 }
 
 .btn-registro:hover {
     background-color: #0de91f;
-    transform: translateY(-2px);
+    transform: translateY(-3px);
 }
 
 .texto-alternativo {
     text-align: center;
     margin-top: 15px;
     color: #f1efef;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .link-sesion {
-    color: #0de91f;
+    color: #2196f3; /* Azul de Material Design */
     text-decoration: none;
     font-weight: bold;
+    display: block;
 }
 
 .link-sesion:hover {
     text-decoration: underline;
+    color: #1976d2; /* Azul más oscuro */
 }
 
 fieldset {

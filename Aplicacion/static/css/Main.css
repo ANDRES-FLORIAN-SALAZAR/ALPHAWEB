@@ -112,8 +112,8 @@
 }
 
 img {
-    max-width: 500px;
-    max-height: 500px;
+    max-width: 200px;
+    max-height: 200px;
     width: 100%;
     height: auto;
     border-width: 15px;

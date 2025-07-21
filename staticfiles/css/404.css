@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #0a0a0a;
+    font-family: 'Share Tech Mono', monospace;
+}
+
+.error-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+    padding: 0 20px;
+    background-image: radial-gradient(#00ffff0d 1px, transparent 1px);
+    background-size: 40px 40px;
+    gap: 10px; 
+    box-sizing: border-box;
+}
+
+.error-icon {
+    margin: 0;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.error-gif {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    animation: float 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 8px #ff004c);
+}
+
+.error-code {
+    font-size: 6rem;
+    font-weight: bold;
+    color: #ff004c;
+    text-shadow: 0 0 15px #ff004c;
+    margin: 0;
+}
+
+.error-title {
+    font-size: 2rem;
+    color: #9f00ff;
+    text-shadow: 0 0 10px #9f00ff;
+    margin: 0;
+}
+
+.error-message {
+    font-size: 1.1rem;
+    color: #00ff00;
+    text-shadow: 0 0 6px #00ff00;
+    max-width: 700px;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.error-button {
+    background-color: transparent;
+    color: #00ccff;
+    border: 2px solid #00ccff;
+    padding: 10px 25px;
+    font-size: 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    text-shadow: 0 0 5px #00ccff;
+    box-shadow: 0 0 15px #00ccff;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+}
+
+.error-button:hover {
+    background-color: #00ccff;
+    color: #000000;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #00ccff, 0 0 30px #00ccff;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+    .error-code {
+        font-size: 4rem;
+    }
+
+    .error-title {
+        font-size: 1.5rem;
+    }
+
+    .error-message {
+        font-size: 1rem;
+    }
+
+    .error-icon svg {
+        width: 80px;
+        height: 80px;
+    }
+}

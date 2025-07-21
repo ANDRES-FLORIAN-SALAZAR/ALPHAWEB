@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Set this to your actual domain(s) or IP(s) in production, e.g. ["example.com", "localhost"]
 ALLOWED_HOSTS = ["*"]
@@ -47,6 +47,10 @@ INSTALLED_APPS = [
     "empresa",
 ]
 
+# Manejo de errores personalizados
+handler404 = 'Aplicacion.views.custom_404'
+
+# Configuración de middleware
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -128,19 +132,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-# Ruta base del proyecto
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-# URL para archivos estáticos
-STATIC_URL = "static/"
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [
-    BASE_DIR / "Aplicacion/static",
+    BASE_DIR / 'Aplicacion/static',
+    BASE_DIR / 'empresa/static',
 ]
-STATIC_ROOT = BASE_DIR / "staticfiles"
 
-MEDIA_URL = "media/"
-MEDIA_ROOT = BASE_DIR / "media"
-MEDIAFILES_STORAGE = "django.core.files.storage.FileSystemStorage"
+# Media files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIAFILES_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 # Configuración para limitar el tamaño de los archivos (por ejemplo, 5MB)
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB en bytes

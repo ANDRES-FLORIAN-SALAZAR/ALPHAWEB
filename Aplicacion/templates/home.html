@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
-{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/Main.css' %}">
+{% endblock %}
 {% block content%}
 
 <div class="StyleHome">
@@ -28,8 +30,9 @@
     </center>
 
     <center>
-        <video controls autoplay muted>
+        <video controls autoplay muted loop class="video-background">
             <source src="{% static 'Videos/ALPHA_WEB.mp4' %}" type="video/mp4">
+            Tu navegador no soporta el elemento de video.
         </video>
     </center>
     <br><br><br><br>

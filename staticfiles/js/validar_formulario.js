@@ -1,5 +1,7 @@
 // Validación del formulario de registro
 function validarFormulario() {
+    limpiarMensajesError(); // Limpia errores anteriores antes de validar
+
     const tipoRegistro = document.getElementById("tipo_registro");
     if (!tipoRegistro || !tipoRegistro.value) {
         mostrarMensajeError("Por favor, seleccione el tipo de registro");
@@ -34,23 +36,7 @@ function validarFormulario() {
         }
     ];
 
-    camposComunes.forEach(campo => {
-        const elemento = document.querySelector(campo.selector);
-        if (elemento) {
-            if (campo.required && !elemento.value.trim()) {
-                mostrarMensajeError(campo.mensaje);
-                camposValidos = false;
-            }
-            if (campo.pattern && !elemento.value.match(campo.pattern)) {
-                mostrarMensajeError(campo.mensaje);
-                camposValidos = false;
-            }
-            if (campo.min && elemento.value.length < campo.min) {
-                mostrarMensajeError("La contraseña debe tener al menos 8 caracteres");
-                camposValidos = false;
-            }
-        }
-    });
+    camposValidos = validarCampos(camposComunes) && camposValidos;
 
     // Validar que las contraseñas coincidan
     const password1 = document.querySelector("input[name='password1']");
@@ -68,7 +54,6 @@ function validarFormulario() {
             camposValidos = false;
         }
     } else if (tipoRegistro.value === "empresa") {
-        // Validar campos de empresa
         const camposEmpresa = [
             { 
                 selector: "input[name='empresa_nombre']", 
@@ -117,13 +102,7 @@ function validarFormulario() {
             }
         ];
 
-        camposEmpresa.forEach(campo => {
-            const elemento = document.querySelector(campo.selector);
-            if (elemento && campo.required && !elemento.value.trim()) {
-                mostrarMensajeError(campo.mensaje);
-                camposValidos = false;
-            }
-        });
+        camposValidos = validarCampos(camposEmpresa) && camposValidos;
     }
 
     return camposValidos;
@@ -133,24 +112,13 @@ function validarFormulario() {
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById('form-registro');
     const botonEnviar = document.getElementById('btn-registro');
-    
-    if (form && botonEnviar) {
-        // Habilitar el botón al inicio
-        botonEnviar.disabled = false;
-        
-        // Mostrar campos según el tipo de registro seleccionado
-        const tipoRegistro = document.getElementById('tipo_registro');
-        if (tipoRegistro) {
-            tipoRegistro.addEventListener('change', mostrarCampos);
-            mostrarCampos(); // Mostrar campos iniciales
-        }
-        
-        // Validar campos al enviar
+
+    if (form) {
         form.addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevenir el envío por defecto
+            e.preventDefault(); // Evita el envío por defecto
             
             if (validarFormulario()) {
-                // Si la validación es exitosa, enviar el formulario
+                // Si la validación es exitosa, permite el envío
                 form.submit();
             }
         });
@@ -190,4 +158,33 @@ function mostrarMensajeError(mensaje) {
     setTimeout(() => {
         mensajeError.remove();
     }, 5000);
+}
+
+// ✅ NUEVA: Limpiar todos los mensajes de error antes de validar
+function limpiarMensajesError() {
+    const mensajes = document.querySelectorAll('.alert.alert-danger');
+    mensajes.forEach(el => el.remove());
+}
+
+// ✅ NUEVA: Función modular para validar múltiples campos
+function validarCampos(listaCampos) {
+    let validos = true;
+    listaCampos.forEach(campo => {
+        const el = document.querySelector(campo.selector);
+        if (el) {
+            if (campo.required && !el.value.trim()) {
+                mostrarMensajeError(campo.mensaje);
+                validos = false;
+            }
+            if (campo.pattern && !el.value.match(campo.pattern)) {
+                mostrarMensajeError(campo.mensaje);
+                validos = false;
+            }
+            if (campo.min && el.value.length < campo.min) {
+                mostrarMensajeError("La contraseña debe tener al menos 8 caracteres");
+                validos = false;
+            }
+        }
+    });
+    return validos;
 }

@@ -1,9 +1,13 @@
-
-"""Admin configuration for the empresa app."""
-
 from django.contrib import admin
+from .models import TipoEmpresa, PerfilUsuario
 
-from .models import Empresa  # Replace 'YourModelName' with your actual model class name
+@admin.register(TipoEmpresa)
+class TipoEmpresaAdmin(admin.ModelAdmin):
+    list_display = ('nombre', 'descripcion')
+    search_fields = ('nombre',)
 
-# Register your models here.
-admin.site.register(Empresa)  # Register your model with the admin site
+@admin.register(PerfilUsuario)
+class PerfilUsuarioAdmin(admin.ModelAdmin):
+    list_display = ('usuario', 'tipo_empresa', 'telefono')
+    search_fields = ('usuario__username', 'tipo_empresa__nombre')
+    list_filter = ('tipo_empresa',)
