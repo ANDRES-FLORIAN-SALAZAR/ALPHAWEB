@@ -151,7 +151,7 @@ def inicio_sesion(request: HttpRequest) -> HttpResponse:
 
 def registro(request: HttpRequest) -> HttpResponse:
     """
-    Vista de registro que maneja tanto personas naturales como usuarios con empresa.
+    Vista de registro que maneja tanto personas naturales como empresas.
 
     Args:
         request (HttpRequest): La solicitud HTTP del usuario.
@@ -162,127 +162,214 @@ def registro(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":
         tipo_registro = request.POST.get("tipo_usuario")
         
-        # Datos comunes
-        nombre = request.POST.get("nombre_completo", "").strip()
-        email = request.POST.get("email", "").strip().lower()
-        password = request.POST.get("password1", "")
-        password_confirm = request.POST.get("password2", "")
-        telefono = request.POST.get("telefono", "").strip()
-        
         # Validaciones básicas
         errores = []
         
         # Validar que se haya seleccionado un tipo de registro
         if not tipo_registro:
             errores.append("Debe seleccionar un tipo de registro")
+            messages.error(request, "Debe seleccionar un tipo de registro")
         
-        # Validar campos obligatorios
-        if not nombre:
-            errores.append("El nombre completo es requerido")
-        if not email:
-            errores.append("El correo electrónico es requerido")
-        elif not "@" in email:
-            errores.append("Ingrese un correo electrónico válido")
-        if not password:
-            errores.append("La contraseña es requerida")
-        elif len(password) < 8:
-            errores.append("La contraseña debe tener al menos 8 caracteres")
-            
-        # Validar que las contraseñas coincidan
-        if password != password_confirm:
-            errores.append("Las contraseñas no coinciden")
-            
         # Validaciones específicas por tipo de registro
         if tipo_registro == "natural":
+            # Datos para persona natural
+            nombre = request.POST.get("nombre_completo", "").strip()
+            email = request.POST.get("email_natural", "").strip().lower()
+            password = request.POST.get("password1", "")
+            password_confirm = request.POST.get("password2", "")
+            telefono = request.POST.get("telefono_natural", "").strip()
             edad = request.POST.get("edad", "").strip()
             genero = request.POST.get("genero", "")
             
+            # Validar campos obligatorios
+            if not nombre:
+                errores.append("El nombre completo es requerido")
+                messages.error(request, "El nombre completo es requerido")
+            if not email:
+                errores.append("El correo electrónico es requerido")
+                messages.error(request, "El correo electrónico es requerido")
+            elif not "@" in email:
+                errores.append("Ingrese un correo electrónico válido")
+                messages.error(request, "Ingrese un correo electrónico válido")
+            if not telefono:
+                errores.append("El teléfono es requerido")
+                messages.error(request, "El teléfono es requerido")
+            if not password:
+                errores.append("La contraseña es requerida")
+                messages.error(request, "La contraseña es requerida")
+            elif len(password) < 8:
+                errores.append("La contraseña debe tener al menos 8 caracteres")
+                messages.error(request, "La contraseña debe tener al menos 8 caracteres")
             if not edad.isdigit() or not (18 <= int(edad) <= 100):
                 errores.append("La edad debe ser un número entre 18 y 100")
-                
-            if not genero:
-                errores.append("El género es requerido")
+                messages.error(request, "La edad debe ser un número entre 18 y 100")
+            
+            # Validar que las contraseñas coincidan
+            if password != password_confirm:
+                errores.append("Las contraseñas no coinciden")
+                messages.error(request, "Las contraseñas no coinciden")
                 
         elif tipo_registro == "empresa":
-            razon_social = request.POST.get("empresa_razon_social", "").strip()
-            nit = request.POST.get("empresa_nit", "").strip()
+            # Datos para empresa
+            razon_social = request.POST.get("razon_social", "").strip()
+            nit = request.POST.get("nit", "").strip()
+            email_empresa = request.POST.get("email_empresa", "").strip().lower()
+            telefono_empresa = request.POST.get("telefono_empresa", "").strip()
+            direccion = request.POST.get("direccion", "").strip()
+            representante_legal = request.POST.get("representante_legal", "").strip()
+            sitio_web = request.POST.get("sitio_web", "").strip()
+            password_empresa = request.POST.get("password_empresa", "")
+            confirmar_password_empresa = request.POST.get("confirmar_password_empresa", "")
             
+            # Obtener datos adicionales específicos de empresa
+            empresa_tipo = request.POST.get("empresa_tipo", "")
+            empresa_segmento = request.POST.get("empresa_segmento", "")
+            empresa_tamano = request.POST.get("empresa_tamaño", "")
+            empresa_num_empleados = request.POST.get("empresa_numero_empleados", "")
+            empresa_pais = request.POST.get("empresa_pais", "")
+            empresa_ciudad = request.POST.get("empresa_ciudad", "")
+            empresa_descripcion = request.POST.get("empresa_descripcion", "")
+            
+            # Validar campos obligatorios
             if not razon_social:
                 errores.append("La razón social es requerida")
+                messages.error(request, "La razón social es requerida")
             if not nit:
                 errores.append("El NIT es requerido")
-                
-        # Si hay errores, mostrarlos
-        if errores:
-            for error in errores:
-                messages.error(request, error)
+                messages.error(request, "El NIT es requerido")
+            if not email_empresa:
+                errores.append("El correo electrónico de la empresa es requerido")
+                messages.error(request, "El correo electrónico de la empresa es requerido")
+            elif not "@" in email_empresa:
+                errores.append("Ingrese un correo electrónico válido")
+                messages.error(request, "Ingrese un correo electrónico válido")
+            if not telefono_empresa:
+                errores.append("El teléfono de la empresa es requerido")
+                messages.error(request, "El teléfono de la empresa es requerido")
+            if not direccion:
+                errores.append("La dirección es requerida")
+                messages.error(request, "La dirección es requerida")
+            if not representante_legal:
+                errores.append("El nombre del representante legal es requerido")
+                messages.error(request, "El nombre del representante legal es requerido")
+            if not password_empresa:
+                errores.append("La contraseña es requerida")
+                messages.error(request, "La contraseña es requerida")
+            elif len(password_empresa) < 8:
+                errores.append("La contraseña debe tener al menos 8 caracteres")
+                messages.error(request, "La contraseña debe tener al menos 8 caracteres")
             
+            # Validar que las contraseñas coincidan
+            if password_empresa != confirmar_password_empresa:
+                errores.append("Las contraseñas no coinciden")
+                messages.error(request, "Las contraseñas no coinciden")
+                
+        # Si hay errores, mostrar el formulario con los errores
+        if errores:
             context = {
                 "tipo_usuario": tipo_registro,
                 "errores": errores,
-                "nombre_completo": nombre,
-                "email": email,
-                "telefono": telefono,
             }
             
+            # Agregar datos según el tipo de registro para mantener los valores en el formulario
             if tipo_registro == "natural":
                 context.update({
-                    "edad": request.POST.get("edad", ""),
-                    "genero": request.POST.get("genero", ""),
+                    "nombre_completo": nombre,
+                    "email": email,
+                    "telefono": telefono,
+                    "edad": edad,
+                    "genero": genero,
                 })
             elif tipo_registro == "empresa":
                 context.update({
-                    "empresa_razon_social": request.POST.get("empresa_razon_social", ""),
-                    "empresa_nit": request.POST.get("empresa_nit", ""),
-                    "empresa_tipo": request.POST.get("empresa_tipo", ""),
-                    "empresa_segmento": request.POST.get("empresa_segmento", ""),
-                    "empresa_tamaño": request.POST.get("empresa_tamaño", ""),
+                    "razon_social": razon_social,
+                    "nit": nit,
+                    "email_empresa": email_empresa,
+                    "telefono_empresa": telefono_empresa,
+                    "direccion": direccion,
+                    "representante_legal": representante_legal,
+                    "sitio_web": sitio_web,
                 })
                 
             return render(request, "registro.html", context)
 
         # Si llegamos aquí, los datos son válidos
         try:
-            # Verificar si el email ya existe
-            if Persona.objects.filter(email=email).exists():
-                messages.error(request, "Este correo electrónico ya está registrado")
-                return render(request, "registro.html", {
-                    "tipo_usuario": tipo_registro,
-                    "nombre_completo": nombre,
-                    "email": email,
-                    "telefono": telefono,
-                })
-
-            # Crear el diccionario de datos del usuario
-            user_data = {
-                "email": email,
-                "password": password,
-                "first_name": nombre,
-                "last_name": "",
-                "telefono": telefono,
-                "rol": "Usuario",
-                "is_active": True,
-            }
-            
-            # Agregar campos específicos según el tipo de registro
             if tipo_registro == "natural":
-                user_data.update({
+                # Verificar si el email ya existe
+                if Persona.objects.filter(email=email).exists():
+                    messages.error(request, "Este correo electrónico ya está registrado")
+                    return render(request, "registro.html", {
+                        "tipo_usuario": tipo_registro,
+                        "nombre_completo": nombre,
+                        "email": email,
+                        "telefono": telefono,
+                        "edad": edad,
+                        "genero": genero,
+                    })
+
+                # Crear el diccionario de datos del usuario
+                user_data = {
+                    "email": email,
+                    "password": password,
+                    "first_name": nombre,
+                    "last_name": "",
+                    "telefono": telefono,
                     "edad": int(edad) if edad and edad.isdigit() else None,
                     "genero": genero,
+                    "rol": "Usuario",
+                    "is_active": True,
                     "es_empresa": False,
-                })
+                }
                 
                 # Crear el usuario
                 user = Persona.objects.create_user(**user_data)
                 messages.success(request, f"¡Registro exitoso! Bienvenido/a {nombre}")
                 
             elif tipo_registro == "empresa":
-                user_data.update({
+                # Verificar si el email o NIT ya existen
+                if Persona.objects.filter(email=email_empresa).exists():
+                    messages.error(request, "Este correo electrónico ya está registrado")
+                    return render(request, "registro.html", {
+                        "tipo_usuario": tipo_registro,
+                        "razon_social": razon_social,
+                        "nit": nit,
+                        "email_empresa": email_empresa,
+                        "telefono_empresa": telefono_empresa,
+                        "direccion": direccion,
+                        "representante_legal": representante_legal,
+                        "sitio_web": sitio_web,
+                    })
+                
+                if Persona.objects.filter(nit=nit).exists():
+                    messages.error(request, "Este NIT ya está registrado")
+                    return render(request, "registro.html", {
+                        "tipo_usuario": tipo_registro,
+                        "razon_social": razon_social,
+                        "nit": nit,
+                        "email_empresa": email_empresa,
+                        "telefono_empresa": telefono_empresa,
+                        "direccion": direccion,
+                        "representante_legal": representante_legal,
+                        "sitio_web": sitio_web,
+                    })
+
+                # Crear el diccionario de datos del usuario empresa
+                user_data = {
+                    "email": email_empresa,
+                    "password": password_empresa,
+                    "first_name": razon_social,  # Usar razón social como nombre
+                    "last_name": "",
+                    "telefono": telefono_empresa,
+                    "rol": "Usuario",
+                    "is_active": True,
                     "es_empresa": True,
                     "razon_social": razon_social,
                     "nit": nit,
-                    "first_name": razon_social,  # Usar razón social como nombre
-                })
+                    "direccion": direccion,
+                    "representante_legal": representante_legal,
+                    "sitio_web": sitio_web if sitio_web else None,
+                }
                 
                 # Crear el usuario empresa
                 user = Persona.objects.create_user(**user_data)
@@ -295,7 +382,7 @@ def registro(request: HttpRequest) -> HttpResponse:
             request.session["usuario_id"] = user.id
             
             # Redirigir a la caja fuerte después del registro
-            return redirect("caja_fuerte")
+            return redirect("Aplicacion:caja_fuerte")
             
         except Exception as e:
             # Manejar errores específicos de la base de datos
@@ -311,22 +398,30 @@ def registro(request: HttpRequest) -> HttpResponse:
             context = {
                 "tipo_usuario": tipo_registro,
                 "errores": [error_msg],
-                "nombre_completo": nombre,
-                "email": email,
-                "telefono": telefono,
             }
             
             if tipo_registro == "natural":
-                context.update({"edad": edad, "genero": genero})
+                context.update({
+                    "nombre_completo": nombre,
+                    "email": email,
+                    "telefono": telefono,
+                    "edad": edad, 
+                    "genero": genero
+                })
             elif tipo_registro == "empresa":
                 context.update({
-                    "empresa_razon_social": razon_social,
-                    "empresa_nit": nit,
+                    "razon_social": razon_social,
+                    "nit": nit,
+                    "email_empresa": email_empresa,
+                    "telefono_empresa": telefono_empresa,
+                    "direccion": direccion,
+                    "representante_legal": representante_legal,
+                    "sitio_web": sitio_web,
                 })
             
             return render(request, "registro.html", context)    
 
-    # GET o error
+    # GET request - mostrar formulario vacío
     return render(request, "registro.html")
 
 def cerrar_sesion(request: HttpRequest) -> HttpResponse:

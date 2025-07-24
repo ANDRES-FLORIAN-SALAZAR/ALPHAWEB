@@ -69,6 +69,7 @@ class Persona(AbstractUser):
     razon_social = models.CharField("Razón Social", max_length=200, blank=True, null=True)
     nit = models.CharField("NIT", max_length=20, blank=True, null=True, unique=True)
     direccion = models.TextField("Dirección", blank=True, null=True)
+    representante_legal = models.CharField("Representante Legal", max_length=200, blank=True, null=True)
     sitio_web = models.URLField("Sitio Web", blank=True, null=True)
     
     # Campos comunes
@@ -115,6 +116,8 @@ class Persona(AbstractUser):
         """
         Devuelve el nombre completo del usuario.
         """
+        if self.es_empresa and self.razon_social:
+            return self.razon_social
         full_name = f"{self.first_name} {self.last_name}".strip()
         return full_name if full_name else self.email
 
@@ -122,6 +125,8 @@ class Persona(AbstractUser):
         """
         Devuelve el nombre corto del usuario (solo el primer nombre).
         """
+        if self.es_empresa and self.razon_social:
+            return self.razon_social
         return self.first_name or self.email.split("@")[0]
 
     def save(self, *args: Any, **kwargs: Any) -> None:
@@ -138,7 +143,6 @@ class Persona(AbstractUser):
             self.rol = "Admin"
         
         super().save(*args, **kwargs)
-
 
 def documento_path(instance: "DocumentoCajaFuerte", filename: str) -> str:
     """Genera una ruta válida para el archivo del documento."""

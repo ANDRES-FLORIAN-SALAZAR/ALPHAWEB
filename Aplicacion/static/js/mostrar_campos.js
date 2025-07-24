@@ -30,24 +30,40 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Función para mostrar/ocultar campos según el tipo de registro
 function mostrarCampos() {
-    const tipoRegistro = document.getElementById('tipo_registro');
+    const tipoUsuario = document.getElementById('tipo_registro').value;
     const camposNatural = document.getElementById('campos_natural');
     const camposEmpresa = document.getElementById('campos_empresa');
+    const btnRegistro = document.getElementById('btn-registro');
+    const form = document.getElementById('form-registro');
 
-    if (tipoRegistro && camposNatural && camposEmpresa) {
-        console.log('Elementos encontrados');
+    console.log('Mostrar campos para:', tipoUsuario);
+
+    // Mostrar/ocultar secciones según el tipo de usuario
+    if (tipoUsuario === 'natural') {
+        camposNatural.style.display = 'block';
+        camposEmpresa.style.display = 'none';
+        if (btnRegistro) btnRegistro.textContent = 'Registrarse como Persona Natural';
+    } else if (tipoUsuario === 'empresa') {
+        camposNatural.style.display = 'none';
+        camposEmpresa.style.display = 'block';
+        if (btnRegistro) btnRegistro.textContent = 'Registrar Empresa';
         
-        if (tipoRegistro.value === 'natural') {
-            camposNatural.style.display = 'block';
-            camposEmpresa.style.display = 'none';
-        } else if (tipoRegistro.value === 'empresa') {
-            camposNatural.style.display = 'none';
-            camposEmpresa.style.display = 'block';
-        } else {
-            camposNatural.style.display = 'none';
-            camposEmpresa.style.display = 'none';
+        // Inicializar la validación de empleados cuando se muestran los campos de empresa
+        if (window.inicializarValidacionEmpleados) {
+            setTimeout(function() {
+                inicializarValidacionEmpleados();
+                // Forzar la validación del formulario
+                if (form) form.classList.add('was-validated');
+            }, 100);
         }
     } else {
-        console.error('No se encontraron los elementos necesarios en mostrarCampos');
+        camposNatural.style.display = 'none';
+        camposEmpresa.style.display = 'none';
+        if (btnRegistro) btnRegistro.textContent = 'Seleccione un tipo de registro';
+    }
+    
+    // Restablecer la validación del formulario
+    if (form) {
+        form.classList.remove('was-validated');
     }
 }

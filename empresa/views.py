@@ -25,6 +25,7 @@ def procesar_registro_empresa(request, user):
             'segmento': request.POST.get('empresa_segmento'),
             'tamaño': request.POST.get('empresa_tamaño'),
             'telefono': request.POST.get('telefono'),
+            'email': request.POST.get('email'),
             'pais': request.POST.get('empresa_pais'),
             'ciudad': request.POST.get('empresa_ciudad'),
             'direccion': request.POST.get('empresa_direccion'),
@@ -76,6 +77,7 @@ def procesar_registro_empresa(request, user):
             descripcion=empresa_datos['descripcion'] or '',
             numero_empleados=int(empresa_datos['numero_empleados']),
             telefono=empresa_datos['telefono'],
+            email=empresa_datos['email'],
             requiere_2fa=empresa_datos['requiere_2fa'],
             politica_estricta=empresa_datos['politica_estricta']
         )
