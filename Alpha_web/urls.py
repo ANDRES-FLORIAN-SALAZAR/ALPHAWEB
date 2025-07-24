@@ -17,16 +17,17 @@ Including another URLconf
 
 """
 from django.conf import settings
+from django.conf.urls import handler404
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
-from django.conf.urls import handler404
+
 from Aplicacion.views import custom_404
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("Aplicacion.urls", namespace="Aplicacion")),
-    path('empresa/', include('empresa.urls')),  # URLs específicas de empresa
+    path("empresa/", include("empresa.urls")),  # URLs específicas de empresa
 ]
 
 # Configuración de errores personalizados
@@ -40,6 +41,6 @@ if settings.DEBUG:
 else:
     from django.views.static import serve
     urlpatterns += [
-        path('static/<path:path>', serve, {'document_root': settings.STATIC_ROOT}),
-        path('media/<path:path>', serve, {'document_root': settings.MEDIA_ROOT}),
+        path("static/<path:path>", serve, {"document_root": settings.STATIC_ROOT}),
+        path("media/<path:path>", serve, {"document_root": settings.MEDIA_ROOT}),
     ]

@@ -6,21 +6,21 @@ Se registran todos los modelos de la aplicación para que sean accesibles desde 
 Se personalizan las vistas de administración para mejorar la experiencia del usuario.
 """
 
-from typing import ClassVar
 
 from django.contrib import admin
 from django.db.models.query import QuerySet
 from django.http import HttpRequest
-from django.utils.translation import gettext_lazy as _
 
 from .models import DocumentoCajaFuerte, Persona
+
 
 @admin.register(DocumentoCajaFuerte)
 class DocumentoCajaFuerteAdmin(admin.ModelAdmin):
     """Admin para el modelo DocumentoCajaFuerte."""
-    list_display = ('nombre', 'categoria', 'fecha_subida', 'usuario')
-    list_filter = ('categoria', 'fecha_subida')
-    search_fields = ('nombre', 'usuario__email')
+
+    list_display = ("nombre", "categoria", "fecha_subida", "usuario")
+    list_filter = ("categoria", "fecha_subida")
+    search_fields = ("nombre", "usuario__email")
 
     def get_queryset(self, request: HttpRequest) -> QuerySet:
         """Obtiene el queryset filtrado por el usuario."""
@@ -29,8 +29,9 @@ class DocumentoCajaFuerteAdmin(admin.ModelAdmin):
 @admin.register(Persona)
 class PersonaAdmin(admin.ModelAdmin):
     """Admin para el modelo Persona."""
-    list_display = ('email', 'first_name', 'last_name', 'telefono')
-    search_fields = ('email', 'first_name', 'last_name')
+
+    list_display = ("email", "first_name", "last_name", "telefono")
+    search_fields = ("email", "first_name", "last_name")
 
     def get_queryset(self, request: HttpRequest) -> QuerySet:
         """Obtiene el queryset filtrado por el usuario."""

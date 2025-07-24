@@ -1,5 +1,6 @@
 # En tu urls.py, agrega esta URL para cargar ciudades dinámicamente:
 from django.urls import path
+
 from . import views
 
 app_name = "empresa"
@@ -17,7 +18,7 @@ urlpatterns = [
     path("subir-documento/", views.subir_documento, name="subir_documento"),
     path("ver-documento/<int:documento_id>/", views.ver_documento, name="ver_documento"),
     path("eliminar-documento/<int:documento_id>/", views.eliminar_documento, name="eliminar_documento"),
-    
+
     # Nueva URL para cargar ciudades dinámicamente
     path("api/ciudades/", views.obtener_ciudades, name="obtener_ciudades"),
 ]

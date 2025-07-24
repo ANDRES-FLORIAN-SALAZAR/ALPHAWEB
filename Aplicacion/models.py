@@ -2,9 +2,7 @@
 
 from typing import Any, ClassVar
 
-from django.contrib.auth.hashers import make_password
 from django.conf import settings
-from django.utils.text import get_valid_filename
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.core.validators import (
     FileExtensionValidator,
@@ -13,7 +11,6 @@ from django.core.validators import (
 )
 from django.db import models
 from django.utils.text import get_valid_filename
-from django.utils.translation import gettext_lazy as _
 
 
 class CustomUserManager(BaseUserManager):
@@ -43,7 +40,7 @@ class Persona(AbstractUser):
     username = None
     email = models.EmailField("Correo electrónico", unique=True)
     telefono = models.CharField("Teléfono", max_length=15, blank=True, null=True)
-    
+
     # Campos específicos para personas naturales
     edad = models.PositiveIntegerField(
         "Edad",
@@ -63,7 +60,7 @@ class Persona(AbstractUser):
         blank=True,
         null=True,
     )
-    
+
     # Campos específicos para empresas
     es_empresa = models.BooleanField("¿Es empresa?", default=False)
     razon_social = models.CharField("Razón Social", max_length=200, blank=True, null=True)
@@ -71,7 +68,7 @@ class Persona(AbstractUser):
     direccion = models.TextField("Dirección", blank=True, null=True)
     representante_legal = models.CharField("Representante Legal", max_length=200, blank=True, null=True)
     sitio_web = models.URLField("Sitio Web", blank=True, null=True)
-    
+
     # Campos comunes
     rol = models.CharField(
         "Rol",
@@ -81,11 +78,11 @@ class Persona(AbstractUser):
     )
     fecha_registro = models.DateTimeField("Fecha de registro", auto_now_add=True)
     ultimo_acceso = models.DateTimeField("Último acceso", auto_now=True)
-    
+
     # Configuración de permisos
     groups = models.ManyToManyField(
-        "auth.Group", 
-        related_name="aplicacion_persona_set", 
+        "auth.Group",
+        related_name="aplicacion_persona_set",
         verbose_name="grupos",
         blank=True,
     )
@@ -99,13 +96,13 @@ class Persona(AbstractUser):
     objects = CustomUserManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []  
+    REQUIRED_FIELDS = []
 
     class Meta:
         verbose_name = "Usuario"
         verbose_name_plural = "Usuarios"
         ordering = ["-fecha_registro"]
-        db_table = 'Aplicacion_persona'
+        db_table = "Aplicacion_persona"
 
     def __str__(self) -> str:
         if self.es_empresa and self.razon_social:
@@ -135,13 +132,13 @@ class Persona(AbstractUser):
         """
         # Asegurar que el email siempre esté en minúsculas
         self.email = self.email.lower().strip()
-        
+
         # Si es un superusuario, asegurarse de que tenga los permisos necesarios
         if self.is_superuser:
             self.is_staff = True
             self.is_active = True
             self.rol = "Admin"
-        
+
         super().save(*args, **kwargs)
 
 def documento_path(instance: "DocumentoCajaFuerte", filename: str) -> str:

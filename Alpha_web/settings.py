@@ -48,7 +48,7 @@ INSTALLED_APPS = [
 ]
 
 # Manejo de errores personalizados
-handler404 = 'Aplicacion.views.custom_404'
+handler404 = "Aplicacion.views.custom_404"
 
 # Configuración de middleware
 MIDDLEWARE = [
@@ -105,13 +105,13 @@ AUTH_USER_MODEL = "Aplicacion.Persona"
 
 # Backends de autenticación
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',  # Backend estándar
+    "django.contrib.auth.backends.ModelBackend",  # Backend estándar
 ]
 
 # Configuración de URLs de autenticación
-LOGIN_URL = 'Aplicacion:inicio_sesion'
-LOGIN_REDIRECT_URL = 'Aplicacion:home'
-LOGOUT_REDIRECT_URL = 'Aplicacion:home'
+LOGIN_URL = "Aplicacion:inicio_sesion"
+LOGIN_REDIRECT_URL = "Aplicacion:home"
+LOGOUT_REDIRECT_URL = "Aplicacion:home"
 
 # Configuración de sesiones
 SESSION_COOKIE_AGE = 1209600  # 2 semanas en segundos
@@ -123,9 +123,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-        'OPTIONS': {
-            'min_length': 8,
-        }
+        "OPTIONS": {
+            "min_length": 8,
+        },
     },
     {
         "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
@@ -150,17 +150,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [
-    BASE_DIR / 'Aplicacion/static',
+    BASE_DIR / "Aplicacion/static",
     #BASE_DIR / 'empresa/static',
 ]
 
 # Media files
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-MEDIAFILES_STORAGE = 'django.core.files.storage.FileSystemStorage'
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+MEDIAFILES_STORAGE = "django.core.files.storage.FileSystemStorage"
 
 # Configuración para limitar el tamaño de los archivos (por ejemplo, 5MB)
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB en bytes

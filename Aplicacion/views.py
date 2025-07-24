@@ -8,13 +8,12 @@ para generar la respuesta adecuada.
 import logging
 from functools import wraps
 from pathlib import Path
-from django.contrib.auth import logout
+
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import FileResponse, HttpRequest, HttpResponse, JsonResponse
-from django.shortcuts import get_object_or_404, redirect, render, Http404
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
-from django.views.defaults import page_not_found
 
 from .models import DocumentoCajaFuerte, Persona
 
@@ -107,47 +106,47 @@ def inicio_sesion(request: HttpRequest) -> HttpResponse:
 
     Returns:
         HttpResponse: La respuesta HTTP con el formulario de inicio de sesión.
+
     """
     # Si el usuario ya está autenticado, redirigir a la página principal
     if request.user.is_authenticated:
-        return redirect('Aplicacion:home')
+        return redirect("Aplicacion:home")
 
     if request.method == "POST":
-        email = request.POST.get('email', '').strip()
-        password = request.POST.get('password', '')
-        
+        email = request.POST.get("email", "").strip()
+        password = request.POST.get("password", "")
+
         # Validar que se hayan proporcionado email y contraseña
         if not email or not password:
-            messages.error(request, 'Por favor ingrese su correo y contraseña')
-            return render(request, 'Inicio_Sesion.html')
-        
+            messages.error(request, "Por favor ingrese su correo y contraseña")
+            return render(request, "Inicio_Sesion.html")
+
         try:
             # Verificar si el usuario existe
             try:
                 user = Persona.objects.get(email=email)
             except Persona.DoesNotExist:
-                messages.error(request, 'No existe una cuenta con este correo electrónico')
-                return render(request, 'Inicio_Sesion.html')
-            
+                messages.error(request, "No existe una cuenta con este correo electrónico")
+                return render(request, "Inicio_Sesion.html")
+
             # Autenticar al usuario
             user = authenticate(request, username=email, password=password)
-            
+
             if user is not None:
                 login(request, user)
-                request.session['usuario_id'] = user.id
-                
+                request.session["usuario_id"] = user.id
+
                 # Redirigir según el tipo de usuario
                 if user.is_staff or user.is_superuser:
-                    return redirect('admin:index')
-                return redirect('Aplicacion:home')
-            else:
-                messages.error(request, 'Contraseña incorrecta')
-                
+                    return redirect("admin:index")
+                return redirect("Aplicacion:home")
+            messages.error(request, "Contraseña incorrecta")
+
         except Exception as e:
-            logger.error(f"Error en inicio de sesión: {str(e)}")
-            messages.error(request, 'Ocurrió un error al intentar iniciar sesión. Por favor intente nuevamente.')
-    
-    return render(request, 'Inicio_Sesion.html')
+            logger.error(f"Error en inicio de sesión: {e!s}")
+            messages.error(request, "Ocurrió un error al intentar iniciar sesión. Por favor intente nuevamente.")
+
+    return render(request, "Inicio_Sesion.html")
 
 def registro(request: HttpRequest) -> HttpResponse:
     """
@@ -158,18 +157,19 @@ def registro(request: HttpRequest) -> HttpResponse:
 
     Returns:
         HttpResponse: La respuesta HTTP con el formulario de registro.
+
     """
     if request.method == "POST":
         tipo_registro = request.POST.get("tipo_usuario")
-        
+
         # Validaciones básicas
         errores = []
-        
+
         # Validar que se haya seleccionado un tipo de registro
         if not tipo_registro:
             errores.append("Debe seleccionar un tipo de registro")
             messages.error(request, "Debe seleccionar un tipo de registro")
-        
+
         # Validaciones específicas por tipo de registro
         if tipo_registro == "natural":
             # Datos para persona natural
@@ -180,7 +180,7 @@ def registro(request: HttpRequest) -> HttpResponse:
             telefono = request.POST.get("telefono_natural", "").strip()
             edad = request.POST.get("edad", "").strip()
             genero = request.POST.get("genero", "")
-            
+
             # Validar campos obligatorios
             if not nombre:
                 errores.append("El nombre completo es requerido")
@@ -188,7 +188,7 @@ def registro(request: HttpRequest) -> HttpResponse:
             if not email:
                 errores.append("El correo electrónico es requerido")
                 messages.error(request, "El correo electrónico es requerido")
-            elif not "@" in email:
+            elif "@" not in email:
                 errores.append("Ingrese un correo electrónico válido")
                 messages.error(request, "Ingrese un correo electrónico válido")
             if not telefono:
@@ -203,12 +203,12 @@ def registro(request: HttpRequest) -> HttpResponse:
             if not edad.isdigit() or not (18 <= int(edad) <= 100):
                 errores.append("La edad debe ser un número entre 18 y 100")
                 messages.error(request, "La edad debe ser un número entre 18 y 100")
-            
+
             # Validar que las contraseñas coincidan
             if password != password_confirm:
                 errores.append("Las contraseñas no coinciden")
                 messages.error(request, "Las contraseñas no coinciden")
-                
+
         elif tipo_registro == "empresa":
             # Datos para empresa
             razon_social = request.POST.get("razon_social", "").strip()
@@ -220,7 +220,7 @@ def registro(request: HttpRequest) -> HttpResponse:
             sitio_web = request.POST.get("sitio_web", "").strip()
             password_empresa = request.POST.get("password_empresa", "")
             confirmar_password_empresa = request.POST.get("confirmar_password_empresa", "")
-            
+
             # Obtener datos adicionales específicos de empresa
             empresa_tipo = request.POST.get("empresa_tipo", "")
             empresa_segmento = request.POST.get("empresa_segmento", "")
@@ -229,7 +229,7 @@ def registro(request: HttpRequest) -> HttpResponse:
             empresa_pais = request.POST.get("empresa_pais", "")
             empresa_ciudad = request.POST.get("empresa_ciudad", "")
             empresa_descripcion = request.POST.get("empresa_descripcion", "")
-            
+
             # Validar campos obligatorios
             if not razon_social:
                 errores.append("La razón social es requerida")
@@ -240,7 +240,7 @@ def registro(request: HttpRequest) -> HttpResponse:
             if not email_empresa:
                 errores.append("El correo electrónico de la empresa es requerido")
                 messages.error(request, "El correo electrónico de la empresa es requerido")
-            elif not "@" in email_empresa:
+            elif "@" not in email_empresa:
                 errores.append("Ingrese un correo electrónico válido")
                 messages.error(request, "Ingrese un correo electrónico válido")
             if not telefono_empresa:
@@ -258,19 +258,19 @@ def registro(request: HttpRequest) -> HttpResponse:
             elif len(password_empresa) < 8:
                 errores.append("La contraseña debe tener al menos 8 caracteres")
                 messages.error(request, "La contraseña debe tener al menos 8 caracteres")
-            
+
             # Validar que las contraseñas coincidan
             if password_empresa != confirmar_password_empresa:
                 errores.append("Las contraseñas no coinciden")
                 messages.error(request, "Las contraseñas no coinciden")
-                
+
         # Si hay errores, mostrar el formulario con los errores
         if errores:
             context = {
                 "tipo_usuario": tipo_registro,
                 "errores": errores,
             }
-            
+
             # Agregar datos según el tipo de registro para mantener los valores en el formulario
             if tipo_registro == "natural":
                 context.update({
@@ -290,7 +290,7 @@ def registro(request: HttpRequest) -> HttpResponse:
                     "representante_legal": representante_legal,
                     "sitio_web": sitio_web,
                 })
-                
+
             return render(request, "registro.html", context)
 
         # Si llegamos aquí, los datos son válidos
@@ -321,11 +321,11 @@ def registro(request: HttpRequest) -> HttpResponse:
                     "is_active": True,
                     "es_empresa": False,
                 }
-                
+
                 # Crear el usuario
                 user = Persona.objects.create_user(**user_data)
                 messages.success(request, f"¡Registro exitoso! Bienvenido/a {nombre}")
-                
+
             elif tipo_registro == "empresa":
                 # Verificar si el email o NIT ya existen
                 if Persona.objects.filter(email=email_empresa).exists():
@@ -340,7 +340,7 @@ def registro(request: HttpRequest) -> HttpResponse:
                         "representante_legal": representante_legal,
                         "sitio_web": sitio_web,
                     })
-                
+
                 if Persona.objects.filter(nit=nit).exists():
                     messages.error(request, "Este NIT ya está registrado")
                     return render(request, "registro.html", {
@@ -370,43 +370,43 @@ def registro(request: HttpRequest) -> HttpResponse:
                     "representante_legal": representante_legal,
                     "sitio_web": sitio_web if sitio_web else None,
                 }
-                
+
                 # Crear el usuario empresa
                 user = Persona.objects.create_user(**user_data)
                 messages.success(request, f"¡Registro de empresa exitoso! Bienvenido/a {razon_social}")
             else:
                 raise ValueError("Tipo de registro no válido")
-            
+
             # Iniciar sesión automáticamente
             login(request, user)
             request.session["usuario_id"] = user.id
-            
+
             # Redirigir a la caja fuerte después del registro
             return redirect("Aplicacion:caja_fuerte")
-            
+
         except Exception as e:
             # Manejar errores específicos de la base de datos
             if "duplicate" in str(e).lower() or "ya existe" in str(e).lower():
                 error_msg = "Este correo electrónico o NIT ya está registrado"
             else:
-                error_msg = f"Error al crear el usuario: {str(e)}"
-            
-            logger.error(f"Error en el registro: {str(e)}")
+                error_msg = f"Error al crear el usuario: {e!s}"
+
+            logger.error(f"Error en el registro: {e!s}")
             messages.error(request, error_msg)
-            
+
             # Preparar el contexto para volver a mostrar el formulario
             context = {
                 "tipo_usuario": tipo_registro,
                 "errores": [error_msg],
             }
-            
+
             if tipo_registro == "natural":
                 context.update({
                     "nombre_completo": nombre,
                     "email": email,
                     "telefono": telefono,
-                    "edad": edad, 
-                    "genero": genero
+                    "edad": edad,
+                    "genero": genero,
                 })
             elif tipo_registro == "empresa":
                 context.update({
@@ -418,8 +418,8 @@ def registro(request: HttpRequest) -> HttpResponse:
                     "representante_legal": representante_legal,
                     "sitio_web": sitio_web,
                 })
-            
-            return render(request, "registro.html", context)    
+
+            return render(request, "registro.html", context)
 
     # GET request - mostrar formulario vacío
     return render(request, "registro.html")
@@ -433,35 +433,36 @@ def cerrar_sesion(request: HttpRequest) -> HttpResponse:
 
     Returns:
         HttpResponse: Redirección a la página de inicio con mensaje de confirmación.
+
     """
     # Verificar si el usuario está autenticado
     if request.user.is_authenticated:
         # Guardar el nombre del usuario para el mensaje
         username = request.user.get_short_name() or request.user.email
-        
+
         # Cerrar la sesión de Django
         logout(request)
-        
+
         # Limpiar la sesión completamente
         request.session.flush()
-        
+
         # Eliminar la cookie de sesión del navegador
-        if hasattr(request, 'session'):
+        if hasattr(request, "session"):
             request.session.delete()
-            
+
         # Eliminar la cookie de sesión manualmente
         response = redirect("Aplicacion:home")
         response.delete_cookie("sessionid")
         response.delete_cookie("csrftoken")  # También limpiamos el token CSRF
-        
+
         # Mensaje de confirmación
         messages.success(request, f"Has cerrado sesión correctamente. ¡Hasta pronto, {username}!")
-        
+
         # Registrar el cierre de sesión
         logger.info(f"Usuario {username} ha cerrado sesión correctamente")
-        
+
         return response
-    
+
     # Si el usuario no estaba autenticado, redirigir al inicio
     return redirect("Aplicacion:home")
 
@@ -476,6 +477,7 @@ def contrasenas(request: HttpRequest) -> HttpResponse:
 
     Returns:
         HttpResponse: La respuesta HTTP con el generador de contraseñas.
+
     """
     usuario = verificar_autenticacion(request)
     # Usa tu HTML existente llamado "Contrasenas.html"
@@ -491,9 +493,10 @@ def cambiar_contrasena(request: HttpRequest) -> HttpResponse:
 
     Returns:
         HttpResponse: La respuesta HTTP con el formulario de cambio de contraseña.
+
     """
     usuario = verificar_autenticacion(request)
-    
+
     if request.method == "POST":
         password_actual = request.POST.get("password_actual")
         nueva_password = request.POST.get("nueva_password")
@@ -519,19 +522,19 @@ def cambiar_contrasena(request: HttpRequest) -> HttpResponse:
         try:
             usuario.set_password(nueva_password)
             usuario.save()
-            
+
             # Re-autenticar al usuario para mantener la sesión
             user = authenticate(request, username=usuario.email, password=nueva_password)
             if user:
                 login(request, user)
-                request.session['usuario_id'] = user.id
-            
+                request.session["usuario_id"] = user.id
+
             messages.success(request, "Contraseña cambiada exitosamente.")
             logger.info(f"Usuario {usuario.email} cambió su contraseña exitosamente")
             return redirect("Aplicacion:caja_fuerte")
-            
+
         except Exception as e:
-            logger.error(f"Error al cambiar contraseña para usuario {usuario.email}: {str(e)}")
+            logger.error(f"Error al cambiar contraseña para usuario {usuario.email}: {e!s}")
             messages.error(request, "Ocurrió un error al cambiar la contraseña. Por favor intente nuevamente.")
 
     return render(request, "cambiar_contrasena.html", {"usuario": usuario})
@@ -570,16 +573,17 @@ def custom_404(request: HttpRequest, exception=None) -> HttpResponse:
 
     Returns:
         HttpResponse: La página de error 404 personalizada.
+
     """
     # Aseguramos que la URL sea '/404/' para que se aplique el estilo
-    request.path = '/404/'
-    
+    request.path = "/404/"
+
     # Agregamos el contexto necesario para que la plantilla funcione
     context = {
-        'request': request,
+        "request": request,
     }
-    
-    return render(request, '404.html', context=context, status=404)
+
+    return render(request, "404.html", context=context, status=404)
 
 # VISTAS DE CAJA FUERTE
 # ============================================================================
