@@ -37,17 +37,22 @@ class CustomUserManager(BaseUserManager):
 
 
 class Persona(AbstractUser):
-    """Modelo personalizado de usuario."""
+    """Modelo personalizado de usuario que soporta tanto personas naturales como empresas."""
 
+    # Campos comunes para todos los usuarios
     username = None
-    email = models.EmailField("email address", unique=True)
-    telefono = models.CharField(max_length=15, blank=False)
+    email = models.EmailField("Correo electrónico", unique=True)
+    telefono = models.CharField("Teléfono", max_length=15, blank=True, null=True)
+    
+    # Campos específicos para personas naturales
     edad = models.PositiveIntegerField(
+        "Edad",
         null=True,
         blank=True,
         validators=[MinValueValidator(18), MaxValueValidator(100)],
     )
     genero = models.CharField(
+        "Género",
         max_length=50,
         choices=[
             ("Masculino", "Masculino"),
@@ -55,45 +60,84 @@ class Persona(AbstractUser):
             ("Otro", "Otro"),
             ("Prefiero no decir", "Prefiero no decir"),
         ],
-        blank=False,
+        blank=True,
+        null=True,
     )
+    
+    # Campos específicos para empresas
+    es_empresa = models.BooleanField("¿Es empresa?", default=False)
+    razon_social = models.CharField("Razón Social", max_length=200, blank=True, null=True)
+    nit = models.CharField("NIT", max_length=20, blank=True, null=True, unique=True)
+    direccion = models.TextField("Dirección", blank=True, null=True)
+    sitio_web = models.URLField("Sitio Web", blank=True, null=True)
+    
+    # Campos comunes
     rol = models.CharField(
+        "Rol",
         max_length=50,
         choices=[("Usuario", "Usuario"), ("Admin", "Administrador")],
         default="Usuario",
     )
-
+    fecha_registro = models.DateTimeField("Fecha de registro", auto_now_add=True)
+    ultimo_acceso = models.DateTimeField("Último acceso", auto_now=True)
+    
+    # Configuración de permisos
     groups = models.ManyToManyField(
-        "auth.Group", related_name="aplicacion_persona_set", verbose_name="grupos",
+        "auth.Group", 
+        related_name="aplicacion_persona_set", 
+        verbose_name="grupos",
+        blank=True,
     )
     user_permissions = models.ManyToManyField(
         "auth.Permission",
         related_name="aplicacion_persona_set",
         verbose_name="permisos",
+        blank=True,
     )
 
     objects = CustomUserManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS: ClassVar[list[str]] = ["first_name", "last_name"]
+    REQUIRED_FIELDS = []  
 
-    def save(self, *args: object, **kwargs: object) -> None:
-        """Guarda el usuario y asegura que la contraseña esté encriptada."""
-        # Validar longitud mínima de contraseña
-        if self.password and len(self.password) < 8:
-            raise ValueError("La contraseña debe tener al menos 8 caracteres")
-            
-        if self.password and not self.password.startswith("pbkdf2_sha256$"):
-            self.password = make_password(self.password)
-        super().save(*args, **kwargs)
-
-    def get_username(self) -> str:
-        """Devuelve el email como nombre de usuario."""
-        return self.email
+    class Meta:
+        verbose_name = "Usuario"
+        verbose_name_plural = "Usuarios"
+        ordering = ["-fecha_registro"]
+        db_table = 'Aplicacion_persona'
 
     def __str__(self) -> str:
-        """Representación en cadena del usuario."""
-        return f"{self.first_name} {self.last_name} - {self.email}"
+        if self.es_empresa and self.razon_social:
+            return f"{self.razon_social} (Empresa)"
+        return self.get_full_name() or self.email
+
+    def get_full_name(self) -> str:
+        """
+        Devuelve el nombre completo del usuario.
+        """
+        full_name = f"{self.first_name} {self.last_name}".strip()
+        return full_name if full_name else self.email
+
+    def get_short_name(self) -> str:
+        """
+        Devuelve el nombre corto del usuario (solo el primer nombre).
+        """
+        return self.first_name or self.email.split("@")[0]
+
+    def save(self, *args: Any, **kwargs: Any) -> None:
+        """
+        Guarda el usuario en la base de datos.
+        """
+        # Asegurar que el email siempre esté en minúsculas
+        self.email = self.email.lower().strip()
+        
+        # Si es un superusuario, asegurarse de que tenga los permisos necesarios
+        if self.is_superuser:
+            self.is_staff = True
+            self.is_active = True
+            self.rol = "Admin"
+        
+        super().save(*args, **kwargs)
 
 
 def documento_path(instance: "DocumentoCajaFuerte", filename: str) -> str:
@@ -171,4 +215,3 @@ class DocumentoCajaFuerte(models.Model):
         if self.archivo:
             self.tamano = self.archivo.size
         super().save(*args, **kwargs)
-

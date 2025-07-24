@@ -8,7 +8,7 @@ para generar la respuesta adecuada.
 import logging
 from functools import wraps
 from pathlib import Path
-
+from django.contrib.auth import logout
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.http import FileResponse, HttpRequest, HttpResponse, JsonResponse
@@ -58,7 +58,7 @@ def requiere_autenticacion(view_func: callable) -> callable:
         usuario = verificar_autenticacion(request)
         if not usuario:
             messages.error(request, "Debes iniciar sesión para acceder a esta página.")
-            return redirect("inicio_sesion")
+            return redirect("Aplicacion:inicio_sesion")  # Agregar el namespace aquí
         return view_func(request, *args, **kwargs)
     return _wrapped_view
 
@@ -103,23 +103,51 @@ def inicio_sesion(request: HttpRequest) -> HttpResponse:
     Vista para el inicio de sesión de usuarios.
 
     Args:
-        request (HttpRequest): La solicitud HTTP recibida.
+        request (HttpRequest): La solicitud HTTP.
 
     Returns:
-        HttpResponse: La respuesta HTTP con la página de inicio de sesión o redirección.
-
+        HttpResponse: La respuesta HTTP con el formulario de inicio de sesión.
     """
+    # Si el usuario ya está autenticado, redirigir a la página principal
+    if request.user.is_authenticated:
+        return redirect('Aplicacion:home')
+
     if request.method == "POST":
-        email = request.POST.get("email")
-        password = request.POST.get("password")
-        user = authenticate(request, email=email, password=password)
-        if user is not None:
-            login(request, user)
-            request.session["usuario_id"] = user.id
-            messages.success(request, "Inicio de sesión exitoso")
-            return redirect("home")
-        messages.error(request, "Credenciales inválidas")
-    return render(request, "inicio_sesion.html")
+        email = request.POST.get('email', '').strip()
+        password = request.POST.get('password', '')
+        
+        # Validar que se hayan proporcionado email y contraseña
+        if not email or not password:
+            messages.error(request, 'Por favor ingrese su correo y contraseña')
+            return render(request, 'Inicio_Sesion.html')
+        
+        try:
+            # Verificar si el usuario existe
+            try:
+                user = Persona.objects.get(email=email)
+            except Persona.DoesNotExist:
+                messages.error(request, 'No existe una cuenta con este correo electrónico')
+                return render(request, 'Inicio_Sesion.html')
+            
+            # Autenticar al usuario
+            user = authenticate(request, username=email, password=password)
+            
+            if user is not None:
+                login(request, user)
+                request.session['usuario_id'] = user.id
+                
+                # Redirigir según el tipo de usuario
+                if user.is_staff or user.is_superuser:
+                    return redirect('admin:index')
+                return redirect('Aplicacion:home')
+            else:
+                messages.error(request, 'Contraseña incorrecta')
+                
+        except Exception as e:
+            logger.error(f"Error en inicio de sesión: {str(e)}")
+            messages.error(request, 'Ocurrió un error al intentar iniciar sesión. Por favor intente nuevamente.')
+    
+    return render(request, 'Inicio_Sesion.html')
 
 def registro(request: HttpRequest) -> HttpResponse:
     """
@@ -130,151 +158,298 @@ def registro(request: HttpRequest) -> HttpResponse:
 
     Returns:
         HttpResponse: La respuesta HTTP con el formulario de registro.
-
     """
     if request.method == "POST":
-        # Procesar el registro
-        tipo_registro = request.POST.get("tipo_usuario", "persona")
-
+        tipo_registro = request.POST.get("tipo_usuario")
+        
         # Datos comunes
-        nombre = request.POST.get("nombre_completo", "")
-        email = request.POST.get("email", "")
+        nombre = request.POST.get("nombre_completo", "").strip()
+        email = request.POST.get("email", "").strip().lower()
         password = request.POST.get("password1", "")
         password_confirm = request.POST.get("password2", "")
-        telefono = request.POST.get("telefono", "")
-        edad = request.POST.get("edad", "")
-        genero = request.POST.get("genero", "")
-        rol = "Usuario"  # Por defecto
-
+        telefono = request.POST.get("telefono", "").strip()
+        
         # Validaciones básicas
         errores = []
+        
+        # Validar que se haya seleccionado un tipo de registro
+        if not tipo_registro:
+            errores.append("Debe seleccionar un tipo de registro")
+        
+        # Validar campos obligatorios
         if not nombre:
-            errores.append("El nombre es requerido")
+            errores.append("El nombre completo es requerido")
         if not email:
-            errores.append("El email es requerido")
+            errores.append("El correo electrónico es requerido")
+        elif not "@" in email:
+            errores.append("Ingrese un correo electrónico válido")
         if not password:
             errores.append("La contraseña es requerida")
+        elif len(password) < 8:
+            errores.append("La contraseña debe tener al menos 8 caracteres")
+            
+        # Validar que las contraseñas coincidan
         if password != password_confirm:
             errores.append("Las contraseñas no coinciden")
+            
+        # Validaciones específicas por tipo de registro
+        if tipo_registro == "natural":
+            edad = request.POST.get("edad", "").strip()
+            genero = request.POST.get("genero", "")
+            
+            if not edad.isdigit() or not (18 <= int(edad) <= 100):
+                errores.append("La edad debe ser un número entre 18 y 100")
+                
+            if not genero:
+                errores.append("El género es requerido")
+                
+        elif tipo_registro == "empresa":
+            razon_social = request.POST.get("empresa_razon_social", "").strip()
+            nit = request.POST.get("empresa_nit", "").strip()
+            
+            if not razon_social:
+                errores.append("La razón social es requerida")
+            if not nit:
+                errores.append("El NIT es requerido")
+                
+        # Si hay errores, mostrarlos
         if errores:
-            messages.error(request, ". ".join(errores))
-            return render(request, "registro.html", {
+            for error in errores:
+                messages.error(request, error)
+            
+            context = {
                 "tipo_usuario": tipo_registro,
                 "errores": errores,
                 "nombre_completo": nombre,
                 "email": email,
                 "telefono": telefono,
-                "edad": edad,
-                "genero": genero,
-            })
+            }
+            
+            if tipo_registro == "natural":
+                context.update({
+                    "edad": request.POST.get("edad", ""),
+                    "genero": request.POST.get("genero", ""),
+                })
+            elif tipo_registro == "empresa":
+                context.update({
+                    "empresa_razon_social": request.POST.get("empresa_razon_social", ""),
+                    "empresa_nit": request.POST.get("empresa_nit", ""),
+                    "empresa_tipo": request.POST.get("empresa_tipo", ""),
+                    "empresa_segmento": request.POST.get("empresa_segmento", ""),
+                    "empresa_tamaño": request.POST.get("empresa_tamaño", ""),
+                })
+                
+            return render(request, "registro.html", context)
 
-        # Crear usuario
+        # Si llegamos aquí, los datos son válidos
         try:
             # Verificar si el email ya existe
             if Persona.objects.filter(email=email).exists():
-                raise ValueError("Este email ya está registrado")
+                messages.error(request, "Este correo electrónico ya está registrado")
+                return render(request, "registro.html", {
+                    "tipo_usuario": tipo_registro,
+                    "nombre_completo": nombre,
+                    "email": email,
+                    "telefono": telefono,
+                })
 
-            # Crear y autenticar el usuario
-            user = Persona.objects.create_user(
-                email=email,
-                password=password,
-                first_name=nombre,
-                last_name="",  # No usamos apellido en el formulario
-                telefono=telefono,
-                edad=edad,
-                genero=genero,
-                rol=rol,
-            )
-            user.is_active = True  # Aseguramos que el usuario esté activo
-            user.save()
+            # Crear el diccionario de datos del usuario
+            user_data = {
+                "email": email,
+                "password": password,
+                "first_name": nombre,
+                "last_name": "",
+                "telefono": telefono,
+                "rol": "Usuario",
+                "is_active": True,
+            }
+            
+            # Agregar campos específicos según el tipo de registro
+            if tipo_registro == "natural":
+                user_data.update({
+                    "edad": int(edad) if edad and edad.isdigit() else None,
+                    "genero": genero,
+                    "es_empresa": False,
+                })
+                
+                # Crear el usuario
+                user = Persona.objects.create_user(**user_data)
+                messages.success(request, f"¡Registro exitoso! Bienvenido/a {nombre}")
+                
+            elif tipo_registro == "empresa":
+                user_data.update({
+                    "es_empresa": True,
+                    "razon_social": razon_social,
+                    "nit": nit,
+                    "first_name": razon_social,  # Usar razón social como nombre
+                })
+                
+                # Crear el usuario empresa
+                user = Persona.objects.create_user(**user_data)
+                messages.success(request, f"¡Registro de empresa exitoso! Bienvenido/a {razon_social}")
+            else:
+                raise ValueError("Tipo de registro no válido")
             
             # Iniciar sesión automáticamente
             login(request, user)
             request.session["usuario_id"] = user.id
-            messages.success(request, "Registro exitoso y sesión iniciada")
-            return redirect("planes")
-        except ValueError as ve:
-            messages.error(request, str(ve))
-            return render(request, "registro.html", {
-                "tipo_usuario": tipo_registro,
-                "errores": [str(ve)],
-                "nombre_completo": nombre,
-                "email": email,
-                "telefono": telefono,
-                "edad": edad,
-                "genero": genero,
-            })
+            
+            # Redirigir a la caja fuerte después del registro
+            return redirect("caja_fuerte")
+            
         except Exception as e:
-            messages.error(request, f"Error al registrar: {str(e)}")
-            logger.error(f"Error en registro: {str(e)}")
-            return render(request, "registro.html", {
+            # Manejar errores específicos de la base de datos
+            if "duplicate" in str(e).lower() or "ya existe" in str(e).lower():
+                error_msg = "Este correo electrónico o NIT ya está registrado"
+            else:
+                error_msg = f"Error al crear el usuario: {str(e)}"
+            
+            logger.error(f"Error en el registro: {str(e)}")
+            messages.error(request, error_msg)
+            
+            # Preparar el contexto para volver a mostrar el formulario
+            context = {
                 "tipo_usuario": tipo_registro,
-                "errores": ["Ha ocurrido un error. Por favor, inténtelo de nuevo."],
+                "errores": [error_msg],
                 "nombre_completo": nombre,
                 "email": email,
                 "telefono": telefono,
-                "edad": edad,
-                "genero": genero,
-            })
+            }
+            
+            if tipo_registro == "natural":
+                context.update({"edad": edad, "genero": genero})
+            elif tipo_registro == "empresa":
+                context.update({
+                    "empresa_razon_social": razon_social,
+                    "empresa_nit": nit,
+                })
+            
+            return render(request, "registro.html", context)    
 
     # GET o error
     return render(request, "registro.html")
 
 def cerrar_sesion(request: HttpRequest) -> HttpResponse:
     """
-    Vista para cerrar sesión del usuario.
+    Vista para cerrar sesión del usuario de forma segura.
 
     Args:
         request (HttpRequest): La solicitud HTTP.
 
     Returns:
-        HttpResponse: La respuesta HTTP después de cerrar sesión.
-
+        HttpResponse: Redirección a la página de inicio con mensaje de confirmación.
     """
-    if "usuario_id" in request.session:
-        del request.session["usuario_id"]
-    messages.success(request, "Sesión cerrada")
-    return redirect("home")
+    # Verificar si el usuario está autenticado
+    if request.user.is_authenticated:
+        # Guardar el nombre del usuario para el mensaje
+        username = request.user.get_short_name() or request.user.email
+        
+        # Cerrar la sesión de Django
+        logout(request)
+        
+        # Limpiar la sesión completamente
+        request.session.flush()
+        
+        # Eliminar la cookie de sesión del navegador
+        if hasattr(request, 'session'):
+            request.session.delete()
+            
+        # Eliminar la cookie de sesión manualmente
+        response = redirect("Aplicacion:home")
+        response.delete_cookie("sessionid")
+        response.delete_cookie("csrftoken")  # También limpiamos el token CSRF
+        
+        # Mensaje de confirmación
+        messages.success(request, f"Has cerrado sesión correctamente. ¡Hasta pronto, {username}!")
+        
+        # Registrar el cierre de sesión
+        logger.info(f"Usuario {username} ha cerrado sesión correctamente")
+        
+        return response
+    
+    # Si el usuario no estaba autenticado, redirigir al inicio
+    return redirect("Aplicacion:home")
 
 def contrasenas(request: HttpRequest) -> HttpResponse:
     """
-    Vista para manejar tanto la generación como el cambio de contraseña.
+    Vista para el generador de contraseñas (accesible para todos los usuarios).
+    
+    Mantiene el nombre original para compatibilidad con tu HTML existente.
 
     Args:
         request (HttpRequest): La solicitud HTTP.
 
     Returns:
-        HttpResponse: La respuesta HTTP con la página correspondiente.
+        HttpResponse: La respuesta HTTP con el generador de contraseñas.
+    """
+    usuario = verificar_autenticacion(request)
+    # Usa tu HTML existente llamado "Contrasenas.html"
+    return render(request, "Contrasenas.html", {"usuario": usuario})
 
+@requiere_autenticacion
+def cambiar_contrasena(request: HttpRequest) -> HttpResponse:
+    """
+    Vista para cambiar la contraseña del usuario logueado.
+
+    Args:
+        request (HttpRequest): La solicitud HTTP.
+
+    Returns:
+        HttpResponse: La respuesta HTTP con el formulario de cambio de contraseña.
     """
     usuario = verificar_autenticacion(request)
     
-    if usuario:  # Usuario logueado
-        if request.method == "POST":
-            password_actual = request.POST.get("password_actual")
-            nueva_password = request.POST.get("nueva_password")
-            confirmar_password = request.POST.get("confirmar_password")
+    if request.method == "POST":
+        password_actual = request.POST.get("password_actual")
+        nueva_password = request.POST.get("nueva_password")
+        confirmar_password = request.POST.get("confirmar_password")
 
-            if not password_actual or not nueva_password or not confirmar_password:
-                messages.error(request, "Todos los campos son requeridos.")
-                return render(request, "cambiar_contrasena.html", {"usuario": usuario})
+        # Validaciones
+        if not password_actual or not nueva_password or not confirmar_password:
+            messages.error(request, "Todos los campos son requeridos.")
+            return render(request, "cambiar_contrasena.html", {"usuario": usuario})
 
-            if nueva_password != confirmar_password:
-                messages.error(request, "Las nuevas contraseñas no coinciden.")
-                return render(request, "cambiar_contrasena.html", {"usuario": usuario})
+        if nueva_password != confirmar_password:
+            messages.error(request, "Las nuevas contraseñas no coinciden.")
+            return render(request, "cambiar_contrasena.html", {"usuario": usuario})
 
-            if not usuario.check_password(password_actual):
-                messages.error(request, "La contraseña actual es incorrecta.")
-                return render(request, "cambiar_contrasena.html", {"usuario": usuario})
+        if len(nueva_password) < 8:
+            messages.error(request, "La nueva contraseña debe tener al menos 8 caracteres.")
+            return render(request, "cambiar_contrasena.html", {"usuario": usuario})
 
+        if not usuario.check_password(password_actual):
+            messages.error(request, "La contraseña actual es incorrecta.")
+            return render(request, "cambiar_contrasena.html", {"usuario": usuario})
+
+        try:
             usuario.set_password(nueva_password)
             usuario.save()
+            
+            # Re-autenticar al usuario para mantener la sesión
+            user = authenticate(request, username=usuario.email, password=nueva_password)
+            if user:
+                login(request, user)
+                request.session['usuario_id'] = user.id
+            
             messages.success(request, "Contraseña cambiada exitosamente.")
+            logger.info(f"Usuario {usuario.email} cambió su contraseña exitosamente")
             return redirect("Aplicacion:caja_fuerte")
+            
+        except Exception as e:
+            logger.error(f"Error al cambiar contraseña para usuario {usuario.email}: {str(e)}")
+            messages.error(request, "Ocurrió un error al cambiar la contraseña. Por favor intente nuevamente.")
 
-        return render(request, "cambiar_contrasena.html", {"usuario": usuario})
-    else:  # Usuario no logueado
-        return render(request, "Contrasenas.html")
+    return render(request, "cambiar_contrasena.html", {"usuario": usuario})
+
+# Función obsoleta - puedes eliminarla
+def generador_contrasenas_obsoleto(request: HttpRequest) -> HttpResponse:
+    """
+    FUNCIÓN OBSOLETA - Usar contrasenas() para el generador y cambiar_contrasena() para cambio.
+    
+    Esta función se mantiene solo como referencia.
+    """
+    # Redirigir a la vista apropiada
+    return redirect("Aplicacion:contrasenas")
 
 def listar_empresas(request: HttpRequest) -> HttpResponse:
     """Vista para listar empresas activas."""

@@ -321,6 +321,20 @@ video {
     cursor: pointer;
 }
 
+/* Cursor pointer para indicar que se puede hacer clic */
+.overlay {
+    cursor: pointer;
+}
+
+.popup-card {
+    cursor: default;
+}
+
+/* Animación suave para el cierre */
+.overlay {
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
 .overlay {
     position: fixed;
     top: 0;

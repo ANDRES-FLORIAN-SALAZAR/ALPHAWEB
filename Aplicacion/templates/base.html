@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="{% static 'css/Main5.css' %}">
         <link rel="stylesheet" href="{% static 'css/CajaFuerte.css' %}">
         <link rel="stylesheet" href="{% static 'css/logout.css' %}">
+        <link rel="stylesheet" href="{% static 'css/Main6.css' %}">
         
         {% block extra_css %}{% endblock %}
     </head>
@@ -25,9 +26,13 @@
             <a href="{% url 'Aplicacion:home' %}">Home</a>
             <a href="{% url 'Aplicacion:planes' %}">Nuestros Planes</a>
             
+            <!-- Generador de contraseñas disponible para TODOS -->
+            <a href="{% url 'Aplicacion:contrasenas' %}">Generador de Contraseñas</a>
+            
             {% if request.session.usuario_id %}
+                <!-- Enlaces solo para usuarios logueados -->
                 <a href="{% url 'Aplicacion:caja_fuerte' %}">Caja Fuerte</a>
-                <a href="{% url 'Aplicacion:contrasenas' %}">Contrasenas</a>
+                <a href="{% url 'Aplicacion:cambiar_contrasena' %}">Cambiar mi Contraseña</a>
                 <div class="nav-right">
                     <div class="logout-container">
                         <form action="{% url 'Aplicacion:cerrar_sesion' %}" method="post">
@@ -40,9 +45,9 @@
                     </div>
                 </div>
             {% else %}
+                <!-- Enlaces solo para usuarios NO logueados -->
                 <a href="{% url 'Aplicacion:registro' %}">Regístrate</a>
                 <a href="{% url 'Aplicacion:inicio_sesion' %}">Iniciar Sesión</a>
-                <a href="{% url 'Aplicacion:contrasenas' %}">Contrasenas</a>
             {% endif %}
         </div>
     </div>
@@ -66,14 +71,16 @@
                 <ul class="inf">
                     <li><a href="{% url 'Aplicacion:home' %}">Home</a></li>
                     <li><a href="{% url 'Aplicacion:planes' %}">Nuestros Planes</a></li>
+                    <!-- Generador siempre disponible -->
+                    <li><a href="{% url 'Aplicacion:contrasenas' %}">Generador de Contraseñas</a></li>
+                    
                     {% if request.session.usuario_id %}
                         <li><a href="{% url 'Aplicacion:caja_fuerte' %}">Caja Fuerte</a></li>
-                        <li><a href="{% url 'Aplicacion:contrasenas' %}">Contraseñas</a></li>
+                        <li><a href="{% url 'Aplicacion:cambiar_contrasena' %}">Cambiar mi Contraseña</a></li>
                         <li><a href="{% url 'Aplicacion:cerrar_sesion' %}">Cerrar Sesión</a></li>
                     {% else %}
                         <li><a href="{% url 'Aplicacion:registro' %}">Regístrate</a></li>
                         <li><a href="{% url 'Aplicacion:inicio_sesion' %}">Iniciar Sesión</a></li>
-                        <li><a href="{% url 'Aplicacion:contrasenas' %}">Contraseñas</a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -115,10 +122,11 @@
         </div>
     </div>
 
-<div id="popup1" class="overlay" onclick="closePopup(event)">
-    <div class="popup-card" onclick="event.stopPropagation()">
+<!-- POPUPS MEJORADOS -->
+<div id="popup1" class="overlay">
+    <div class="popup-card">
         <h2>Política de Privacidad</h2>
-        <a class="close" href="#">&times;</a>
+        <a class="close" href="#" aria-label="Cerrar">&times;</a>
         <div class="content">
             <p>En nuestra empresa valoramos tu privacidad. Esta política explica:</p>
             <ul>
@@ -132,10 +140,10 @@
     </div>
 </div>
 
-<div id="popup2" class="overlay" onclick="closePopup(event)">
-    <div class="popup-card" onclick="event.stopPropagation()">
+<div id="popup2" class="overlay">
+    <div class="popup-card">
         <h2>Términos de Servicio</h2>
-        <a class="close" href="#">&times;</a>
+        <a class="close" href="#" aria-label="Cerrar">&times;</a>
         <div class="content">
             <p>Al utilizar nuestros servicios, aceptas los siguientes términos:</p>
             <ul>
@@ -149,10 +157,10 @@
     </div>
 </div>
 
-<div id="popup3" class="overlay" onclick="closePopup(event)">
-    <div class="popup-card" onclick="event.stopPropagation()">
+<div id="popup3" class="overlay">
+    <div class="popup-card">
         <h2>Aviso Legal</h2>
-        <a class="close" href="#">&times;</a>
+        <a class="close" href="#" aria-label="Cerrar">&times;</a>
         <div class="content">
             <p>Información legal importante sobre nuestro sitio web:</p>
             <ul>
@@ -166,10 +174,10 @@
     </div>
 </div>
 
-<div id="popup4" class="overlay" onclick="closePopup(event)">
-    <div class="popup-card" onclick="event.stopPropagation()">
+<div id="popup4" class="overlay">
+    <div class="popup-card">
         <h2>Preferencias de Cookies</h2>
-        <a class="close" href="#">&times;</a>
+        <a class="close" href="#" aria-label="Cerrar">&times;</a>
         <div class="content">
             <p>Utilizamos cookies para mejorar tu experiencia:</p>
             <ul>
@@ -189,7 +197,7 @@
 <div id="popup5" class="overlay">
     <div class="popup-card">
         <h2>Tus Opciones de Privacidad</h2>
-        <a class="close" href="#">&times;</a>
+        <a class="close" href="#" aria-label="Cerrar">&times;</a>
         <div class="content">
             <p>Tienes control sobre tu información personal:</p>
             <ul>
@@ -201,4 +209,12 @@
             </ul>
             <p>Para ejercer tus derechos, contáctanos a través de nuestro formulario.</p>
         </div>
+    </div>
 </div>
+
+{% block extra_js %}
+<script src="{% static 'js/cerrarpopups.js' %}"></script>
+{% endblock %}
+
+</body>
+</html>

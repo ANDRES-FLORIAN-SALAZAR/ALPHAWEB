@@ -1,184 +1,402 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/Main3.css' %}">
 {% endblock %}
+
 {% block content %}
-    <div class="container StyleRegistro">
-        {% if messages %}
-            <div class="messages">
-                {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
-
-        <form id="form-registro" action="{% url 'Aplicacion:registro' %}" method="POST">
-            {% csrf_token %}
-            <fieldset>
-                <legend>TIPO DE REGISTRO</legend>
-                <label for="tipo_registro">Seleccione el tipo de registro:</label>
-                <select id="tipo_registro" name="tipo_usuario" required onchange="mostrarCampos()">
-                    <option value="">Seleccione...</option>
-                    <option value="natural" {% if request.POST.tipo_registro == 'natural' %}selected{% endif %}>Persona Natural</option>
-                    <option value="empresa" {% if request.POST.tipo_registro == 'empresa' %}selected{% endif %}>Empresa</option>
-                </select>
-            </fieldset>
-
-            <!-- Campos para Persona Natural -->
-            <fieldset id="campos_natural" style="display:none;">
-                <legend>INFORMACIÓN PERSONAL</legend>
-
-                <input type="text" name="nombre_completo" placeholder="Nombre completo" value="{{ request.POST.nombre_completo|default_if_none:'' }}" required>
-                <input type="email" name="email" placeholder="Correo Electrónico" value="{{ request.POST.email|default_if_none:'' }}" required pattern=".+@.+\..+" title="Debe ser un correo válido">
-                <div class="campo-contraseña">
-                    <input type="password" name="password1" placeholder="Contraseña" required minlength="8" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$" title="La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial">
-                    <small>La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial</small>
-                </div>
-                <div class="campo-contraseña">
-                    <input type="password" name="password2" placeholder="Confirmar Contraseña" required>
-                    <small id="mensaje-contraseña">Las contraseñas deben coincidir</small>
-                </div>
-                <input type="number" name="edad" placeholder="Edad" value="{{ request.POST.edad|default_if_none:'' }}">
-                <input type="tel" name="telefono" placeholder="Teléfono" value="{{ request.POST.telefono|default_if_none:'' }}">
-
-                <label for="genero">Género</label>
-                <select id="genero" name="genero">
-                    <option value="">Seleccione...</option>
-                    <option value="Masculino" {% if request.POST.genero == "Masculino" %}selected{% endif %}>Masculino</option>
-                    <option value="Femenino" {% if request.POST.genero == "Femenino" %}selected{% endif %}>Femenino</option>
-                    <option value="Otro" {% if request.POST.genero == "Otro" %}selected{% endif %}>Otro</option>
-                    <option value="Prefiero no decir" {% if request.POST.genero == "Prefiero no decir" %}selected{% endif %}>Prefiero no decirlo</option>
-                </select>
-            </fieldset>
-
-            <!-- Campos para Empresa -->
-            <fieldset id="campos_empresa" style="display:none;">
-                <legend>INFORMACIÓN EMPRESARIAL</legend>
-
-                <input type="text" name="empresa_nombre" placeholder="Nombre de la Empresa" value="{{ request.POST.empresa_nombre|default_if_none:'' }}" required>
-                <input type="text" name="empresa_nit" placeholder="NIT" value="{{ request.POST.empresa_nit|default_if_none:'' }}" required>
-                <input type="text" name="empresa_razon_social" placeholder="Razón Social" value="{{ request.POST.empresa_razon_social|default_if_none:'' }}" required>
-
-                <label for="empresa_tipo">Tipo de Empresa:</label>
-                <select id="empresa_tipo" name="empresa_tipo" required>
-                    <option value="">Seleccione...</option>
-                    <option value="1" {% if request.POST.empresa_tipo == "1" %}selected{% endif %}>Pública</option>
-                    <option value="2" {% if request.POST.empresa_tipo == "2" %}selected{% endif %}>Privada</option>
-                </select>
-
-                <label for="empresa_segmento">Segmento:</label>
-                <select id="empresa_segmento" name="empresa_segmento" required>
-                    <option value="">Seleccione...</option>
-                    <option value="tecnologia" {% if request.POST.empresa_segmento == "tecnologia" %}selected{% endif %}>Tecnología</option>
-                    <option value="salud" {% if request.POST.empresa_segmento == "salud" %}selected{% endif %}>Salud</option>
-                    <option value="educacion" {% if request.POST.empresa_segmento == "educacion" %}selected{% endif %}>Educación</option>
-                    <option value="finanzas" {% if request.POST.empresa_segmento == "finanzas" %}selected{% endif %}>Finanzas</option>
-                    <option value="retail" {% if request.POST.empresa_segmento == "retail" %}selected{% endif %}>Retail</option>
-                    <option value="manufactura" {% if request.POST.empresa_segmento == "manufactura" %}selected{% endif %}>Manufactura</option>
-                    <option value="logistica" {% if request.POST.empresa_segmento == "logistica" %}selected{% endif %}>Logística</option>
-                    <option value="energia" {% if request.POST.empresa_segmento == "energia" %}selected{% endif %}>Energía</option>
-                    <option value="construccion" {% if request.POST.empresa_segmento == "construccion" %}selected{% endif %}>Construcción</option>
-                    <option value="turismo" {% if request.POST.empresa_segmento == "turismo" %}selected{% endif %}>Turismo</option>
-                    <option value="entretenimiento" {% if request.POST.empresa_segmento == "entretenimiento" %}selected{% endif %}>Entretenimiento</option>
-                    <option value="otros" {% if request.POST.empresa_segmento == "otros" %}selected{% endif %}>Otros</option>
-                </select>
-
-                <div class="empresa-tamaño">
-                    <label for="empresa_tamaño">Tamaño de la Empresa:</label>
-                    <select id="empresa_tamaño" name="empresa_tamaño" onchange="actualizarRangoEmpleados()" required>
-                        <option value="">Seleccione...</option>
-                        <option value="micro" {% if request.POST.empresa_tamaño == "micro" %}selected{% endif %}>Microempresa (1-10 empleados)</option>
-                        <option value="pequena" {% if request.POST.empresa_tamaño == "pequena" %}selected{% endif %}>Pequeña empresa (11-50 empleados)</option>
-                        <option value="mediana" {% if request.POST.empresa_tamaño == "mediana" %}selected{% endif %}>Mediana empresa (51-250 empleados)</option>
-                        <option value="grande" {% if request.POST.empresa_tamaño == "grande" %}selected{% endif %}>Gran empresa (251+ empleados)</option>
-                    </select>
-                </div>
-
-                <div class="empresa-email">
-                    <label for="email">Correo Empresarial:</label>
-                    <input type="email" name="email" placeholder="ejemplo@empresa.com" value="{{ request.POST.email|default_if_none:'' }}" required>
-                    <small>El correo será personalizado con el nombre de la empresa</small>
-                </div>
-
-                <div class="empresa-contacto">
-                    <label for="empresa_telefono">Teléfono Empresarial:</label>
-                    <input type="tel" id="empresa_telefono" name="telefono" placeholder="+57 3143757171" value="{{ request.POST.telefono|default_if_none:'' }}" required>
-                </div>
-
-                <div class="empresa-contraseña">
-                    <div class="campo-contraseña">
-                        <input type="password" name="password1" placeholder="Contraseña" required minlength="8" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$" title="La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial">
-                        <small>La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial</small>
-                    </div>
-                    <div class="campo-contraseña">
-                        <input type="password" name="password2" placeholder="Confirmar Contraseña" required>
-                        <small id="mensaje-contraseña">Las contraseñas deben coincidir</small>
-                    </div>
-                </div>
-
-                <div class="empresa-ubicacion">
-                    <label for="empresa_pais">País:</label>
-                    <select id="empresa_pais" name="empresa_pais" onchange="cargarCiudades()" required>
-                        <option value="">Seleccione...</option>
-                        {% for codigo, nombre in paises %}
-                        <option value="{{ codigo }}" {% if request.POST.empresa_pais == codigo %}selected{% endif %}>{{ nombre }}</option>
-                        {% endfor %}
-                    </select>
-
-                    <label for="empresa_ciudad">Ciudad:</label>
-                    <select id="empresa_ciudad" name="empresa_ciudad" required>
-                        <!-- Las ciudades se cargarán dinámicamente según el país seleccionado -->
-                    </select>
-                </div>
-
-                <div class="empresa-direccion">
-                    <label for="empresa_direccion">Dirección:</label>
-                    <input type="text" id="empresa_direccion" name="empresa_direccion" placeholder="Calle 123 # 45-67" value="{{ request.POST.empresa_direccion|default_if_none:'' }}" required>
-                </div>
-
-                <div class="empresa-sitio-web">
-                    <label for="empresa_sitio_web">Sitio Web:</label>
-                    <input type="url" id="empresa_sitio_web" name="empresa_sitio_web" placeholder="https://www.empresa.com" value="{{ request.POST.empresa_sitio_web|default_if_none:'' }}">
-                </div>
-
-                <div class="empresa-descripcion">
-                    <label for="empresa_descripcion">Descripción de la Empresa:</label>
-                    <textarea id="empresa_descripcion" name="empresa_descripcion" placeholder="Describa brevemente su empresa">{{ request.POST.empresa_descripcion|default_if_none:'' }}</textarea>
-                </div>
-
-                <div class="empresa-empleados">
-                    <label for="empresa_numero_empleados">Número de Empleados:</label>
-                    <input type="number" id="empresa_numero_empleados" name="empresa_numero_empleados" min="1" value="{{ request.POST.empresa_numero_empleados|default_if_none:'' }}" required>
-                </div>
-
-                <div class="empresa-seguridad">
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="empresa_requiere_2fa" name="empresa_requiere_2fa" {% if request.POST.empresa_requiere_2fa %}checked{% endif %}>
-                        <label for="empresa_requiere_2fa">Requiere autenticación 2FA</label>
-                    </div>
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="empresa_politica_estricta" name="empresa_politica_estricta" {% if request.POST.empresa_politica_estricta %}checked{% endif %}>
-                        <label for="empresa_politica_estricta">Política de contraseñas estricta</label>
-                    </div>
-                </div>
-            </fieldset>
-
-            <div class="texto-alternativo">
-                ¿Ya tienes una cuenta?
-                <a href="{% url 'Aplicacion:inicio_sesion' %}" class="link-sesion">Inicia sesión aquí</a>
-            </div>
-            <div class="botones-registro">
-                <button type="submit" class="btn-registro">Registrarse</button>
-            </div>
-        </form>
+<div class="StyleRegistro">
+    <h2>Registro de Usuario</h2>
+    
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
     </div>
+    {% endif %}
 
-    <!-- JavaScript externo -->
-    <script src="{% static 'js/validar_contraseñas.js' %}"></script>
-    <script src="{% static 'js/tipo_registro.js' %}"></script>
-    <script src="{% static 'js/ciudades.js' %}"></script>
-    <script src="{% static 'js/validar_formulario.js' %}"></script>
+    <form id="form-registro" action="{% url 'Aplicacion:registro' %}" method="POST" novalidate>
+        {% csrf_token %}
+        <fieldset class="mb-4">
+            <legend>TIPO DE REGISTRO</legend>
+            <div class="form-group">
+                <label for="tipo_registro">Seleccione el tipo de registro:</label>
+                <select id="tipo_registro" name="tipo_usuario" class="form-control {% if errores and not request.POST.tipo_usuario %}is-invalid{% endif %}" required onchange="mostrarCampos()">
+                    <option value="">Seleccione...</option>
+                    <option value="natural" {% if request.POST.tipo_usuario == 'natural' %}selected{% endif %}>Persona Natural</option>
+                    <option value="empresa" {% if request.POST.tipo_usuario == 'empresa' %}selected{% endif %}>Empresa</option>
+                </select>
+                {% if errores and not request.POST.tipo_usuario %}
+                    <div class="invalid-feedback">Por favor seleccione un tipo de registro</div>
+                {% endif %}
+            </div>
+        </fieldset>
+
+        <!-- Campos para Persona Natural -->
+        <fieldset id="campos_natural" style="display: {% if request.POST.tipo_usuario == 'natural' %}block{% else %}none{% endif %};">
+            <legend>INFORMACIÓN PERSONAL</legend>
+            
+            <div class="form-group">
+                <label for="nombre_completo">Nombre completo *</label>
+                <input type="text" id="nombre_completo" name="nombre_completo" class="form-control {% if errores and not request.POST.nombre_completo and request.POST.tipo_usuario == 'natural' %}is-invalid{% endif %}" 
+                       value="{{ request.POST.nombre_completo }}" required>
+                {% if errores and not request.POST.nombre_completo and request.POST.tipo_usuario == 'natural' %}
+                    <div class="invalid-feedback">El nombre completo es obligatorio</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="edad">Edad *</label>
+                <input type="number" id="edad" name="edad" class="form-control" min="18" max="100" 
+                       value="{{ request.POST.edad }}" required>
+                <small class="form-text text-muted">Debes tener entre 18 y 100 años</small>
+            </div>
+
+            <div class="form-group">
+                <label for="genero">Género</label>
+                <select id="genero" name="genero" class="form-control">
+                    <option value="">Seleccione...</option>
+                    <option value="Masculino" {% if request.POST.genero == 'Masculino' %}selected{% endif %}>Masculino</option>
+                    <option value="Femenino" {% if request.POST.genero == 'Femenino' %}selected{% endif %}>Femenino</option>
+                    <option value="Otro" {% if request.POST.genero == 'Otro' %}selected{% endif %}>Otro</option>
+                    <option value="Prefiero no decir" {% if request.POST.genero == 'Prefiero no decir' %}selected{% endif %}>Prefiero no decir</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Correo electrónico *</label>
+                <input type="email" id="email" name="email" class="form-control {% if errores and not request.POST.email %}is-invalid{% endif %}" 
+                       value="{{ request.POST.email }}" required>
+                {% if errores and not request.POST.email %}
+                    <div class="invalid-feedback">El correo electrónico es obligatorio</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="telefono">Teléfono *</label>
+                <input type="tel" id="telefono" name="telefono" class="form-control {% if errores and not request.POST.telefono and request.POST.tipo_usuario == 'natural' %}is-invalid{% endif %}" 
+                       value="{{ request.POST.telefono }}" required>
+                {% if errores and not request.POST.telefono and request.POST.tipo_usuario == 'natural' %}
+                    <div class="invalid-feedback">El teléfono es obligatorio</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group campo-contraseña">
+                <label for="password1">Contraseña *</label>
+                <div style="position: relative;">
+                    <input type="password" id="password1" name="password1" class="form-control {% if errores and not request.POST.password1 %}is-invalid{% endif %}" 
+                           required>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%);" 
+                            onclick="togglePassword('password1')">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </div>
+                {% if errores and not request.POST.password1 %}
+                    <div class="invalid-feedback">La contraseña es obligatoria</div>
+                {% endif %}
+                <small>La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y caracteres especiales.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="password2">Confirmar contraseña *</label>
+                <div style="position: relative;">
+                    <input type="password" id="password2" name="password2" class="form-control" required>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%);" 
+                            onclick="togglePassword('password2')">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </div>
+                <div id="password-match" class="invalid-feedback">Las contraseñas no coinciden</div>
+            </div>
+        </fieldset>
+
+        <!-- Campos para Empresa -->
+        <fieldset id="campos_empresa" style="display: {% if request.POST.tipo_usuario == 'empresa' %}block{% else %}none{% endif %};">
+            <legend>INFORMACIÓN DE LA EMPRESA</legend>
+            
+            <div class="form-group">
+                <label for="razon_social">Razón Social *</label>
+                <input type="text" id="razon_social" name="razon_social" class="form-control {% if errores and not request.POST.razon_social and request.POST.tipo_usuario == 'empresa' %}is-invalid{% endif %}" 
+                       value="{{ request.POST.razon_social }}" {% if request.POST.tipo_usuario == 'empresa' %}required{% endif %}>
+                {% if errores and not request.POST.razon_social and request.POST.tipo_usuario == 'empresa' %}
+                    <div class="invalid-feedback">La razón social es obligatoria</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="nit">NIT *</label>
+                <input type="text" id="nit" name="nit" class="form-control {% if errores and not request.POST.nit and request.POST.tipo_usuario == 'empresa' %}is-invalid{% endif %}" 
+                       value="{{ request.POST.nit }}" {% if request.POST.tipo_usuario == 'empresa' %}required{% endif %}>
+                {% if errores and not request.POST.nit and request.POST.tipo_usuario == 'empresa' %}
+                    <div class="invalid-feedback">El NIT es obligatorio</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="email_empresa">Correo electrónico de la empresa *</label>
+                <input type="email" id="email_empresa" name="email_empresa" class="form-control {% if errores and not request.POST.email_empresa and request.POST.tipo_usuario == 'empresa' %}is-invalid{% endif %}" 
+                       value="{{ request.POST.email_empresa }}" {% if request.POST.tipo_usuario == 'empresa' %}required{% endif %}>
+                {% if errores and not request.POST.email_empresa and request.POST.tipo_usuario == 'empresa' %}
+                    <div class="invalid-feedback">El correo electrónico de la empresa es obligatorio</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="telefono_empresa">Teléfono de la empresa *</label>
+                <input type="tel" id="telefono_empresa" name="telefono_empresa" class="form-control {% if errores and not request.POST.telefono_empresa and request.POST.tipo_usuario == 'empresa' %}is-invalid{% endif %}" 
+                       value="{{ request.POST.telefono_empresa }}" {% if request.POST.tipo_usuario == 'empresa' %}required{% endif %}>
+                {% if errores and not request.POST.telefono_empresa and request.POST.tipo_usuario == 'empresa' %}
+                    <div class="invalid-feedback">El teléfono de la empresa es obligatorio</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="direccion">Dirección *</label>
+                <input type="text" id="direccion" name="direccion" class="form-control {% if errores and not request.POST.direccion and request.POST.tipo_usuario == 'empresa' %}is-invalid{% endif %}" 
+                       value="{{ request.POST.direccion }}" {% if request.POST.tipo_usuario == 'empresa' %}required{% endif %}>
+                {% if errores and not request.POST.direccion and request.POST.tipo_usuario == 'empresa' %}
+                    <div class="invalid-feedback">La dirección es obligatoria</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="representante_legal">Nombre del representante legal *</label>
+                <input type="text" id="representante_legal" name="representante_legal" class="form-control {% if errores and not request.POST.representante_legal and request.POST.tipo_usuario == 'empresa' %}is-invalid{% endif %}" 
+                       value="{{ request.POST.representante_legal }}" {% if request.POST.tipo_usuario == 'empresa' %}required{% endif %}>
+                {% if errores and not request.POST.representante_legal and request.POST.tipo_usuario == 'empresa' %}
+                    <div class="invalid-feedback">El nombre del representante legal es obligatorio</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="sitio_web">Sitio Web (opcional)</label>
+                <input type="url" id="sitio_web" name="sitio_web" class="form-control" 
+                       value="{{ request.POST.sitio_web }}" placeholder="https://www.ejemplo.com">
+            </div>
+
+            <div class="form-group campo-contraseña">
+                <label for="password_empresa">Contraseña *</label>
+                <div style="position: relative;">
+                    <input type="password" id="password_empresa" name="password_empresa" class="form-control {% if errores and not request.POST.password_empresa and request.POST.tipo_usuario == 'empresa' %}is-invalid{% endif %}" 
+                           {% if request.POST.tipo_usuario == 'empresa' %}required{% endif %}>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%);" 
+                            onclick="togglePassword('password_empresa')">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </div>
+                {% if errores and not request.POST.password_empresa and request.POST.tipo_usuario == 'empresa' %}
+                    <div class="invalid-feedback">La contraseña es obligatoria</div>
+                {% endif %}
+                <small>La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y caracteres especiales.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmar_password_empresa">Confirmar contraseña *</label>
+                <div style="position: relative;">
+                    <input type="password" id="confirmar_password_empresa" name="confirmar_password_empresa" class="form-control" 
+                           {% if request.POST.tipo_usuario == 'empresa' %}required{% endif %}>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%);" 
+                            onclick="togglePassword('confirmar_password_empresa')">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </div>
+                <div id="password-empresa-match" class="invalid-feedback">Las contraseñas no coinciden</div>
+            </div>
+        </fieldset>
+
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary">Registrarse</button>
+        </div>
+    </form>
+
+    <div class="text-center mt-3">
+        <p>¿Ya tienes una cuenta? <a href="{% url 'Aplicacion:inicio_sesion' %}" class="link-primary">Inicia sesión aquí</a></p>
+    </div>
+</div>
+
+<script>
+// Función para mostrar/ocultar campos según el tipo de registro
+function mostrarCampos() {
+    const tipoRegistro = document.getElementById('tipo_registro').value;
+    document.getElementById('campos_natural').style.display = (tipoRegistro === 'natural') ? 'block' : 'none';
+    document.getElementById('campos_empresa').style.display = (tipoRegistro === 'empresa') ? 'block' : 'none';
+}
+
+// Función para alternar la visibilidad de la contraseña
+function togglePassword(inputId) {
+    const input = document.getElementById(inputId);
+    const icon = input.nextElementSibling.querySelector('i');
+    
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('bi-eye');
+        icon.classList.add('bi-eye-slash');
+    } else {
+        input.type = 'password';
+        icon.classList.remove('bi-eye-slash');
+        icon.classList.add('bi-eye');
+    }
+}
+
+// Validación de coincidencia de contraseñas
+const password1 = document.getElementById('password1');
+const password2 = document.getElementById('password2');
+const passwordMatch = document.getElementById('password-match');
+
+const passwordEmpresa = document.getElementById('password_empresa');
+const confirmPasswordEmpresa = document.getElementById('confirmar_password_empresa');
+const passwordEmpresaMatch = document.getElementById('password-empresa-match');
+
+function validatePasswords() {
+    if (password1.value !== password2.value) {
+        password2.classList.add('is-invalid');
+        passwordMatch.style.display = 'block';
+        return false;
+    } else {
+        password2.classList.remove('is-invalid');
+        passwordMatch.style.display = 'none';
+        return true;
+    }
+}
+
+function validateEmpresaPasswords() {
+    if (passwordEmpresa.value !== confirmPasswordEmpresa.value) {
+        confirmPasswordEmpresa.classList.add('is-invalid');
+        passwordEmpresaMatch.style.display = 'block';
+        return false;
+    } else {
+        confirmPasswordEmpresa.classList.remove('is-invalid');
+        passwordEmpresaMatch.style.display = 'none';
+        return true;
+    }
+}
+
+// Event listeners para validar las contraseñas mientras se escriben
+if (password1 && password2) {
+    password1.addEventListener('input', validatePasswords);
+    password2.addEventListener('input', validatePasswords);
+}
+
+if (passwordEmpresa && confirmPasswordEmpresa) {
+    passwordEmpresa.addEventListener('input', validateEmpresaPasswords);
+    confirmPasswordEmpresa.addEventListener('input', validateEmpresaPasswords);
+}
+
+// Validación del formulario antes de enviar
+document.getElementById('form-registro').addEventListener('submit', function(e) {
+    const tipoRegistro = document.getElementById('tipo_registro').value;
+    let isValid = true;
+    
+    // Validar campos comunes
+    const email = document.getElementById('email');
+    if (!email.value) {
+        email.classList.add('is-invalid');
+        isValid = false;
+    }
+    
+    // Validar según el tipo de registro
+    if (tipoRegistro === 'natural') {
+        const nombreCompleto = document.getElementById('nombre_completo');
+        const telefono = document.getElementById('telefono');
+        const edad = document.getElementById('edad');
+        const password1 = document.getElementById('password1');
+        
+        if (!nombreCompleto.value) {
+            nombreCompleto.classList.add('is-invalid');
+            isValid = false;
+        }
+        
+        if (!telefono.value) {
+            telefono.classList.add('is-invalid');
+            isValid = false;
+        }
+        
+        if (!edad.value) {
+            edad.classList.add('is-invalid');
+            isValid = false;
+        }
+        
+        if (!password1.value) {
+            password1.classList.add('is-invalid');
+            isValid = false;
+        }
+        
+        // Validar coincidencia de contraseñas
+        if (!validatePasswords()) {
+            isValid = false;
+        }
+    } else if (tipoRegistro === 'empresa') {
+        const razonSocial = document.getElementById('razon_social');
+        const nit = document.getElementById('nit');
+        const emailEmpresa = document.getElementById('email_empresa');
+        const telefonoEmpresa = document.getElementById('telefono_empresa');
+        const direccion = document.getElementById('direccion');
+        const representanteLegal = document.getElementById('representante_legal');
+        const sitioWeb = document.getElementById('sitio_web');
+        
+        // Validar campos obligatorios
+        if (!razonSocial.value) {
+            razonSocial.classList.add('is-invalid');
+            isValid = false;
+        }
+        
+        if (!nit.value) {
+            nit.classList.add('is-invalid');
+            isValid = false;
+        }
+        
+        if (!emailEmpresa.value) {
+            emailEmpresa.classList.add('is-invalid');
+            isValid = false;
+        }
+        
+        if (!telefonoEmpresa.value) {
+            telefonoEmpresa.classList.add('is-invalid');
+            isValid = false;
+        }
+        
+        if (!direccion.value) {
+            direccion.classList.add('is-invalid');
+            isValid = false;
+        }
+        
+        if (!representanteLegal.value) {
+            representanteLegal.classList.add('is-invalid');
+            isValid = false;
+        }
+        
+        if (!passwordEmpresa.value) {
+            passwordEmpresa.classList.add('is-invalid');
+            isValid = false;
+        }
+        
+        // Validar coincidencia de contraseñas
+        if (!validateEmpresaPasswords()) {
+            isValid = false;
+        }
+    } else {
+        // Si no se ha seleccionado un tipo de registro
+        alert('Por favor seleccione un tipo de registro');
+        isValid = false;
+    }
+    
+    if (!isValid) {
+        e.preventDefault();
+        // Desplazarse al primer campo con error
+        const firstInvalid = document.querySelector('.is-invalid');
+        if (firstInvalid) {
+            firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }
+});
+
+// Inicializar la visibilidad de los campos según el tipo de registro seleccionado
+document.addEventListener('DOMContentLoaded', function() {
+    mostrarCampos();
+});
+</script>
 {% endblock %}
