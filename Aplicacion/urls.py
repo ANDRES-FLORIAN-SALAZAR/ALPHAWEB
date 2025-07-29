@@ -1,6 +1,4 @@
-"""
-URLs para la aplicación Aplicacion.
-"""
+"""URLs para la aplicación Aplicacion."""
 
 from django.urls import path
 

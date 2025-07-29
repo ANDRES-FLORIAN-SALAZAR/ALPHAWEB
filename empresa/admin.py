@@ -1,3 +1,4 @@
+"""Configuración del panel de administración para los modelos de empresa."""
 from django.contrib import admin
 
 from .models import PerfilEmpresa, TipoEmpresa
@@ -5,38 +6,42 @@ from .models import PerfilEmpresa, TipoEmpresa
 
 @admin.register(TipoEmpresa)
 class TipoEmpresaAdmin(admin.ModelAdmin):
-    list_display = ["id", "nombre", "descripcion"]
-    search_fields = ["nombre"]
+    """Configuración del panel de administración para el modelo TipoEmpresa."""
+
+    list_display = ("id", "nombre", "descripcion")
+    search_fields = ("nombre",)  # Fixed: Changed to tuple
 
 @admin.register(PerfilEmpresa)
 class PerfilEmpresaAdmin(admin.ModelAdmin):
-    list_display = [
+    """Configuración del panel de administración para el modelo PerfilEmpresa."""
+
+    list_display = (
         "nombre",
         "nit",
         "tipo",
         "segmento",
-        "tamaño",
+        "tamano",  # Fixed: Changed from 'tamaño' to 'tamano' to match model field name
         "activo",
         "fecha_creacion",
-    ]
+    )
 
-    list_filter = [
+    list_filter = (
         "tipo",
         "segmento",
-        "tamaño",
+        "tamano",  # Fixed: Changed from 'tamaño' to 'tamano' to match model field name
         "activo",
         "verificado",
         "fecha_creacion",
-    ]
+    )
 
-    search_fields = [
+    search_fields = (
         "nombre",
         "nit",
         "razon_social",
         "usuario__email",
-    ]
+    )
 
-    readonly_fields = ["fecha_creacion", "fecha_actualizacion"]
+    readonly_fields = ("fecha_creacion", "fecha_actualizacion")
 
     fieldsets = (
         ("Información Básica", {

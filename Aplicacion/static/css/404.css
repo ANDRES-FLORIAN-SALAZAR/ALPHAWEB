@@ -46,7 +46,7 @@ html, body {
     border-radius: 8px;
     text-decoration: none;
     text-shadow: 0 0 5px #000000;
-    box-shadow: 0 0 15px #00ccff, 0 0 30px rgba(0, 204, 255, 0.5);
+    box-shadow: 0 0 15px #00ccff, 0 0 30px #00ccff;
     transition: all 0.3s ease;
 }
 

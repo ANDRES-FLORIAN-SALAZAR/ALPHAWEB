@@ -1,4 +1,4 @@
-# En tu urls.py, agrega esta URL para cargar ciudades dinámicamente:
+"""Esta es la configuración de las URLs para la aplicación de empresa."""
 from django.urls import path
 
 from . import views

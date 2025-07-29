@@ -1,20 +1,38 @@
 """vistas.py - Manejo de vistas para la sección de empresas en ALPHAWEB."""
+
 import logging
-import os
 from datetime import datetime
+from pathlib import Path
 
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import AbstractBaseUser
 from django.http import FileResponse, Http404, HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_http_methods, require_POST
 
+from empresa.models import PerfilEmpresa, TipoEmpresa
+
+
+class DocumentoNoExisteOAccesoDenegado(Http404):
+    """Excepción personalizada para indicar que un documento no existe o el acceso está denegado."""
+
+    def __init__(self, documento_id: str) -> None:
+        """
+        Inicializa la excepción con el ID del documento que no existe o no tiene acceso.
+
+        Args:
+            documento_id (str): El identificador del documento.
+
+        """
+        super().__init__(f"El documento '{documento_id}' no existe o no tienes permiso para verlo")
+
 User = get_user_model()
 logger = logging.getLogger(__name__)
 
-def procesar_registro_empresa(request: HttpRequest, user: User) -> HttpResponse:
+def procesar_registro_empresa(request: HttpRequest, user: AbstractBaseUser) -> HttpResponse:
     """Procesar el registro específico de empresa."""
     try:
         # Obtener datos del formulario
@@ -51,13 +69,9 @@ def procesar_registro_empresa(request: HttpRequest, user: User) -> HttpResponse:
         user.last_name = "Empresa"
         user.save()
 
-        # Crear perfil básico en Aplicacion
-        from Aplicacion.models import PerfilUsuario
-        PerfilUsuario.objects.create(
-            usuario=user,
-            tipo_usuario="empresa",
-            telefono=empresa_datos["telefono"],
-        )
+        # Configurar el tipo de usuario como empresa
+        user.tipo_usuario = "empresa"
+        user.save()
 
         # Obtener tipo de empresa
         tipo_empresa = TipoEmpresa.objects.get(id=int(empresa_datos["tipo"]))
@@ -91,15 +105,15 @@ def procesar_registro_empresa(request: HttpRequest, user: User) -> HttpResponse:
             login(request, user)
             return redirect("empresa:dashboard")  # Redirigir al dashboard de empresa
 
-    except Exception as e:
-        logger.error(f"Error creando perfil empresa: {e!s}")
+    except FileNotFoundError as e:
+        logger.exception("Error creando perfil empresa")
         user.delete()
         messages.error(request, f"Error al crear el perfil empresarial: {e!s}")
 
     return render(request, "registro.html", {"paises": [("CO", "Colombia")]})
 
-def registro(request):
-    """Vista para el registro de nuevas empresas"""
+def registro(request: HttpRequest) -> HttpResponse:
+    """Vista para el registro de nuevas empresas."""
     if request.method == "POST":
         # Procesar el formulario de registro
         form_data = {
@@ -125,15 +139,15 @@ def registro(request):
             # Procesar el registro de la empresa
             return procesar_registro_empresa(request, user)
 
-        except Exception as e:
+        except FileNotFoundError as e:
             messages.error(request, f"Error al crear el usuario: {e!s}")
             return render(request, "empresa/registro.html", {"form_data": form_data})
 
     # Si es GET, mostrar el formulario de registro
     return render(request, "empresa/registro.html")
 
-def inicio_sesion(request):
-    """Vista para el inicio de sesión de empresas"""
+def inicio_sesion(request: HttpRequest) -> HttpResponse:
+    """Vista para el inicio de sesión de empresas."""
     if request.method == "POST":
         email = request.POST.get("email")
         password = request.POST.get("password")
@@ -149,13 +163,13 @@ def inicio_sesion(request):
     # Si es GET, mostrar el formulario de inicio de sesión
     return render(request, "empresa/inicio_sesion.html")
 
-def home(request):
-    """Vista principal de la sección de empresas"""
+def home(request: HttpRequest) -> HttpResponse:
+    """Vista principal de la sección de empresas."""
     return render(request, "empresa/home.html")
 
 @login_required
-def planes(request):
-    """Vista para mostrar los planes de suscripción disponibles"""
+def planes(request: HttpRequest) -> HttpResponse:
+    """Vista para mostrar los planes de suscripción disponibles."""
     # Verificar si el usuario es una empresa
     if not hasattr(request.user, "is_company") or not request.user.is_company:
         messages.error(request, "Acceso restringido a empresas")
@@ -187,8 +201,8 @@ def planes(request):
     return render(request, "empresa/planes.html", {"planes": planes})
 
 @login_required
-def caja_fuerte(request):
-    """Vista para la caja fuerte de la empresa"""
+def caja_fuerte(request: HttpRequest) -> HttpResponse:
+    """Vista para la caja fuerte de la empresa."""
     # Verificar si el usuario es una empresa
     if not hasattr(request.user, "is_company") or not request.user.is_company:
         messages.error(request, "Acceso restringido a empresas")
@@ -212,8 +226,8 @@ def caja_fuerte(request):
         return redirect("empresa:perfil")
 
 @login_required
-def contrasenas(request):
-    """Vista para gestionar contraseñas en la caja fuerte"""
+def contrasenas(request: HttpRequest) -> HttpResponse:
+    """Vista para gestionar contraseñas en la caja fuerte."""
     # Verificar si el usuario es una empresa
     if not hasattr(request.user, "is_company") or not request.user.is_company:
         messages.error(request, "Acceso restringido a empresas")
@@ -235,7 +249,6 @@ def contrasenas(request):
 
             # Procesar la eliminación de una contraseña
             if "eliminar_contrasena" in request.POST:
-                contrasena_id = request.POST.get("contrasena_id")
                 # Aquí iría la lógica para eliminar la contraseña
                 messages.success(request, "Contraseña eliminada correctamente")
                 return redirect("empresa:contrasenas")
@@ -251,8 +264,8 @@ def contrasenas(request):
         return redirect("empresa:perfil")
 
 @login_required
-def dashboard_empresa(request):
-    """Dashboard específico para empresas"""
+def dashboard_empresa(request: HttpRequest) -> HttpResponse:
+    """Dashboard específico para empresas."""
     try:
         perfil_empresa = PerfilEmpresa.objects.get(usuario=request.user)
         return render(request, "empresa/dashboard.html", {"perfil": perfil_empresa})
@@ -261,43 +274,40 @@ def dashboard_empresa(request):
         return redirect("Aplicacion:home")
 
 @login_required
-def cerrar_sesion(request):
-    """Cierra la sesión del usuario y redirige a la página de inicio"""
+def cerrar_sesion(request: HttpRequest) -> HttpResponse:
+    """Cierra la sesión del usuario y redirige a la página de inicio."""
     logout(request)
     messages.success(request, "Has cerrado sesión correctamente.")
     return redirect("empresa:home")
 
 @login_required
-def subir_documento(request):
-    """Vista para subir documentos a la caja fuerte"""
+def subir_documento(request: HttpRequest) -> HttpResponse:
+    """Vista para subir documentos a la caja fuerte."""
     if not hasattr(request.user, "is_company") or not request.user.is_company:
         messages.error(request, "Acceso restringido a empresas")
         return redirect("empresa:inicio_sesion")
 
     if request.method == "POST" and request.FILES.get("documento"):
         documento = request.FILES["documento"]
-        descripcion = request.POST.get("descripcion", "")
 
         # Validar el tipo de archivo (opcional)
         extensiones_permitidas = [".pdf", ".doc", ".docx", ".xls", ".xlsx", ".jpg", ".jpeg", ".png"]
         nombre_archivo = documento.name.lower()
         if not any(nombre_archivo.endswith(ext) for ext in extensiones_permitidas):
-            messages.error(request, "Tipo de archivo no permitido. Formatos aceptados: " +
-                         ", ".join(ext[1:] for ext in extensiones_permitidas))
+            messages.error(request, "Tipo de archivo no permitido. Formatos aceptados: " + ", ".join(ext[1:] for ext in extensiones_permitidas))
             return redirect("empresa:caja_fuerte")
 
         try:
-            # Crear directorio si no existe
-            upload_dir = os.path.join(settings.MEDIA_ROOT, "documentos", str(request.user.id))
-            os.makedirs(upload_dir, exist_ok=True)
+            upload_dir = Path(settings.MEDIA_ROOT) / "documentos" / str(request.user.id)
+            upload_dir.mkdir(parents=True, exist_ok=True)
 
             # Generar nombre único para el archivo
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            timestamp = datetime.now(tz=datetime.timezone.utc).strftime("%Y%m%d_%H%M%S")
             nombre_archivo = f"{timestamp}_{documento.name}"
-            ruta_archivo = os.path.join(upload_dir, nombre_archivo)
+            ruta_archivo = upload_dir / nombre_archivo
 
             # Guardar el archivo
-            with open(ruta_archivo, "wb+") as destino:
+            with ruta_archivo.open("wb+") as destino:
                 destino.writelines(documento.chunks())
 
             # Aquí podrías guardar la información del documento en tu modelo
@@ -306,15 +316,15 @@ def subir_documento(request):
             messages.success(request, "Documento subido correctamente")
             return redirect("empresa:caja_fuerte")
 
-        except Exception as e:
+        except FileNotFoundError as e:
             messages.error(request, f"Error al subir el documento: {e!s}")
             return redirect("empresa:caja_fuerte")
 
     return redirect("empresa:caja_fuerte")
 
 @login_required
-def ver_documento(request, documento_id):
-    """Vista para ver un documento específico"""
+def ver_documento(request: HttpRequest, documento_id: str) -> HttpResponse:
+    """Vista para ver un documento específico."""
     if not hasattr(request.user, "is_company") or not request.user.is_company:
         messages.error(request, "Acceso restringido a empresas")
         return redirect("empresa:inicio_sesion")
@@ -325,14 +335,14 @@ def ver_documento(request, documento_id):
         # Por ahora, asumiremos que el documento_id es el nombre del archivo
 
         # Construir la ruta al archivo
-        file_path = os.path.join(settings.MEDIA_ROOT, "documentos", str(request.user.id), str(documento_id))
+        file_path = Path(settings.MEDIA_ROOT) / "documentos" / str(request.user.id) / str(documento_id)
 
         # Verificar que el archivo existe
-        if not os.path.exists(file_path):
-            raise Http404("El documento no existe o no tienes permiso para verlo")
+        if not file_path.exists():
+            raise DocumentoNoExisteOAccesoDenegado(documento_id)
 
-        # Obtener la extensión del archivo
-        _, file_extension = os.path.splitext(file_path)
+        # Obtener la extensión del archivo usando pathlib
+        file_extension = file_path.suffix
 
         # Mapear extensiones a tipos MIME
         mime_types = {
@@ -350,49 +360,50 @@ def ver_documento(request, documento_id):
         content_type = mime_types.get(file_extension.lower(), "application/octet-stream")
 
         # Devolver el archivo como respuesta
-        response = FileResponse(open(file_path, "rb"), content_type=content_type)
-        response["Content-Disposition"] = f'inline; filename="{os.path.basename(file_path)}"'
-        return response
+        with file_path.open("rb") as file:
+            response = FileResponse(file, content_type=content_type)
+            response["Content-Disposition"] = f'inline; filename="{file_path.name}"'
+            return response
 
-    except Exception as e:
+    except FileNotFoundError as e:
         messages.error(request, f"Error al abrir el documento: {e!s}")
         return redirect("empresa:caja_fuerte")
 
 @login_required
 @require_POST
-def eliminar_documento(request, documento_id):
-    """Vista para eliminar un documento"""
+def eliminar_documento(request: HttpRequest, documento_id: str) -> JsonResponse:
+    """Vista para eliminar un documento."""
     if not hasattr(request.user, "is_company") or not request.user.is_company:
         return JsonResponse({"success": False, "message": "Acceso no autorizado"}, status=403)
 
     try:
         # Construir la ruta al archivo
-        file_path = os.path.join(settings.MEDIA_ROOT, "documentos", str(request.user.id), str(documento_id))
+        file_path = Path(settings.MEDIA_ROOT) / "documentos" / str(request.user.id) / str(documento_id)
 
         # Verificar que el archivo existe
-        if not os.path.exists(file_path):
+        if not file_path.exists():
             return JsonResponse({"success": False, "message": "El documento no existe"}, status=404)
 
         # Aquí deberías verificar los permisos adicionales si es necesario
         # Por ejemplo, verificar que el documento pertenece al usuario
 
         # Eliminar el archivo
-        os.remove(file_path)
+        file_path.unlink()
 
         # Aquí podrías eliminar el registro de la base de datos si tienes un modelo
         # Por ejemplo: Documento.objects.filter(id=documento_id, usuario=request.user).delete()
 
         return JsonResponse({"success": True, "message": "Documento eliminado correctamente"})
 
-    except Exception as e:
+    except FileNotFoundError as e:
         return JsonResponse(
             {"success": False, "message": f"Error al eliminar el documento: {e!s}"},
             status=500,
         )
 
 @require_http_methods(["GET"])
-def obtener_ciudades(request):
-    """Vista para obtener la lista de ciudades según el país seleccionado"""
+def obtener_ciudades(request: HttpRequest) -> JsonResponse:
+    """Vista para obtener la lista de ciudades según el país seleccionado."""
     pais = request.GET.get("pais", "").lower()
 
     # Diccionario de países y sus ciudades
@@ -421,8 +432,8 @@ def obtener_ciudades(request):
     return JsonResponse({"ciudades": ciudades})
 
 @login_required
-def perfil_empresa(request):
-    """Vista del perfil de empresa"""
+def perfil_empresa(request: HttpRequest) -> HttpResponse:
+    """Vista del perfil de empresa."""
     try:
         perfil = PerfilEmpresa.objects.get(usuario=request.user)
         return render(request, "empresa/perfil.html", {"perfil": perfil})

@@ -43,7 +43,7 @@
             <div class="form-group">
                 <label for="nombre_completo">Nombre completo *</label>
                 <input type="text" id="nombre_completo" name="nombre_completo" class="form-control {% if errores and not request.POST.nombre_completo and request.POST.tipo_usuario == 'natural' %}is-invalid{% endif %}" 
-                       value="{{ request.POST.nombre_completo }}" required>
+                    value="{{ request.POST.nombre_completo }}" required>
                 {% if errores and not request.POST.nombre_completo and request.POST.tipo_usuario == 'natural' %}
                     <div class="invalid-feedback">El nombre completo es obligatorio</div>
                 {% endif %}
@@ -52,7 +52,7 @@
             <div class="form-group">
                 <label for="edad">Edad *</label>
                 <input type="number" id="edad" name="edad" class="form-control" min="18" max="100" 
-                       value="{{ request.POST.edad }}" required>
+                    value="{{ request.POST.edad }}" required>
                 <small class="form-text text-muted">Debes tener entre 18 y 100 años</small>
             </div>
 
@@ -70,7 +70,7 @@
             <div class="form-group">
                 <label for="email_natural">Correo electrónico *</label>
                 <input type="email" id="email_natural" name="email_natural" class="form-control {% if errores and not request.POST.email_natural and request.POST.tipo_usuario == 'natural' %}is-invalid{% endif %}" 
-                       value="{{ request.POST.email_natural }}" {% if request.POST.tipo_usuario == 'natural' %}required{% endif %}>
+                    value="{{ request.POST.email_natural }}" {% if request.POST.tipo_usuario == 'natural' %}required{% endif %}>
                 {% if errores and not request.POST.email_natural and request.POST.tipo_usuario == 'natural' %}
                     <div class="invalid-feedback">El correo electrónico es obligatorio</div>
                 {% endif %}
@@ -79,7 +79,7 @@
             <div class="form-group">
                 <label for="telefono_natural">Teléfono *</label>
                 <input type="tel" id="telefono_natural" name="telefono_natural" class="form-control {% if errores and not request.POST.telefono_natural and request.POST.tipo_usuario == 'natural' %}is-invalid{% endif %}" 
-                       value="{{ request.POST.telefono_natural }}" {% if request.POST.tipo_usuario == 'natural' %}required{% endif %}>
+                    value="{{ request.POST.telefono_natural }}" {% if request.POST.tipo_usuario == 'natural' %}required{% endif %}>
                 {% if errores and not request.POST.telefono_natural and request.POST.tipo_usuario == 'natural' %}
                     <div class="invalid-feedback">El teléfono es obligatorio</div>
                 {% endif %}
@@ -89,7 +89,7 @@
                 <label for="password1">Contraseña *</label>
                 <div style="position: relative;">
                     <input type="password" id="password1" name="password1" class="form-control {% if errores and not request.POST.password1 %}is-invalid{% endif %}" 
-                           required>
+                        required>
                     <button type="button" class="btn btn-sm btn-outline-secondary" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%);" 
                             onclick="togglePassword('password1')">
                         <i class="bi bi-eye"></i>
@@ -121,7 +121,7 @@
             <div class="form-group">
                 <label for="razon_social">Razón Social *</label>
                 <input type="text" id="razon_social" name="razon_social" class="form-control {% if errores and not request.POST.razon_social and request.POST.tipo_usuario == 'empresa' %}is-invalid{% endif %}" 
-                       value="{{ request.POST.razon_social }}" {% if request.POST.tipo_usuario == 'empresa' %}required{% endif %}>
+                    value="{{ request.POST.razon_social }}" {% if request.POST.tipo_usuario == 'empresa' %}required{% endif %}>
                 {% if errores and not request.POST.razon_social and request.POST.tipo_usuario == 'empresa' %}
                     <div class="invalid-feedback">La razón social es obligatoria</div>
                 {% endif %}
@@ -130,7 +130,7 @@
             <div class="form-group">
                 <label for="nit">NIT *</label>
                 <input type="text" id="nit" name="nit" class="form-control {% if errores and not request.POST.nit and request.POST.tipo_usuario == 'empresa' %}is-invalid{% endif %}" 
-                       value="{{ request.POST.nit }}" {% if request.POST.tipo_usuario == 'empresa' %}required{% endif %}>
+                    value="{{ request.POST.nit }}" {% if request.POST.tipo_usuario == 'empresa' %}required{% endif %}>
                 {% if errores and not request.POST.nit and request.POST.tipo_usuario == 'empresa' %}
                     <div class="invalid-feedback">El NIT es obligatorio</div>
                 {% endif %}
@@ -178,14 +178,14 @@
             <div class="form-group">
                 <label for="empresa_numero_empleados">Número de Empleados *</label>
                 <input type="number" 
-                       id="empresa_numero_empleados" 
-                       name="empresa_numero_empleados" 
-                       class="form-control"
-                       value="{{ request.POST.empresa_numero_empleados|default_if_none:'' }}" 
-                       required 
-                       min="1"
-                       step="1"
-                       oninput="validarNumeroEmpleados(this)">
+                    id="empresa_numero_empleados" 
+                    name="empresa_numero_empleados" 
+                    class="form-control"
+                    value="{{ request.POST.empresa_numero_empleados|default_if_none:'' }}" 
+                    required 
+                    min="1"
+                    step="1"
+                    oninput="validarNumeroEmpleados(this)">
                 <div class="invalid-feedback">Por favor ingrese un número válido de empleados según el tamaño de la empresa</div>
                 <small class="form-text text-muted">El rango permitido se ajustará según el tamaño de la empresa seleccionado</small>
             </div>
@@ -210,13 +210,13 @@
             <div class="form-group">
                 <label for="empresa_descripcion">Descripción de la Empresa</label>
                 <textarea id="empresa_descripcion" name="empresa_descripcion" class="form-control" 
-                          placeholder="Describa brevemente su empresa">{{ request.POST.empresa_descripcion|default_if_none:'' }}</textarea>
+                        placeholder="Describa brevemente su empresa">{{ request.POST.empresa_descripcion|default_if_none:'' }}</textarea>
             </div>
 
             <div class="form-group">
                 <label for="email_empresa">Correo Empresarial *</label>
                 <input type="email" id="email_empresa" name="email_empresa" class="form-control {% if errores and not request.POST.email_empresa and request.POST.tipo_usuario == 'empresa' %}is-invalid{% endif %}" 
-                       placeholder="ejemplo@empresa.com" value="{{ request.POST.email_empresa|default_if_none:'' }}" {% if request.POST.tipo_usuario == 'empresa' %}required{% endif %}>
+                    placeholder="ejemplo@empresa.com" value="{{ request.POST.email_empresa|default_if_none:'' }}" {% if request.POST.tipo_usuario == 'empresa' %}required{% endif %}>
                 <small>El correo será personalizado con el nombre de la empresa</small>
                 {% if errores and not request.POST.email_empresa and request.POST.tipo_usuario == 'empresa' %}
                     <div class="invalid-feedback">El correo electrónico es obligatorio</div>
@@ -226,7 +226,7 @@
             <div class="form-group">
                 <label for="telefono_empresa">Teléfono de la empresa *</label>
                 <input type="tel" id="telefono_empresa" name="telefono_empresa" class="form-control {% if errores and not request.POST.telefono_empresa and request.POST.tipo_usuario == 'empresa' %}is-invalid{% endif %}" 
-                       placeholder="+57 3143757171" value="{{ request.POST.telefono_empresa|default_if_none:'' }}" {% if request.POST.tipo_usuario == 'empresa' %}required{% endif %}>
+                    placeholder="+57 3143757171" value="{{ request.POST.telefono_empresa|default_if_none:'' }}" {% if request.POST.tipo_usuario == 'empresa' %}required{% endif %}>
                 {% if errores and not request.POST.telefono_empresa and request.POST.tipo_usuario == 'empresa' %}
                     <div class="invalid-feedback">El teléfono es obligatorio</div>
                 {% endif %}
@@ -235,13 +235,13 @@
             <div class="form-group">
                 <label for="sitio_web">Sitio Web (opcional)</label>
                 <input type="url" id="sitio_web" name="sitio_web" class="form-control" 
-                       value="{{ request.POST.sitio_web }}" placeholder="https://www.ejemplo.com">
+                    value="{{ request.POST.sitio_web }}" placeholder="https://www.ejemplo.com">
             </div>
 
             <div class="form-group">
                 <label for="direccion">Dirección *</label>
                 <input type="text" id="direccion" name="direccion" class="form-control {% if errores and not request.POST.direccion and request.POST.tipo_usuario == 'empresa' %}is-invalid{% endif %}" 
-                       value="{{ request.POST.direccion }}" {% if request.POST.tipo_usuario == 'empresa' %}required{% endif %}>
+                    value="{{ request.POST.direccion }}" {% if request.POST.tipo_usuario == 'empresa' %}required{% endif %}>
                 {% if errores and not request.POST.direccion and request.POST.tipo_usuario == 'empresa' %}
                     <div class="invalid-feedback">La dirección es obligatoria</div>
                 {% endif %}
@@ -250,7 +250,7 @@
             <div class="form-group">
                 <label for="representante_legal">Nombre del representante legal *</label>
                 <input type="text" id="representante_legal" name="representante_legal" class="form-control {% if errores and not request.POST.representante_legal and request.POST.tipo_usuario == 'empresa' %}is-invalid{% endif %}" 
-                       value="{{ request.POST.representante_legal }}" {% if request.POST.tipo_usuario == 'empresa' %}required{% endif %}>
+                    value="{{ request.POST.representante_legal }}" {% if request.POST.tipo_usuario == 'empresa' %}required{% endif %}>
                 {% if errores and not request.POST.representante_legal and request.POST.tipo_usuario == 'empresa' %}
                     <div class="invalid-feedback">El nombre del representante legal es obligatorio</div>
                 {% endif %}
@@ -260,7 +260,7 @@
                 <label for="password_empresa">Contraseña *</label>
                 <div style="position: relative;">
                     <input type="password" id="password_empresa" name="password_empresa" class="form-control {% if errores and not request.POST.password_empresa and request.POST.tipo_usuario == 'empresa' %}is-invalid{% endif %}" 
-                           {% if request.POST.tipo_usuario == 'empresa' %}required{% endif %}>
+                        {% if request.POST.tipo_usuario == 'empresa' %}required{% endif %}>
                     <button type="button" class="btn btn-sm btn-outline-secondary" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%);" 
                             onclick="togglePassword('password_empresa')">
                         <i class="bi bi-eye"></i>
@@ -276,7 +276,7 @@
                 <label for="confirmar_password_empresa">Confirmar contraseña *</label>
                 <div style="position: relative;">
                     <input type="password" id="confirmar_password_empresa" name="confirmar_password_empresa" class="form-control" 
-                           {% if request.POST.tipo_usuario == 'empresa' %}required{% endif %}>
+                        {% if request.POST.tipo_usuario == 'empresa' %}required{% endif %}>
                     <button type="button" class="btn btn-sm btn-outline-secondary" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%);" 
                             onclick="togglePassword('confirmar_password_empresa')">
                         <i class="bi bi-eye"></i>
@@ -284,7 +284,7 @@
                 </div>
                 <div id="password-empresa-match" class="invalid-feedback">Las contraseñas no coinciden</div>
             </div>
-        </fieldset>
+        </fieldset><br>
 
         <div class="form-group text-center">
             <button type="submit" class="btn btn-primary">Registrarse</button>

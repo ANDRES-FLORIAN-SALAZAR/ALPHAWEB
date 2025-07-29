@@ -15,6 +15,8 @@ from django.http import FileResponse, HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
 
+from empresa.models import PerfilEmpresa, TipoEmpresa
+
 from .models import DocumentoCajaFuerte, Persona
 
 logger = logging.getLogger(__name__)
@@ -60,6 +62,14 @@ def requiere_autenticacion(view_func: callable) -> callable:
             return redirect("Aplicacion:inicio_sesion")  # Agregar el namespace aquí
         return view_func(request, *args, **kwargs)
     return _wrapped_view
+
+def _raise_invalid_registration_error() -> None:
+    """Raise a ValueError for invalid registration type."""
+    """This is a helper function to abstract the error raising logic."""
+    error_msg = "Tipo de registro no válido"
+    logger.error(error_msg)
+    raise ValueError(error_msg)
+
 
 # ============================================================================
 # VISTAS DE PÁGINAS PRINCIPALES
@@ -142,8 +152,8 @@ def inicio_sesion(request: HttpRequest) -> HttpResponse:
                 return redirect("Aplicacion:home")
             messages.error(request, "Contraseña incorrecta")
 
-        except Exception as e:
-            logger.error(f"Error en inicio de sesión: {e!s}")
+        except Exception:
+            logger.exception("Error en inicio de sesión")
             messages.error(request, "Ocurrió un error al intentar iniciar sesión. Por favor intente nuevamente.")
 
     return render(request, "Inicio_Sesion.html")
@@ -159,6 +169,11 @@ def registro(request: HttpRequest) -> HttpResponse:
         HttpResponse: La respuesta HTTP con el formulario de registro.
 
     """
+    # Constantes de validación
+    min_longitud_password = 8
+    min_edad = 18
+    max_edad = 100
+    
     if request.method == "POST":
         tipo_registro = request.POST.get("tipo_usuario")
 
@@ -185,6 +200,7 @@ def registro(request: HttpRequest) -> HttpResponse:
             if not nombre:
                 errores.append("El nombre completo es requerido")
                 messages.error(request, "El nombre completo es requerido")
+
             if not email:
                 errores.append("El correo electrónico es requerido")
                 messages.error(request, "El correo electrónico es requerido")
@@ -197,12 +213,15 @@ def registro(request: HttpRequest) -> HttpResponse:
             if not password:
                 errores.append("La contraseña es requerida")
                 messages.error(request, "La contraseña es requerida")
-            elif len(password) < 8:
-                errores.append("La contraseña debe tener al menos 8 caracteres")
-                messages.error(request, "La contraseña debe tener al menos 8 caracteres")
-            if not edad.isdigit() or not (18 <= int(edad) <= 100):
-                errores.append("La edad debe ser un número entre 18 y 100")
-                messages.error(request, "La edad debe ser un número entre 18 y 100")
+            elif len(password) < min_longitud_password:
+                error_msg = f"La contraseña debe tener al menos {min_longitud_password} caracteres"
+                errores.append(error_msg)
+                messages.error(request, error_msg)
+
+            if not edad.isdigit() or not (min_edad < int(edad) < max_edad):
+                error_msg = f"La edad debe ser un número entre {min_edad} y {max_edad}"
+                errores.append(error_msg)
+                messages.error(request, error_msg)
 
             # Validar que las contraseñas coincidan
             if password != password_confirm:
@@ -221,14 +240,6 @@ def registro(request: HttpRequest) -> HttpResponse:
             password_empresa = request.POST.get("password_empresa", "")
             confirmar_password_empresa = request.POST.get("confirmar_password_empresa", "")
 
-            # Obtener datos adicionales específicos de empresa
-            empresa_tipo = request.POST.get("empresa_tipo", "")
-            empresa_segmento = request.POST.get("empresa_segmento", "")
-            empresa_tamano = request.POST.get("empresa_tamaño", "")
-            empresa_num_empleados = request.POST.get("empresa_numero_empleados", "")
-            empresa_pais = request.POST.get("empresa_pais", "")
-            empresa_ciudad = request.POST.get("empresa_ciudad", "")
-            empresa_descripcion = request.POST.get("empresa_descripcion", "")
 
             # Validar campos obligatorios
             if not razon_social:
@@ -255,9 +266,10 @@ def registro(request: HttpRequest) -> HttpResponse:
             if not password_empresa:
                 errores.append("La contraseña es requerida")
                 messages.error(request, "La contraseña es requerida")
-            elif len(password_empresa) < 8:
-                errores.append("La contraseña debe tener al menos 8 caracteres")
-                messages.error(request, "La contraseña debe tener al menos 8 caracteres")
+            elif len(password_empresa) < min_longitud_password:
+                error_msg = f"La contraseña debe tener al menos {min_longitud_password} caracteres"
+                errores.append(error_msg)
+                messages.error(request, error_msg)
 
             # Validar que las contraseñas coincidan
             if password_empresa != confirmar_password_empresa:
@@ -375,7 +387,7 @@ def registro(request: HttpRequest) -> HttpResponse:
                 user = Persona.objects.create_user(**user_data)
                 messages.success(request, f"¡Registro de empresa exitoso! Bienvenido/a {razon_social}")
             else:
-                raise ValueError("Tipo de registro no válido")
+                _raise_invalid_registration_error()
 
             # Iniciar sesión automáticamente
             login(request, user)
@@ -386,12 +398,10 @@ def registro(request: HttpRequest) -> HttpResponse:
 
         except Exception as e:
             # Manejar errores específicos de la base de datos
-            if "duplicate" in str(e).lower() or "ya existe" in str(e).lower():
-                error_msg = "Este correo electrónico o NIT ya está registrado"
-            else:
-                error_msg = f"Error al crear el usuario: {e!s}"
-
-            logger.error(f"Error en el registro: {e!s}")
+            error_msg = ("Este correo electrónico o NIT ya está registrado"
+                        if any(x in str(e).lower() for x in ["duplicate", "ya existe"])
+                        else f"Error al crear el usuario: {e!s}")
+            logger.exception("Error en el registro")
             messages.error(request, error_msg)
 
             # Preparar el contexto para volver a mostrar el formulario
@@ -459,7 +469,7 @@ def cerrar_sesion(request: HttpRequest) -> HttpResponse:
         messages.success(request, f"Has cerrado sesión correctamente. ¡Hasta pronto, {username}!")
 
         # Registrar el cierre de sesión
-        logger.info(f"Usuario {username} ha cerrado sesión correctamente")
+        logger.info("Usuario {username} ha cerrado sesión correctamente")
 
         return response
 
@@ -469,7 +479,7 @@ def cerrar_sesion(request: HttpRequest) -> HttpResponse:
 def contrasenas(request: HttpRequest) -> HttpResponse:
     """
     Vista para el generador de contraseñas (accesible para todos los usuarios).
-    
+
     Mantiene el nombre original para compatibilidad con tu HTML existente.
 
     Args:
@@ -511,8 +521,10 @@ def cambiar_contrasena(request: HttpRequest) -> HttpResponse:
             messages.error(request, "Las nuevas contraseñas no coinciden.")
             return render(request, "cambiar_contrasena.html", {"usuario": usuario})
 
-        if len(nueva_password) < 8:
-            messages.error(request, "La nueva contraseña debe tener al menos 8 caracteres.")
+        min_longitud_password = 8
+        if len(nueva_password) < min_longitud_password:
+            error_msg = f"La nueva contraseña debe tener al menos {min_longitud_password} caracteres."
+            messages.error(request, error_msg)
             return render(request, "cambiar_contrasena.html", {"usuario": usuario})
 
         if not usuario.check_password(password_actual):
@@ -530,30 +542,24 @@ def cambiar_contrasena(request: HttpRequest) -> HttpResponse:
                 request.session["usuario_id"] = user.id
 
             messages.success(request, "Contraseña cambiada exitosamente.")
-            logger.info(f"Usuario {usuario.email} cambió su contraseña exitosamente")
+            logger.info("Usuario %s cambió su contraseña exitosamente", usuario.email)
             return redirect("Aplicacion:caja_fuerte")
 
-        except Exception as e:
-            logger.error(f"Error al cambiar contraseña para usuario {usuario.email}: {e!s}")
+        except Exception:
+            logger.exception("Error al cambiar contraseña para usuario %s", usuario.email)
             messages.error(request, "Ocurrió un error al cambiar la contraseña. Por favor intente nuevamente.")
 
     return render(request, "cambiar_contrasena.html", {"usuario": usuario})
 
 # Función obsoleta - puedes eliminarla
-def generador_contrasenas_obsoleto(request: HttpRequest) -> HttpResponse:
-    """
-    FUNCIÓN OBSOLETA - Usar contrasenas() para el generador y cambiar_contrasena() para cambio.
-    
-    Esta función se mantiene solo como referencia.
-    """
+def generador_contrasenas_obsoleto() -> HttpResponse:
+    """FUNCIÓN OBSOLETA - Usar contrasenas() para el generador y cambiar_contrasena() para cambio. Esta función se mantiene solo como referencia."""
     # Redirigir a la vista apropiada
     return redirect("Aplicacion:contrasenas")
 
 def listar_empresas(request: HttpRequest) -> HttpResponse:
     """Vista para listar empresas activas."""
-    empresas = Empresa.objects.filter(activa=True).select_related(
-        "tipo_empresa", "segmento",
-    ).prefetch_related("perfilusuario_set")
+    empresas = PerfilEmpresa.objects.filter(activo=True).select_related("tipo")
 
     context = {
         "empresas": empresas,
@@ -563,24 +569,27 @@ def listar_empresas(request: HttpRequest) -> HttpResponse:
 # ============================================================================
 # VISTAS DE CAJA FUERTE
 
-def custom_404(request: HttpRequest, exception=None) -> HttpResponse:
+def custom_404(request: HttpRequest, exception: Exception) -> HttpResponse:
     """
-    Maneja errores 404 (página no encontrada) mostrando una página personalizada
+    Maneja errores 404 (página no encontrada) mostrando una página personalizada.
 
     Args:
         request (HttpRequest): La solicitud HTTP.
-        exception: La excepción que causó el error 404.
+        exception (Exception): La excepción que causó el error 404.
 
     Returns:
         HttpResponse: La página de error 404 personalizada.
 
     """
+    logger.warning("Página no encontrada: %s", request.path, exc_info=exception)
+
     # Aseguramos que la URL sea '/404/' para que se aplique el estilo
     request.path = "/404/"
 
     # Agregamos el contexto necesario para que la plantilla funcione
     context = {
         "request": request,
+        "exception": str(exception),  # Incluimos el mensaje de error en el contexto
     }
 
     return render(request, "404.html", context=context, status=404)
@@ -790,33 +799,35 @@ def api_empresa_detalle(request: HttpRequest, empresa_id: int) -> JsonResponse:
 
     """
     # Usar el argumento request para evitar advertencias de argumento no utilizado
-    logger.debug("Solicitud recibida para detalles de empresa. Método: %s, Usuario: %s", request.method, getattr(request, "user", None))
+    logger.debug("Solicitud recibida para detalles de empresa. Método: %s, Usuario: %s",
+                request.method, getattr(request, "user", None))
+
     try:
-        empresa = Empresa.objects.select_related("tipo_empresa", "segmento").get(
-            id=empresa_id, activa=True,
+        empresa = PerfilEmpresa.objects.select_related("tipo").get(
+            id=empresa_id, activo=True,
         )
+
         data = {
             "id": empresa.id,
             "nombre": empresa.nombre,
             "nit": empresa.nit,
             "razon_social": empresa.razon_social,
-            "tipo_empresa": empresa.tipo_empresa.nombre,
-            "segmento": empresa.segmento.nombre,
-            "tamaño": empresa.get_tamaño_display(),
+            "tipo_empresa": empresa.tipo.nombre if empresa.tipo else "",
+            "segmento": empresa.segmento if hasattr(empresa, "segmento") else "",
+            "tamano": empresa.get_tamano_display() if hasattr(empresa, "get_tamano_display") else "",
             "email": empresa.email,
             "telefono": empresa.telefono,
             "ciudad": empresa.ciudad,
             "pais": empresa.pais,
-            "numero_empleados": empresa.numero_empleados,
-            "requiere_2fa": empresa.requiere_autenticacion_2fa,
-            "politica_estricta": empresa.politica_contraseñas_estricta,
+            "activo": empresa.activo,
+            "verificado": empresa.verificado,
         }
         return JsonResponse(data)
-    except Empresa.DoesNotExist:
+    except PerfilEmpresa.DoesNotExist:
         return JsonResponse({"error": "Empresa no encontrada"}, status=404)
 
 def crear_datos_iniciales_empresa() -> None:
-    """Crea datos iniciales de tipos y segmentos de empresa."""
+    """Crea datos iniciales de tipos de empresa."""
     # Crear tipos de empresa si no existen
     tipos_empresa = [
         {"nombre": "Sociedad de Responsabilidad Limitada", "descripcion": "Empresa constituida como SRL"},
@@ -830,26 +841,4 @@ def crear_datos_iniciales_empresa() -> None:
         TipoEmpresa.objects.get_or_create(
             nombre=tipo_data["nombre"],
             defaults={"descripcion": tipo_data["descripcion"]},
-        )
-
-    # Crear segmentos de empresa si no existen
-    segmentos_empresa = [
-        {"nombre": "Tecnología", "descripcion": "Empresas del sector tecnológico y software"},
-        {"nombre": "Financiero", "descripcion": "Bancos, seguros y servicios financieros"},
-        {"nombre": "Salud", "descripcion": "Hospitales, clínicas y servicios de salud"},
-        {"nombre": "Educación", "descripcion": "Instituciones educativas y centros de formación"},
-        {"nombre": "Manufactura", "descripcion": "Empresas de producción y manufactura"},
-        {"nombre": "Comercio", "descripcion": "Empresas de comercio y retail"},
-        {"nombre": "Servicios", "descripcion": "Empresas de servicios profesionales"},
-        {"nombre": "Construcción", "descripcion": "Empresas del sector construcción y arquitectura"},
-        {"nombre": "Alimentario", "descripcion": "Empresas del sector alimentario y bebidas"},
-        {"nombre": "Transporte", "descripcion": "Empresas de transporte y logística"},
-        {"nombre": "Energía", "descripcion": "Empresas del sector energético"},
-        {"nombre": "Telecomunicaciones", "descripcion": "Empresas de telecomunicaciones y comunicaciones"},
-    ]
-
-    for segmento_data in segmentos_empresa:
-        SegmentoEmpresa.objects.get_or_create(
-            nombre=segmento_data["nombre"],
-            defaults={"descripcion": segmento_data["descripcion"]},
         )

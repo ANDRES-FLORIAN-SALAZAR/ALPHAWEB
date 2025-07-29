@@ -19,8 +19,10 @@ class CustomUserManager(BaseUserManager):
     def create_user(
         self, email: str, password: str | None = None, **extra_fields: dict[str, object],
     ) -> "Persona":
+        """Crea y devuelve un usuario con el correo electrónico y la contraseña especificados."""
         if not email:
-            raise ValueError("El email es requerido")
+            error_msg = "El campo de correo electrónico es obligatorio."
+            raise ValueError(error_msg)
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
@@ -30,6 +32,7 @@ class CustomUserManager(BaseUserManager):
     def create_superuser(
         self, email: str, password: str | None = None, **extra_fields: dict[str, object],
     ) -> "Persona":
+        """Crea y devuelve un superusuario con el correo electrónico y la contraseña especificados."""
         return self.create_user(email, password, **extra_fields)
 
 
@@ -39,7 +42,7 @@ class Persona(AbstractUser):
     # Campos comunes para todos los usuarios
     username = None
     email = models.EmailField("Correo electrónico", unique=True)
-    telefono = models.CharField("Teléfono", max_length=15, blank=True, null=True)
+    telefono = models.CharField("Teléfono", max_length=15, blank=True, default="")
 
     # Campos específicos para personas naturales
     edad = models.PositiveIntegerField(
@@ -52,22 +55,32 @@ class Persona(AbstractUser):
         "Género",
         max_length=50,
         choices=[
+            ("", "Seleccione una opción"),
             ("Masculino", "Masculino"),
             ("Femenino", "Femenino"),
             ("Otro", "Otro"),
             ("Prefiero no decir", "Prefiero no decir"),
         ],
         blank=True,
-        null=True,
+        default="",
     )
 
     # Campos específicos para empresas
     es_empresa = models.BooleanField("¿Es empresa?", default=False)
-    razon_social = models.CharField("Razón Social", max_length=200, blank=True, null=True)
+    razon_social = models.CharField("Razón Social", max_length=200, blank=True, default="")
     nit = models.CharField("NIT", max_length=20, blank=True, null=True, unique=True)
-    direccion = models.TextField("Dirección", blank=True, null=True)
-    representante_legal = models.CharField("Representante Legal", max_length=200, blank=True, null=True)
-    sitio_web = models.URLField("Sitio Web", blank=True, null=True)
+    direccion = models.TextField("Dirección", blank=True, default="")
+    representante_legal = models.CharField("Representante Legal", max_length=200, blank=True, default="")
+    sitio_web = models.URLField("Sitio Web", blank=True, default="")
+
+    # Campos adicionales para empresas
+    empresa_tipo = models.CharField("Tipo de Empresa", max_length=100, blank=True, default="")
+    empresa_segmento = models.CharField("Segmento de Empresa", max_length=100, blank=True, default="")
+    empresa_tamano = models.CharField("Tamaño de Empresa", max_length=50, blank=True, default="")
+    empresa_num_empleados = models.PositiveIntegerField("Número de Empleados", default=0)
+    empresa_pais = models.CharField("País de la Empresa", max_length=100, blank=True, default="")
+    empresa_ciudad = models.CharField("Ciudad de la Empresa", max_length=100, blank=True, default="")
+    empresa_descripcion = models.TextField("Descripción de la Empresa", blank=True, default="")
 
     # Campos comunes
     rol = models.CharField(
@@ -96,40 +109,37 @@ class Persona(AbstractUser):
     objects = CustomUserManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ()
 
     class Meta:
+        """Configuración de metadatos del modelo Persona."""
+
         verbose_name = "Usuario"
         verbose_name_plural = "Usuarios"
-        ordering = ["-fecha_registro"]
+        ordering = ("-fecha_registro",)
         db_table = "Aplicacion_persona"
 
     def __str__(self) -> str:
+        """Retorna una representación legible del usuario."""
         if self.es_empresa and self.razon_social:
             return f"{self.razon_social} (Empresa)"
         return self.get_full_name() or self.email
 
     def get_full_name(self) -> str:
-        """
-        Devuelve el nombre completo del usuario.
-        """
+        """Devuelve el nombre completo del usuario."""
         if self.es_empresa and self.razon_social:
             return self.razon_social
         full_name = f"{self.first_name} {self.last_name}".strip()
         return full_name if full_name else self.email
 
     def get_short_name(self) -> str:
-        """
-        Devuelve el nombre corto del usuario (solo el primer nombre).
-        """
+        """Devuelve el nombre corto del usuario (solo el primer nombre)."""
         if self.es_empresa and self.razon_social:
             return self.razon_social
         return self.first_name or self.email.split("@")[0]
 
-    def save(self, *args: Any, **kwargs: Any) -> None:
-        """
-        Guarda el usuario en la base de datos.
-        """
+    def save(self, *args: tuple[Any, ...], **kwargs: dict[str, Any]) -> None:
+        """Guarda el usuario en la base de datos."""
         # Asegurar que el email siempre esté en minúsculas
         self.email = self.email.lower().strip()
 
