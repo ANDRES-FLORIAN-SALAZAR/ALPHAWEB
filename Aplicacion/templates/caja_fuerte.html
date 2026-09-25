@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/caja_fuerte.css' %}">
+{% endblock %}
 {% block content %}
 {% load custom_filters %}
 
@@ -9,14 +12,16 @@
         {% if messages %}
             <div class="cajafuerte-messages">
                 {% for message in messages %}
-                    <div class="message {{ message.tags }}">{{ message }}</div>
+                    {% if forloop.first %}
+                        <div class="message {{ message.tags }}">{{ message }}</div>
+                    {% endif %}
                 {% endfor %}
             </div>
         {% endif %}
     </div>
     
     <div class="cajafuerte-actions">
-        <a href="{% url 'subir_documento' %}" class="btn-action">Subir nuevo documento</a>
+        <a href="{% url 'Aplicacion:subir_documento' %}" class="btn-action">Subir nuevo documento</a>
     </div>
     
     <div class="cajafuerte-filters">
@@ -38,28 +43,41 @@
                     <div class="documento-card" data-categoria="{{ documento.categoria }}">
                         <div class="documento-icon">
                             {% if documento.archivo.name|endswith:".pdf" %}
-                                <img src="{% static 'Iconos/pdf-icon.jpg' %}" alt="PDF" />
+                                <img src="{% static 'Iconos/pdf.jpg' %}" alt="PDF" />
                             {% elif documento.archivo.name|endswith:".doc" or documento.archivo.name|lower|endswith:".docx" %}
-                                <img src="{% static 'Iconos/word-icon.jpg' %}" alt="Word" />
-                            {% elif documento.archivo.name|endswith:".xls" or documento.archivo.name|lower|endswith:".xlsx" %}
-                                <img src="{% static 'Iconos/excel-icon.jpg' %}" alt="Excel" />
-                            {% elif documento.archivo.name|endswith:".jpg" or documento.archivo.name|lower|endswith:".jpeg" or documento.archivo.name|lower|endswith:".png" %}
-                                <img src="{% static 'Iconos/image-icon.jpg' %}" alt="Imagen" />
+                                <img src="{% static 'Iconos/word.jpg' %}" alt="Word" />
+                            {% elif documento.archivo.name|lower|endswith:".xls" or documento.archivo.name|lower|endswith:".xlsx" or documento.archivo.name|lower|endswith:".csv" or documento.archivo.name|lower|endswith:".xltx" or documento.archivo.name|lower|endswith:".xltm" or documento.archivo.name|lower|endswith:".xlsm" or documento.archivo.name|lower|endswith:".xlsb" %}
+                                <img src="{% static 'Iconos/excel.jpg' %}" alt="Excel" />
+                            {% elif documento.archivo.name|endswith:".ppt" or documento.archivo.name|lower|endswith:".pptx" %}
+                                <img src="{% static 'Iconos/ppt.jpg' %}" alt="PPT" />
+                            {% elif documento.archivo.name|endswith:".accdb" or documento.archivo.name|lower|endswith:".mdb" or documento.archivo.name|lower|endswith:".accdt" or documento.archivo.name|lower|endswith:".accde" %}
+                                <img src="{% static 'Iconos/access.jpg' %}" alt="Access" />
+                            {% elif documento.archivo.name|lower|endswith:".jpg" or documento.archivo.name|lower|endswith:".jpeg" or documento.archivo.name|lower|endswith:".png" %}
+                                <img src="{% static 'Iconos/image.jpg' %}" alt="Imagen" />
+                            {% elif documento.archivo.name|endswith:".txt" %}
+                                <img src="{% static 'Iconos/text.jpg' %}" alt="Texto" />
+                            {% elif documento.archivo.name|endswith:".zip" or documento.archivo.name|lower|endswith:".rar" or documento.archivo.name|lower|endswith:".7z" or documento.archivo.name|lower|endswith:".tar" or documento.archivo.name|lower|endswith:".gz" %}
+                                <img src="{% static 'Iconos/zip.jpg' %}" alt="ZIP" />
+
                             {% else %}
-                                <img src="{% static 'Iconos/file-icon.jpg' %}" alt="Archivo" />
+                                <img src="{% static 'Iconos/file.jpg' %}" alt="Archivo" />
                             {% endif %}
                         </div>
                         <div class="documento-info">
                             <h3>{{ documento.nombre }}</h3>
-                            <p class="documento-categoria">{{ documento.categoria }}</p>
-                            <p class="documento-fecha">{{ documento.fecha_subida|date:"d/m/Y H:i" }}</p>
+                            <div class="documento-meta">
+                                <p class="documento-categoria">{{ documento.categoria }}</p>
+                                <p class="documento-tipo">{{ documento.archivo.name|get_file_type }}</p>
+                                <p class="documento-tamano">{{ documento.tamano|filesizeformat }}</p>
+                                <p class="documento-fecha">{{ documento.fecha_subida|date:"d/m/Y H:i" }}</p>
+                            </div>
                             {% if documento.descripcion %}
                                 <p class="documento-descripcion">{{ documento.descripcion|truncatechars:100 }}</p>
                             {% endif %}
                         </div>
                         <div class="documento-actions">
-                            <a href="{% url 'ver_documento' documento.id %}" class="btn-ver">Descargar</a>
-                            <a href="{% url 'eliminar_documento' documento.id %}" class="btn-eliminar">Eliminar</a>
+                            <a href="{% url 'Aplicacion:ver_documento' documento.id %}" class="btn-ver">Descargar</a>
+                            <a href="{% url 'Aplicacion:eliminar_documento' documento.id %}" class="btn-eliminar">Eliminar</a>
                         </div>
                     </div>
                 {% endfor %}

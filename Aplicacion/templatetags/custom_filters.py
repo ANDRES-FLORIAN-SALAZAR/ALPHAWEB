@@ -28,3 +28,36 @@ def endswith(value: any, suffix: any) -> bool:
         return False
 
 
+@register.filter
+def get_file_type(value: str) -> str:
+    """Retorna una descripción del tipo de archivo basado en su extensión."""
+    value = str(value).lower()
+
+    # Documentos de Microsoft Office
+    if value.endswith((".doc", ".docx", ".docm")):
+        return "Documento de Word"
+    if value.endswith((".xls", ".xlsx", ".xlsm")):
+        return "Hoja de Excel"
+    if value.endswith((".ppt", ".pptx", ".pptm")):
+        return "Presentación de PowerPoint"
+
+    # Otros formatos de documento
+    if value.endswith(".pdf"):
+        return "Documento PDF"
+    if value.endswith(".txt"):
+        return "Texto plano"
+    if value.endswith(".rtf"):
+        return "Rich Text Format"
+    if value.endswith((".odt", ".ods", ".odp")):
+        return "Formato OpenDocument"
+    if value.endswith(".csv"):
+        return "Archivo CSV"
+    if value.endswith((".xml", ".json")):
+        return "Archivo de datos"
+    if value.endswith((".html", ".htm")):
+        return "Documento HTML"
+    if value.endswith(".md"):
+        return "Documento Markdown"
+
+    # Otros formatos
+    return "Archivo"

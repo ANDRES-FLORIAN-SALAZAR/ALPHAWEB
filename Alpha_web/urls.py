@@ -21,12 +21,25 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
+from Aplicacion.views import custom_404
+
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("Aplicacion.urls")),
+    path("", include("Aplicacion.urls", namespace="Aplicacion")),
+    path("empresa/", include("empresa.urls")),  # URLs específicas de empresa
 ]
 
-# Agregar soporte para archivos estáticos y media en desarrollo
+# Configuración de errores personalizados
+handler404 = custom_404
+
+# Configuración para servir archivos estáticos en desarrollo
 if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+    urlpatterns += staticfiles_urlpatterns()
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+else:
+    from django.views.static import serve
+    urlpatterns += [
+        path("static/<path:path>", serve, {"document_root": settings.STATIC_ROOT}),
+        path("media/<path:path>", serve, {"document_root": settings.MEDIA_ROOT}),
+    ]

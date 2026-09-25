@@ -1,0 +1,111 @@
+.nav-right {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    padding-right: 10px;
+}
+
+.logout-container {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    height: 24px;
+    line-height: 24px;
+    overflow: hidden
+}
+
+.logout-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 24px;
+    background-color: #28a745;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    line-height: 24px;
+    vertical-align: middle;
+    margin-top: -19px;
+}
+
+.logout-button::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s;
+}
+
+.logout-button:hover {
+    background-color: #dc3545;
+}
+
+.logout-button:hover::before {
+    transform: translateX(18px);
+}
+
+.logout-button:active {
+    background-color: #dc3545;
+}
+
+.logout-button:active::before {
+    transform: translateX(18px);
+}
+
+.logout-button span {
+    position: absolute;
+    color: #ffffff;
+    font-size: 10px;
+    line-height: 24px;
+    pointer-events: none;
+    font-weight: bold;
+    display: inline-block;
+    transition: color 0.3s ease;
+    vertical-align: middle;
+}
+
+.logout-button span:first-child {
+    left: 5px;
+}
+
+.logout-button span:last-child {
+    right: 5px;
+}
+
+.logout-button:hover span {
+    color: #ffffff;
+}
+
+.logout-button:active span {
+    color: #ffffff;
+}
+
+.logout-form {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    line-height: 24px;
+    height: 24px;
+    vertical-align: middle;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-links a {
+    height: 24px;
+    line-height: 24px;
+    padding: 0 10px;
+    font-size: 14px;
+}

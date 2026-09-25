@@ -15,6 +15,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     width: 100%;
+    color: white;
 }
 
 h2,.cont{
@@ -62,14 +63,89 @@ p {
 input, textarea, select {
     min-width: 100%;
     box-sizing: border-box;
-    padding: 6px 12px;
-    border: none;
+    padding: 12px;
     border: 1px solid #2e9952;
-    box-shadow: 0px 0px 15px #0003;
-    background-color: transparent;
-    border-radius: 5px;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 8px;
     color: #f1efef;
-    margin: 8px 0px;
+    margin: 12px 0;
+    transition: all 0.3s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: #0de91f;
+    box-shadow: 0px 0px 15px rgba(13, 233, 31, 0.3);
+}
+
+.botones-registro,
+.botones-sesion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+    gap: 15px;
+}
+
+.btn-registro {
+    background-color: #2e9952;
+    color: #ffffff;
+    padding: 7px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 100px;
+    margin: 4px 0;
+    text-align: center;
+    text-decoration: none;
+    transform: translateY(-3px);
+}
+
+.btn-registro {
+    background-color: #2e9952;
+    color: #ffffff;
+    padding: 15px 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 400px;
+    margin: 15px 0;
+}
+
+.btn-registro:hover {
+    background-color: #0de91f;
+    transform: translateY(-3px);
+}
+
+.texto-alternativo {
+    text-align: center;
+    margin-top: 15px;
+    color: #f1efef;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.link-sesion {
+    color: #2196f3; /* Azul de Material Design */
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+}
+
+.link-sesion:hover {
+    text-decoration: underline;
+    color: #1976d2; /* Azul más oscuro */
 }
 
 fieldset {

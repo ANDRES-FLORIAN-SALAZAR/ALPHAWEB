@@ -66,5 +66,8 @@ function generarContrasena() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    document.querySelector('input[name="char_length"]').addEventListener('input', actualizarCampos);
+    const charLengthInput = document.querySelector('input[name="char_length"]');
+    if (charLengthInput) {
+        charLengthInput.addEventListener('input', actualizarCampos);
+    }
 });

@@ -1,0 +1,163 @@
+/* Estilos para el error 404 con tema de ciberseguridad */
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --accent-color: #e74c3c;
+    --background-color: #f5f6fa;
+    --text-color: #2c3e50;
+    --error-color: #c0392b;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, var(--background-color), #e0e0e0);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error-container {
+    text-align: center;
+    padding: 2rem;
+    max-width: 600px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    margin: 2rem auto;
+}
+
+.error-code {
+    font-size: 8rem;
+    color: var(--error-color);
+    font-weight: bold;
+    margin: 0;
+    background: linear-gradient(45deg, var(--error-color), #e67e22);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-fill-color: transparent;
+}
+
+.error-message {
+    font-size: 1.8rem;
+    color: var(--text-color);
+    margin: 1rem 0;
+    font-weight: 500;
+}
+
+.error-subtitle {
+    color: var(--primary-color);
+    margin: 1rem 0;
+    opacity: 0.8;
+}
+
+.error-icons {
+    margin: 2rem 0;
+    font-size: 2rem;
+}
+
+.error-icons i {
+    margin: 0 0.5rem;
+    color: var(--secondary-color);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.error-icons i:hover {
+    transform: scale(1.2);
+}
+
+.error-buttons {
+    margin-top: 2rem;
+}
+
+.error-button {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    margin: 0.5rem;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(45deg, var(--secondary-color), #2980b9);
+    color: white;
+    text-decoration: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.error-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+}
+
+.error-button:active {
+    transform: translateY(0);
+}
+
+/* Animaciones */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.error-code {
+    animation: pulse 2s infinite;
+}
+
+/* Diseño responsivo */
+@media (max-width: 768px) {
+    .error-code {
+        font-size: 6rem;
+    }
+    
+    .error-message {
+        font-size: 1.5rem;
+    }
+    
+    .error-button {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+/* Efecto de seguridad */
+.error-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(52, 152, 219, 0.1) 10px,
+        rgba(52, 152, 219, 0.1) 20px
+    );
+    pointer-events: none;
+    opacity: 0.1;
+    z-index: -1;
+}
+
+/* Iconos de seguridad */
+.security-icon {
+    font-size: 2.5rem;
+    margin: 1rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(5deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+}

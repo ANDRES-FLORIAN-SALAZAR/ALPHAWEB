@@ -33,6 +33,14 @@ DEBUG = True
 # Set this to your actual domain(s) or IP(s) in production, e.g. ["example.com", "localhost"]
 ALLOWED_HOSTS = ["*"]
 
+# CSRF trusted origins para el browser preview
+CSRF_TRUSTED_ORIGINS = [
+    "http://127.0.0.1:51298",
+    "http://localhost:51298",
+    "http://127.0.0.1:8000",
+    "http://localhost:8000",
+]
+
 
 # Application definition
 
@@ -44,8 +52,13 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "Aplicacion",
+    "empresa",
 ]
 
+# Manejo de errores personalizados
+handler404 = "Aplicacion.views.custom_404"
+
+# Configuración de middleware
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -95,12 +108,32 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
+# Configuración de autenticación personalizada
+AUTH_USER_MODEL = "Aplicacion.Persona"
+
+# Backends de autenticación
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",  # Backend estándar
+]
+
+# Configuración de URLs de autenticación
+LOGIN_URL = "Aplicacion:inicio_sesion"
+LOGIN_REDIRECT_URL = "Aplicacion:home"
+LOGOUT_REDIRECT_URL = "Aplicacion:home"
+
+# Configuración de sesiones
+SESSION_COOKIE_AGE = 1209600  # 2 semanas en segundos
+SESSION_SAVE_EVERY_REQUEST = True
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        "OPTIONS": {
+            "min_length": 8,
+        },
     },
     {
         "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
@@ -125,20 +158,45 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-# Ruta base del proyecto
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-# URL para archivos estáticos
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [
     BASE_DIR / "Aplicacion/static",
+    #BASE_DIR / 'empresa/static',
 ]
-STATIC_ROOT = BASE_DIR / "staticfiles"
 
-MEDIA_URL = "media/"
+# Media files
+MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIAFILES_STORAGE = "django.core.files.storage.FileSystemStorage"
 
 # Configuración para limitar el tamaño de los archivos (por ejemplo, 5MB)
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB en bytes
 FILE_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB en bytes
+
+# Logging configuration
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "INFO",
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": True,
+        },
+        "Aplicacion": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+            "propagate": True,
+        },
+    },
+}

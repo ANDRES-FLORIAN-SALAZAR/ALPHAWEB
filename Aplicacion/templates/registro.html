@@ -1,73 +1,304 @@
 {% extends "base.html" %}
 {% load static %}
-{% block content %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="{% static 'css/Main3.css' %}">
+{% endblock %}
+
+{% block content %}
 <div class="StyleRegistro">
+    <h2>Registro de Usuario</h2>
+    
     {% if messages %}
     <div class="messages">
         {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
-                {{ message }}
-            </div>
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
         {% endfor %}
     </div>
     {% endif %}
 
-    <form action="{% url 'registro' %}" method="POST">
+    <form id="form-registro" action="{% url 'Aplicacion:registro' %}" method="POST" novalidate>
         {% csrf_token %}
-        <fieldset>
+        <fieldset class="mb-4">
             <legend>TIPO DE REGISTRO</legend>
-            <label for="tipo_registro">Seleccione el tipo de registro:</label>
-            <select id="tipo_registro" name="tipo_registro" required onchange="mostrarCampos()">
-                <option value="">Seleccione...</option>
-                <option value="natural">Persona Natural</option>
-            </select>
+            <div class="form-group">
+                <label for="tipo_registro">Seleccione el tipo de registro:</label>
+                <select id="tipo_registro" name="tipo_usuario" class="form-control {% if errores and not request.POST.tipo_usuario %}is-invalid{% endif %}" required onchange="mostrarCampos()">
+                    <option value="">Seleccione...</option>
+                    <option value="natural" {% if request.POST.tipo_usuario == 'natural' %}selected{% endif %}>Persona Natural</option>
+                    <option value="empresa" {% if request.POST.tipo_usuario == 'empresa' %}selected{% endif %}>Empresa</option>
+                </select>
+                {% if errores and not request.POST.tipo_usuario %}
+                    <div class="invalid-feedback">Por favor seleccione un tipo de registro</div>
+                {% endif %}
+            </div>
         </fieldset>
 
-        <fieldset id="campos_natural" style="display:none;">
+        <!-- Campos para Persona Natural -->
+        <fieldset id="campos_natural" {% if request.POST.tipo_usuario == 'natural' %}style="display: block;"{% else %}style="display: none;"{% endif %}">
             <legend>INFORMACIÓN PERSONAL</legend>
+            
+            <div class="form-group">
+                <label for="nombre_completo">Nombre completo *</label>
+                <input type="text" id="nombre_completo" name="nombre_completo" class="form-control {% if errores and not request.POST.nombre_completo and request.POST.tipo_usuario == 'natural' %}is-invalid{% endif %}"
+                    value="{{ request.POST.nombre_completo }}">
+                {% if errores and not request.POST.nombre_completo and request.POST.tipo_usuario == 'natural' %}
+                    <div class="invalid-feedback">El nombre completo es obligatorio</div>
+                {% endif %}
+            </div>
 
-            <input type="text" name="nombre" placeholder="Nombre" value="{{ form.nombre.value|default_if_none:'' }}" required>
-            {% if form.nombre.errors %}<div class="field-error">{{ form.nombre.errors }}</div>{% endif %}
+            <div class="form-group">
+                <label for="edad">Edad *</label>
+                <input type="number" id="edad" name="edad" class="form-control" min="18" max="100"
+                    value="{{ request.POST.edad }}">
+                <small class="form-text text-muted">Debes tener entre 18 y 100 años</small>
+            </div>
 
-            <input type="text" name="apellido" placeholder="Apellido" value="{{ form.apellido.value|default_if_none:'' }}" required>
-            {% if form.apellido.errors %}<div class="field-error">{{ form.apellido.errors }}</div>{% endif %}
+            <div class="form-group">
+                <label for="genero">Género</label>
+                <select id="genero" name="genero" class="form-control">
+                    <option value="">Seleccione...</option>
+                    <option value="Masculino" {% if request.POST.genero == 'Masculino' %}selected{% endif %}>Masculino</option>
+                    <option value="Femenino" {% if request.POST.genero == 'Femenino' %}selected{% endif %}>Femenino</option>
+                    <option value="Otro" {% if request.POST.genero == 'Otro' %}selected{% endif %}>Otro</option>
+                    <option value="Prefiero no decir" {% if request.POST.genero == 'Prefiero no decir' %}selected{% endif %}>Prefiero no decir</option>
+                </select>
+            </div>
 
-            <input type="email" name="email" placeholder="Correo Electrónico" value="{{ form.email.value|default_if_none:'' }}" required pattern=".+@(gmail\.com|outlook\.com|gmail\.co|outlook\.co)" title="Debe ser un correo @gmail.com, @outlook.com, @gmail.co o @outlook.co">
-            {% if form.email.errors %}<div class="field-error">{{ form.email.errors }}</div>{% endif %}
+            <div class="form-group">
+                <label for="email_natural">Correo electrónico *</label>
+                <input type="email" id="email_natural" name="email_natural" class="form-control {% if errores and not request.POST.email_natural and request.POST.tipo_usuario == 'natural' %}is-invalid{% endif %}"
+                    value="{{ request.POST.email_natural }}">
+                {% if errores and not request.POST.email_natural and request.POST.tipo_usuario == 'natural' %}
+                    <div class="invalid-feedback">El correo electrónico es obligatorio</div>
+                {% endif %}
+            </div>
 
-            <input type="password" name="contrasena" placeholder="Contraseña" required>
-            {% if form.contrasena.errors %}<div class="field-error">{{ form.contrasena.errors }}</div>{% endif %}
+            <div class="form-group">
+                <label for="telefono_natural">Teléfono *</label>
+                <input type="tel" id="telefono_natural" name="telefono_natural" class="form-control {% if errores and not request.POST.telefono_natural and request.POST.tipo_usuario == 'natural' %}is-invalid{% endif %}"
+                    value="{{ request.POST.telefono_natural }}">
+                {% if errores and not request.POST.telefono_natural and request.POST.tipo_usuario == 'natural' %}
+                    <div class="invalid-feedback">El teléfono es obligatorio</div>
+                {% endif %}
+            </div>
 
-            <input type="password" name="confirmar_contrasena" placeholder="Confirmar Contraseña" required>
-            {% if form.confirmar_contrasena.errors %}<div class="field-error">{{ form.confirmar_contrasena.errors }}</div>{% endif %}
+            <div class="form-group campo-contraseña">
+                <label for="password1">Contraseña *</label>
+                <div style="position: relative;">
+                    <input type="password" id="password1" name="password1" class="form-control {% if errores and not request.POST.password1 %}is-invalid{% endif %}">
+                    <button type="button" class="btn btn-sm btn-outline-secondary password-toggle-btn" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%);"
+                            onclick="togglePassword('password1')">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </div>
+                {% if errores and not request.POST.password1 %}
+                    <div class="invalid-feedback">La contraseña es obligatoria</div>
+                {% endif %}
+                <small>La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y caracteres especiales.</small>
+            </div>
 
-            <input type="number" name="edad" placeholder="Edad" value="{{ form.edad.value|default_if_none:'' }}">
-            {% if form.edad.errors %}<div class="field-error">{{ form.edad.errors }}</div>{% endif %}
-
-            <input type="tel" name="telefono" placeholder="Celular" value="{{ form.telefono.value|default_if_none:'' }}">
-            {% if form.telefono.errors %}<div class="field-error">{{ form.telefono.errors }}</div>{% endif %}
-
-            <label for="genero">Género</label>
-            <select id="genero" name="genero">
-                <option value="">Seleccione...</option>
-                <option value="Masculino" {% if form.genero.value == "Masculino" %}selected{% endif %}>Masculino</option>
-                <option value="Femenino" {% if form.genero.value == "Femenino" %}selected{% endif %}>Femenino</option>
-                <option value="Otro" {% if form.genero.value == "Otro" %}selected{% endif %}>Otro</option>
-                <option value="Prefiero no decir" {% if form.genero.value == "Prefiero no decir" %}selected{% endif %}>Prefiero no decirlo</option>
-            </select>
-            {% if form.genero.errors %}<div class="field-error">{{ form.genero.errors }}</div>{% endif %}
+            <div class="form-group">
+                <label for="password2">Confirmar contraseña *</label>
+                <div style="position: relative;">
+                    <input type="password" id="password2" name="password2" class="form-control">
+                    <button type="button" class="btn btn-sm btn-outline-secondary password-toggle-btn" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%);"
+                            onclick="togglePassword('password2')">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </div>
+                <div id="password-match" class="invalid-feedback" style="display: none;">Las contraseñas no coinciden</div>
+            </div>
         </fieldset>
 
-        <center><button type="submit">Registrarse</button></center>
-        <h1>¿Ya tienes una cuenta? <a href="{% url 'inicio_sesion' %}">Inicia sesión aquí</a></h1>
+        <!-- Campos para Empresa -->
+        <fieldset id="campos_empresa" {% if request.POST.tipo_usuario == 'empresa' %}style="display: block;"{% else %}style="display: none;"{% endif %}">
+            <legend>INFORMACIÓN DE LA EMPRESA</legend>
+            
+            <div class="form-group">
+                <label for="razon_social">Razón Social *</label>
+                <input type="text" id="razon_social" name="razon_social" class="form-control {% if errores and not request.POST.razon_social and request.POST.tipo_usuario == 'empresa' %}is-invalid{% endif %}"
+                    value="{{ request.POST.razon_social }}">
+                {% if errores and not request.POST.razon_social and request.POST.tipo_usuario == 'empresa' %}
+                    <div class="invalid-feedback">La razón social es obligatoria</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="nit">NIT *</label>
+                <input type="text" id="nit" name="nit" class="form-control {% if errores and not request.POST.nit and request.POST.tipo_usuario == 'empresa' %}is-invalid{% endif %}"
+                    value="{{ request.POST.nit }}">
+                {% if errores and not request.POST.nit and request.POST.tipo_usuario == 'empresa' %}
+                    <div class="invalid-feedback">El NIT es obligatorio</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="empresa_tipo">Tipo de empresa *</label>
+                <select id="empresa_tipo" name="empresa_tipo" class="form-control">
+                    <option value="">Seleccione...</option>
+                    <option value="1" {% if request.POST.empresa_tipo == "1" %}selected{% endif %}>Pública</option>
+                    <option value="2" {% if request.POST.empresa_tipo == "2" %}selected{% endif %}>Privada</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="empresa_segmento">Segmento *</label>
+                <select id="empresa_segmento" name="empresa_segmento" class="form-control">
+                    <option value="">Seleccione...</option>
+                    <option value="tecnologia" {% if request.POST.empresa_segmento == "tecnologia" %}selected{% endif %}>Tecnología</option>
+                    <option value="salud" {% if request.POST.empresa_segmento == "salud" %}selected{% endif %}>Salud</option>
+                    <option value="educacion" {% if request.POST.empresa_segmento == "educacion" %}selected{% endif %}>Educación</option>
+                    <option value="finanzas" {% if request.POST.empresa_segmento == "finanzas" %}selected{% endif %}>Finanzas</option>
+                    <option value="retail" {% if request.POST.empresa_segmento == "retail" %}selected{% endif %}>Retail</option>
+                    <option value="manufactura" {% if request.POST.empresa_segmento == "manufactura" %}selected{% endif %}>Manufactura</option>
+                    <option value="logistica" {% if request.POST.empresa_segmento == "logistica" %}selected{% endif %}>Logística</option>
+                    <option value="energia" {% if request.POST.empresa_segmento == "energia" %}selected{% endif %}>Energía</option>
+                    <option value="construccion" {% if request.POST.empresa_segmento == "construccion" %}selected{% endif %}>Construcción</option>
+                    <option value="turismo" {% if request.POST.empresa_segmento == "turismo" %}selected{% endif %}>Turismo</option>
+                    <option value="entretenimiento" {% if request.POST.empresa_segmento == "entretenimiento" %}selected{% endif %}>Entretenimiento</option>
+                    <option value="otros" {% if request.POST.empresa_segmento == "otros" %}selected{% endif %}>Otros</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="empresa_tamaño">Tamaño de empresa *</label>
+                <select id="empresa_tamaño" name="empresa_tamaño" class="form-control">
+                    <option value="">Seleccione...</option>
+                    <option value="micro" {% if request.POST.empresa_tamaño == "micro" %}selected{% endif %}>Microempresa (1-10 empleados)</option>
+                    <option value="pequena" {% if request.POST.empresa_tamaño == "pequena" %}selected{% endif %}>Pequeña empresa (11-50 empleados)</option>
+                    <option value="mediana" {% if request.POST.empresa_tamaño == "mediana" %}selected{% endif %}>Mediana empresa (51-250 empleados)</option>
+                    <option value="grande" {% if request.POST.empresa_tamaño == "grande" %}selected{% endif %}>Gran empresa (251+ empleados)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="empresa_numero_empleados">Número de Empleados *</label>
+                <input type="number" 
+                    id="empresa_numero_empleados" 
+                    name="empresa_numero_empleados" 
+                    class="form-control"
+                    value="{{ request.POST.empresa_numero_empleados|default_if_none:'' }}"
+                    min="1"
+                    step="1"
+                    oninput="validarNumeroEmpleados(this)">
+                <div class="invalid-feedback">Por favor ingrese un número válido de empleados según el tamaño de la empresa</div>
+                <small class="form-text text-muted">El rango permitido se ajustará según el tamaño de la empresa seleccionado</small>
+            </div>
+
+            <div class="form-group">
+                <label for="empresa_pais">País *</label>
+                <select id="empresa_pais" name="empresa_pais" class="form-control">
+                    <option value="">Seleccione...</option>
+                    {% for codigo, nombre in paises %}
+                    <option value="{{ codigo }}" {% if request.POST.empresa_pais == codigo %}selected{% endif %}>{{ nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="empresa_ciudad">Ciudad *</label>
+                <select id="empresa_ciudad" name="empresa_ciudad" class="form-control">
+                    <option value="">Seleccione primero un país...</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="empresa_descripcion">Descripción de la Empresa</label>
+                <textarea id="empresa_descripcion" name="empresa_descripcion" class="form-control" 
+                        placeholder="Describa brevemente su empresa">{{ request.POST.empresa_descripcion|default_if_none:'' }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="email_empresa">Correo Empresarial *</label>
+                <input type="email" id="email_empresa" name="email_empresa" class="form-control {% if errores and not request.POST.email_empresa and request.POST.tipo_usuario == 'empresa' %}is-invalid{% endif %}"
+                    placeholder="ejemplo@empresa.com" value="{{ request.POST.email_empresa|default_if_none:'' }}">
+                <small>El correo será personalizado con el nombre de la empresa</small>
+                {% if errores and not request.POST.email_empresa and request.POST.tipo_usuario == 'empresa' %}
+                    <div class="invalid-feedback">El correo electrónico es obligatorio</div>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="telefono_empresa">Teléfono de la empresa *</label>
+                <input type="tel" id="telefono_empresa" name="telefono_empresa" class="form-control {% if errores and not request.POST.telefono_empresa and request.POST.tipo_usuario == 'empresa' %}is-invalid{% endif %}"
+                    placeholder="+57 3143757171" value="{{ request.POST.telefono_empresa|default_if_none:'' }}">
+                {% if errores and not request.POST.telefono_empresa and request.POST.tipo_usuario == 'empresa' %}
+                    <div class="invalid-feedback">El teléfono es obligatorio</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="sitio_web">Sitio Web (opcional)</label>
+                <input type="url" id="sitio_web" name="sitio_web" class="form-control" 
+                    value="{{ request.POST.sitio_web }}" placeholder="https://www.ejemplo.com">
+            </div>
+
+            <div class="form-group">
+                <label for="direccion">Dirección *</label>
+                <input type="text" id="direccion" name="direccion" class="form-control {% if errores and not request.POST.direccion and request.POST.tipo_usuario == 'empresa' %}is-invalid{% endif %}"
+                    value="{{ request.POST.direccion }}">
+                {% if errores and not request.POST.direccion and request.POST.tipo_usuario == 'empresa' %}
+                    <div class="invalid-feedback">La dirección es obligatoria</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="representante_legal">Nombre del representante legal *</label>
+                <input type="text" id="representante_legal" name="representante_legal" class="form-control {% if errores and not request.POST.representante_legal and request.POST.tipo_usuario == 'empresa' %}is-invalid{% endif %}"
+                    value="{{ request.POST.representante_legal }}">
+                {% if errores and not request.POST.representante_legal and request.POST.tipo_usuario == 'empresa' %}
+                    <div class="invalid-feedback">El nombre del representante legal es obligatorio</div>
+                {% endif %}
+            </div>
+            
+            <div class="form-group campo-contraseña">
+                <label for="password_empresa">Contraseña *</label>
+                <div style="position: relative;">
+                    <input type="password" id="password_empresa" name="password_empresa" class="form-control {% if errores and not request.POST.password_empresa and request.POST.tipo_usuario == 'empresa' %}is-invalid{% endif %}">
+                    <button type="button" class="btn btn-sm btn-outline-secondary password-toggle-btn" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%);"
+                            onclick="togglePassword('password_empresa')">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </div>
+                {% if errores and not request.POST.password_empresa and request.POST.tipo_usuario == 'empresa' %}
+                    <div class="invalid-feedback">La contraseña es obligatoria</div>
+                {% endif %}
+                <small>La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y caracteres especiales.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmar_password_empresa">Confirmar contraseña *</label>
+                <div style="position: relative;">
+                    <input type="password" id="confirmar_password_empresa" name="confirmar_password_empresa" class="form-control">
+                    <button type="button" class="btn btn-sm btn-outline-secondary password-toggle-btn" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%);"
+                            onclick="togglePassword('confirmar_password_empresa')">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </div>
+                <div id="password-empresa-match" class="invalid-feedback" style="display: none;">Las contraseñas no coinciden</div>
+            </div>
+        </fieldset><br>
+
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary">Registrarse</button>
+        </div>
     </form>
 
-<script>
-    function mostrarCampos() {
-        var tipoRegistro = document.getElementById("tipo_registro").value;
-        document.getElementById("campos_natural").style.display = (tipoRegistro === "natural") ? "block" : "none";
-    }
-</script>
+    <div class="text-center mt-3">
+        <p>¿Ya tienes una cuenta? <a href="{% url 'Aplicacion:inicio_sesion' %}" class="link-primary">Inicia sesión aquí</a></p>
+    </div>
+</div>
+
+<!-- Scripts separados -->
+<script src="{% static 'js/mostrar_campos.js' %}"></script>
+<script src="{% static 'js/numero_empleados.js' %}"></script>
+<script src="{% static 'js/generador_contrasena.js' %}"></script>
+<script src="{% static 'js/ciudades.js' %}"></script>
+<script src="{% static 'js/registro.js' %}"></script>
+<script src="{% static 'js/validar_contraseñas.js' %}"></script>
 
 {% endblock %}
