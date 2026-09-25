@@ -188,6 +188,11 @@ legend {
 .password-toggle-btn i {
     font-size: 0.9rem;
     color: #6c757d;
+    transition: color 0.2s ease;
+}
+
+.password-toggle-btn:hover i {
+    color: #0de91f;
 }
 
 .password-input-container input {

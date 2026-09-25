@@ -1,3 +1,26 @@
+// Mostrar/ocultar contraseña con el ícono del ojo
+function togglePassword(inputId) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+
+    const container = input.parentElement;
+    const icon = container ? container.querySelector('.password-toggle-btn i') : null;
+
+    if (input.type === 'password') {
+        input.type = 'text';
+        if (icon) {
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
+        }
+    } else {
+        input.type = 'password';
+        if (icon) {
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
+        }
+    }
+}
+
 // Validación de contraseñas para personas naturales
 const password1 = document.querySelector('input[name="password1"]');
 const password2 = document.querySelector('input[name="password2"]');
