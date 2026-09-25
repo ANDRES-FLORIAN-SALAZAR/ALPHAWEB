@@ -431,13 +431,10 @@ def registro(request: HttpRequest) -> HttpResponse:
                     except (TipoEmpresa.DoesNotExist, ValueError):
                         pass
 
-                # Crear el usuario base en Persona (mínimo para autenticación)
+                # Crear el usuario base en Persona (SOLO datos mínimos para autenticación)
                 user_data = {
                     "email": email_empresa,
                     "password": password_empresa,
-                    "first_name": razon_social,
-                    "last_name": "",
-                    "telefono": telefono_empresa,
                     "rol": "Usuario",
                     "is_active": True,
                     "es_empresa": True,

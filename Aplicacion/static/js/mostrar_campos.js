@@ -1,14 +1,35 @@
 // Añadir depuración para el envío del formulario
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('form-registro');
+    const tipoSelect = document.getElementById('tipo_registro');
 
-    if (form) {
-        console.log('Formulario encontrado');
+    if (form && tipoSelect) {
+        console.log('Formulario y selector encontrados');
 
-        // Mostrar campos iniciales
-        mostrarCampos();
+        // Limpiar mensajes de error al cambiar el tipo de registro
+        tipoSelect.addEventListener('change', function() {
+            // Limpiar mensajes de error
+            const messages = document.querySelector('.messages');
+            if (messages) {
+                messages.style.display = 'none';
+            }
+
+            // Limpiar clases de error
+            const invalidFields = document.querySelectorAll('.is-invalid');
+            invalidFields.forEach(field => {
+                field.classList.remove('is-invalid');
+            });
+
+            // Mostrar campos correspondientes
+            mostrarCampos();
+        });
+
+        // Mostrar campos iniciales si hay un valor seleccionado
+        if (tipoSelect.value) {
+            mostrarCampos();
+        }
     } else {
-        console.log('No se encontró el formulario');
+        console.log('No se encontró el formulario o el selector');
     }
 });
 
