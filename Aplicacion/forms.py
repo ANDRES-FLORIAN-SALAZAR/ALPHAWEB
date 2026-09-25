@@ -4,7 +4,7 @@ from typing import Any, ClassVar
 
 from django import forms
 
-from .models import Empresa
+from .models import PerfilEmpresa
 
 
 class EmpresaForm(forms.ModelForm):
@@ -31,29 +31,28 @@ class EmpresaForm(forms.ModelForm):
     class Meta:
         """Meta options for EmpresaForm, specifying model, fields, and widgets."""
 
-        model = Empresa
-        fields: ClassVar[list[str]] = ["nombre", "nit", "razon_social", "tipo_empresa", "segmento",
-                 "tamaño", "email", "telefono", "direccion", "ciudad", "pais",
+        model = PerfilEmpresa
+        fields: ClassVar[list[str]] = ["nombre", "nit", "razon_social", "tipo", "segmento",
+                 "tamaño", "telefono", "direccion", "ciudad", "pais",
                  "sitio_web", "descripcion", "numero_empleados", "activa", "requiere_2fa", "politica_estricta"]
         widgets: ClassVar[dict[str, Any]] = {
             "nombre": forms.TextInput(attrs={"class": "form-control"}),
             "nit": forms.TextInput(attrs={"class": "form-control"}),
             "razon_social": forms.TextInput(attrs={"class": "form-control"}),
-            "email": forms.EmailInput(attrs={"class": "form-control"}),
             "telefono": forms.TextInput(attrs={"class": "form-control"}),
-            "direccion": forms.Textarea(attrs={"class": "form-control"}),
+            "direccion": forms.TextInput(attrs={"class": "form-control"}),
             "sitio_web": forms.URLInput(attrs={"class": "form-control"}),
-            "descripcion": forms.Textarea(attrs={"class": "form-control"}),
+            "descripcion": forms.Textarea(attrs={"class": "form-control", "rows": 4}),
             "numero_empleados": forms.NumberInput(attrs={"class": "form-control"}),
-            "activa": forms.CheckboxInput(attrs={"class": "form-check-input"}),
+            "activo": forms.CheckboxInput(attrs={"class": "form-check-input"}),
             "requiere_2fa": forms.CheckboxInput(attrs={"class": "form-check-input"}),
             "politica_estricta": forms.CheckboxInput(attrs={"class": "form-check-input"}),
-            "tipo_empresa": forms.Select(attrs={"class": "form-control"}),
+            "tipo": forms.Select(attrs={"class": "form-control"}),
             "segmento": forms.Select(attrs={"class": "form-control"}),
-            "tamaño": forms.Select(attrs={"class": "form-control"}),
+            "tamano": forms.Select(attrs={"class": "form-control"}),
             "ciudad": forms.Select(attrs={"class": "form-control"}),
             "pais": forms.Select(attrs={"class": "form-control"}),
-        }
+}
     def __init__(self, *args: str, **kwargs: str) -> None:
         """Initialize EmpresaForm with custom choices for 'ciudad' and 'pais' fields."""
         super().__init__(*args, **kwargs)

@@ -240,6 +240,13 @@ def registro(request: HttpRequest) -> HttpResponse:
             password_empresa = request.POST.get("password_empresa", "")
             confirmar_password_empresa = request.POST.get("confirmar_password_empresa", "")
 
+            # Datos adicionales para PerfilEmpresa
+            empresa_tipo = request.POST.get("empresa_tipo", "").strip()
+            empresa_segmento = request.POST.get("empresa_segmento", "").strip()
+            empresa_tamano = request.POST.get("empresa_tamaño", "").strip()
+            empresa_numero_empleados = request.POST.get("empresa_numero_empleados", "").strip()
+            empresa_pais = request.POST.get("empresa_pais", "").strip()
+            empresa_ciudad = request.POST.get("empresa_ciudad", "").strip()
 
             # Validar campos obligatorios
             if not razon_social:
@@ -271,6 +278,26 @@ def registro(request: HttpRequest) -> HttpResponse:
                 errores.append(error_msg)
                 messages.error(request, error_msg)
 
+            # Validar campos adicionales requeridos para PerfilEmpresa
+            if not empresa_tipo:
+                errores.append("El tipo de empresa es requerido")
+                messages.error(request, "El tipo de empresa es requerido")
+            if not empresa_segmento:
+                errores.append("El segmento de empresa es requerido")
+                messages.error(request, "El segmento de empresa es requerido")
+            if not empresa_tamano:
+                errores.append("El tamaño de empresa es requerido")
+                messages.error(request, "El tamaño de empresa es requerido")
+            if not empresa_numero_empleados or not empresa_numero_empleados.isdigit():
+                errores.append("El número de empleados es requerido y debe ser un número")
+                messages.error(request, "El número de empleados es requerido y debe ser un número")
+            if not empresa_pais:
+                errores.append("El país de la empresa es requerido")
+                messages.error(request, "El país de la empresa es requerido")
+            if not empresa_ciudad:
+                errores.append("La ciudad de la empresa es requerida")
+                messages.error(request, "La ciudad de la empresa es requerida")
+
             # Validar que las contraseñas coincidan
             if password_empresa != confirmar_password_empresa:
                 errores.append("Las contraseñas no coinciden")
@@ -278,9 +305,23 @@ def registro(request: HttpRequest) -> HttpResponse:
 
         # Si hay errores, mostrar el formulario con los errores
         if errores:
+            # Lista de países para el formulario de empresa
+            paises = [
+                ('CO', 'Colombia'),
+                ('US', 'Estados Unidos'),
+                ('ES', 'España'),
+                ('MX', 'México'),
+                ('AR', 'Argentina'),
+                ('BR', 'Brasil'),
+                ('CL', 'Chile'),
+                ('PE', 'Perú'),
+                ('VE', 'Venezuela'),
+                ('EC', 'Ecuador'),
+            ]
             context = {
                 "tipo_usuario": tipo_registro,
                 "errores": errores,
+                "paises": paises,
             }
 
             # Agregar datos según el tipo de registro para mantener los valores en el formulario
@@ -301,6 +342,12 @@ def registro(request: HttpRequest) -> HttpResponse:
                     "direccion": direccion,
                     "representante_legal": representante_legal,
                     "sitio_web": sitio_web,
+                    "empresa_tipo": empresa_tipo,
+                    "empresa_segmento": empresa_segmento,
+                    "empresa_tamaño": empresa_tamano,
+                    "empresa_numero_empleados": empresa_numero_empleados,
+                    "empresa_pais": empresa_pais,
+                    "empresa_ciudad": empresa_ciudad,
                 })
 
             return render(request, "registro.html", context)
@@ -339,7 +386,16 @@ def registro(request: HttpRequest) -> HttpResponse:
                 messages.success(request, f"¡Registro exitoso! Bienvenido/a {nombre}")
 
             elif tipo_registro == "empresa":
-                # Verificar si el email o NIT ya existen
+                # Obtener datos adicionales del formulario
+                empresa_tipo = request.POST.get("empresa_tipo", "")
+                empresa_segmento = request.POST.get("empresa_segmento", "")
+                empresa_tamano = request.POST.get("empresa_tamaño", "")
+                empresa_numero_empleados = request.POST.get("empresa_numero_empleados", "0")
+                empresa_pais = request.POST.get("empresa_pais", "")
+                empresa_ciudad = request.POST.get("empresa_ciudad", "")
+                empresa_descripcion = request.POST.get("empresa_descripcion", "")
+
+                # Verificar si el email ya existe en Persona
                 if Persona.objects.filter(email=email_empresa).exists():
                     messages.error(request, "Este correo electrónico ya está registrado")
                     return render(request, "registro.html", {
@@ -353,7 +409,8 @@ def registro(request: HttpRequest) -> HttpResponse:
                         "sitio_web": sitio_web,
                     })
 
-                if Persona.objects.filter(nit=nit).exists():
+                # Verificar si el NIT ya existe en PerfilEmpresa
+                if PerfilEmpresa.objects.filter(nit=nit).exists():
                     messages.error(request, "Este NIT ya está registrado")
                     return render(request, "registro.html", {
                         "tipo_usuario": tipo_registro,
@@ -366,25 +423,46 @@ def registro(request: HttpRequest) -> HttpResponse:
                         "sitio_web": sitio_web,
                     })
 
-                # Crear el diccionario de datos del usuario empresa
+                # Obtener o crear el tipo de empresa
+                tipo_empresa_obj = None
+                if empresa_tipo:
+                    try:
+                        tipo_empresa_obj = TipoEmpresa.objects.get(id=int(empresa_tipo))
+                    except (TipoEmpresa.DoesNotExist, ValueError):
+                        pass
+
+                # Crear el usuario base en Persona (mínimo para autenticación)
                 user_data = {
                     "email": email_empresa,
                     "password": password_empresa,
-                    "first_name": razon_social,  # Usar razón social como nombre
+                    "first_name": razon_social,
                     "last_name": "",
                     "telefono": telefono_empresa,
                     "rol": "Usuario",
                     "is_active": True,
                     "es_empresa": True,
-                    "razon_social": razon_social,
-                    "nit": nit,
-                    "direccion": direccion,
-                    "representante_legal": representante_legal,
-                    "sitio_web": sitio_web if sitio_web else None,
                 }
 
-                # Crear el usuario empresa
                 user = Persona.objects.create_user(**user_data)
+
+                # Crear el perfil de empresa en la tabla de empresas
+                perfil_empresa = PerfilEmpresa.objects.create(
+                    usuario=user,
+                    nombre=razon_social,
+                    nit=nit,
+                    razon_social=razon_social,
+                    tipo=tipo_empresa_obj,
+                    segmento=empresa_segmento,
+                    tamano=empresa_tamano,
+                    pais=empresa_pais,
+                    ciudad=empresa_ciudad,
+                    direccion=direccion,
+                    sitio_web=sitio_web if sitio_web else "",
+                    descripcion=empresa_descripcion,
+                    numero_empleados=int(empresa_numero_empleados) if empresa_numero_empleados.isdigit() else 0,
+                    telefono=telefono_empresa,
+                )
+
                 messages.success(request, f"¡Registro de empresa exitoso! Bienvenido/a {razon_social}")
             else:
                 _raise_invalid_registration_error()
@@ -405,9 +483,23 @@ def registro(request: HttpRequest) -> HttpResponse:
             messages.error(request, error_msg)
 
             # Preparar el contexto para volver a mostrar el formulario
+            # Lista de países para el formulario de empresa
+            paises = [
+                ('CO', 'Colombia'),
+                ('US', 'Estados Unidos'),
+                ('ES', 'España'),
+                ('MX', 'México'),
+                ('AR', 'Argentina'),
+                ('BR', 'Brasil'),
+                ('CL', 'Chile'),
+                ('PE', 'Perú'),
+                ('VE', 'Venezuela'),
+                ('EC', 'Ecuador'),
+            ]
             context = {
                 "tipo_usuario": tipo_registro,
                 "errores": [error_msg],
+                "paises": paises,
             }
 
             if tipo_registro == "natural":
@@ -427,12 +519,31 @@ def registro(request: HttpRequest) -> HttpResponse:
                     "direccion": direccion,
                     "representante_legal": representante_legal,
                     "sitio_web": sitio_web,
+                    "empresa_tipo": empresa_tipo,
+                    "empresa_segmento": empresa_segmento,
+                    "empresa_tamaño": empresa_tamano,
+                    "empresa_numero_empleados": empresa_numero_empleados,
+                    "empresa_pais": empresa_pais,
+                    "empresa_ciudad": empresa_ciudad,
                 })
 
             return render(request, "registro.html", context)
 
     # GET request - mostrar formulario vacío
-    return render(request, "registro.html")
+    # Lista de países para el formulario de empresa
+    paises = [
+        ('CO', 'Colombia'),
+        ('US', 'Estados Unidos'),
+        ('ES', 'España'),
+        ('MX', 'México'),
+        ('AR', 'Argentina'),
+        ('BR', 'Brasil'),
+        ('CL', 'Chile'),
+        ('PE', 'Perú'),
+        ('VE', 'Venezuela'),
+        ('EC', 'Ecuador'),
+    ]
+    return render(request, "registro.html", {"paises": paises})
 
 def cerrar_sesion(request: HttpRequest) -> HttpResponse:
     """
